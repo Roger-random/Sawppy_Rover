@@ -13,4 +13,4 @@ The first version is under active development. Here is a snapshot of what we hav
 
 ![Picture of Current Progress](JPEG/Assembled.jpg)
 
-Anyone interested is invited to create an [Onshape](https://www.onshape.com/) account and look at it in Onshape CAD. Search for "SAWPIFE Rover" in the Onshape Public Documents library or try [this link](https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/769331aa3366fde1dddae054).
+Anyone interested is invited to create an [Onshape](https://www.onshape.com/) account and look at it in Onshape CAD. Search for "SAWPIFE Rover" in the Onshape Public Documents library or try [this link](https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/9bd6bbb7aba50a97523d14f2).
