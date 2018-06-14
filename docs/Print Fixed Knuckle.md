@@ -25,6 +25,6 @@ Estimated time: 2.5 minutes per knuckle * 2 knuckles = 5 minutes total.
 
 ![Fixed Knuckle Parts](images/FixedKnuckle-Parts.jpg)
 
-Bearings are installed in the same way they were installed for the [steering knuckle](./Steering%Knuckle.md).
+Bearings are installed in the same way they were installed for the [steering knuckle](Print%20Steering%20Knuckle.md).
 
 ![Fixed Knuckle with bearings installed](images/FixedKnuckle-Complete.jpg)
