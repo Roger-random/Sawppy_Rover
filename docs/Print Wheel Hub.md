@@ -36,7 +36,7 @@ Use 8mm reamer to clean up the center hole for the drive shaft.
 The M3 thread heat-set insert for the set screw going in to the side is installed the same way 
 as the identical part in servo coupler. See servo coupler instruction for details.
 
-![Set screw insert](docs/images/Wheel%20Hub%20-%20set%20screw%20insert.jpg)
+![Set screw insert](images/Wheel%20Hub%20-%20set%20screw%20insert.jpg)
 
 The remaining 3 heat set inserts are for us to bolt the wheels onto. Since they are easy to 
 install we do not need the extra M3 bolt tool. We do, however, still have to be careful about 
