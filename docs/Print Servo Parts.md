@@ -98,7 +98,7 @@ Estimated time: 1 minutes per bracket * 10 brackets = 10 minutes total.
 **Tools:**
 * M3 thread tap with handle
 
-![Servo bracket M3 tap](../images/ServoBracket-Tap.jpg)
+![Servo bracket M3 tap](images/ServoBracket-Tap.jpg)
 
 The 3D printer file has four holes, two on each side. You only need to tap two holes on one side,
 the other two are spares. The bracket is symmetric so in case of thread damage you can flip the bracket
