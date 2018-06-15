@@ -28,3 +28,7 @@ Estimated time: 2.5 minutes per knuckle * 2 knuckles = 5 minutes total.
 Bearings are installed in the same way they were installed for the [steering knuckle](Print%20Steering%20Knuckle.md).
 
 ![Fixed Knuckle with bearings installed](images/FixedKnuckle-Complete.jpg)
+
+Repeat for mirror-image knuckle for other side of rover.
+
+![Mirrored Fixed Knuckle Complete](image/FixedKnuckle-Mirror.jpg)
