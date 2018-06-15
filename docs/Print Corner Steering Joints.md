@@ -56,4 +56,4 @@ Use a drill to remove bridge assist layers on 4 bolt holes facing the print bed.
 
 Install two bearings - one top and one bottom - onto each front corner piece.
 
-![Rear corner complete](images/RearCorner-Complete.jpg)
+![Rear corner complete](images/RearCorners-Complete.jpg)
