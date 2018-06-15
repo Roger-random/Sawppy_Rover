@@ -1,7 +1,7 @@
 # Misumi HFS 3-series
 
-Sawppy the Rover's aluminum beam structures are from Misumi's HFS 3-series. They are 15mm by 15mm square in profile
-and there are different options for purchase.
+Sawppy the Rover's aluminum beam structures are from [Misumi's HFS 3-series.](https://us.misumi-ec.com/vona2/detail/110300465870/)
+They are 15mm by 15mm square in profile and there are different options for purchase, more details below.
 
 ## Aluminum Extrusions Beams for Rover Chassis
 
