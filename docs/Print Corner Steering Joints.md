@@ -54,6 +54,6 @@ Estimated time: 2 minutes per corner * 2 corner = 4 minutes total.
 
 Use a drill to remove bridge assist layers on 4 bolt holes facing the print bed.
 
-Install two bearings - one top and one bottom - onto each front corner piece.
+Install two bearings - one top and one bottom - onto each rear corner piece.
 
 ![Rear corner complete](images/RearCorners-Complete.jpg)
