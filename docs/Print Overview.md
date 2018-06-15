@@ -64,9 +64,13 @@ All parts were designed to be printed without supports.
 In addition to the typical cleanup work required of 3D printed parts, some printed rover parts require
 post-processing of the following types:
 
-* **Reaming**: Several pieces need to precisely fit around an 8mm steel shaft. A reamer is a good tool
-to ensure the printed 8mm hole will fit an 8mm shaft. An 8mm drill bit is not as good but it's still
-better than using a 5/16" drill bit which is technically closer to 7.93mm and the shaft may not fit.
+* **Bridge Removal**: All bolt holes facing the print bed will have a thin layer of extra plastic to
+help the 3D printer bridge across what would otherwise be empty space for the bolt hole. After printing
+is complete, this thin layer can be removed with a drill bit diameter around 4mm or 5/32". Smaller is
+OK, precision is not as important in bridge removal.
+* **Reaming**: Several pieces need to precisely fit around an 8mm steel shaft. A reamer is a precise cutting tool
+to ensure the printed 8mm hole will fit an 8mm shaft. An 8mm drill bit is not as good. Precision matters
+here, and a 5/16" drill bit (which is technically closer to 7.93mm) may not be good enough.
 * **Tapping**: A few parts are not mechanically demanding, so we can tap M3 thread directly
 into the plastic.
 * **Heat-set thread insert**: The rest of the parts that use M3 fasteners will need a brass heat-set
