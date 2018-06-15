@@ -8,7 +8,7 @@ This part houses the two bearings for the rocker assembly to pivot on, and conne
 One leading to the bogie pivot joint, the other leading to a front corner. The top of this part connects to the
 suspension differential.
 
-**CAD source** [Rocker] (https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/4a687fb6a85c60c7ec293eb2)
+**CAD source** [Rocker](https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/4a687fb6a85c60c7ec293eb2)
 
 **3D Printing STL File:** [Rocker.stl](../STL/Rocker.stl)
 
@@ -28,6 +28,8 @@ Estimated time: 3 minutes each * 2 units = 6 minutes total.
 * 2 * M3 thread heat set inserts
 
 ![Rocker parts](images/Rocker-PivotParts.jpg)
+
+Remove thin bridge assist layers from four bolt holes facing the print bed.
 
 Install M3 thread heat-set insert for future connection to differential.
 
