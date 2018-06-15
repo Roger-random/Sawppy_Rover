@@ -31,4 +31,4 @@ Bearings are installed in the same way they were installed for the [steering knu
 
 Repeat for mirror-image knuckle for other side of rover.
 
-![Mirrored Fixed Knuckle Complete](image/FixedKnuckle-Mirror.jpg)
+![Mirrored Fixed Knuckle Complete](images/FixedKnuckle-Mirror.jpg)
