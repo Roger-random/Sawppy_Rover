@@ -78,3 +78,9 @@ insert installed in the plastic for a durable M3 thread.
 * **608 Bearings**: Sawppy the Rover uses [commodity type 608 bearings](https://newscrewdriver.com/2018/03/07/for-cheap-commodity-bearings-search-for-608/)
 held in printed plastic parts. If the 22mm hole is a little too small, the bearings will need to be
 installed with the help of a tool. Ideally an [arbor press](https://en.wikipedia.org/wiki/Arbor_press), but a C-clamp will work.
+
+## Cost estimate
+
+Precise cost will depend on printer settings and filament choice, but should be in the range of $50-$75.
+
+Sawppy's design iterated through parts printed with [inexpensive PLA](https://www.monoprice.com/product?p_id=10552). Once version 1.0 was finalized, all parts were reprinted in PETG. This consumed roughly 2.5 spools of 1 kilogram [PETG](https://www.matterhackers.com/store/l/petg-white-high-strength-filament-1.75mm/sk/M1VF5877)
