@@ -26,6 +26,8 @@ Estimated time: 2 minutes per corner * 2 corner = 4 minutes total.
 
 ![Front corner parts](images/FrontCorner-Parts.jpg)
 
+Use a drill to remove bridge assist layers on 4 bolt holes facing the print bed.
+
 Install two bearings - one top and one bottom - onto each front corner piece.
 
 ![Front corner complete](images/FrontCorner-Complete.jpg)
@@ -49,6 +51,8 @@ Estimated time: 2 minutes per corner * 2 corner = 4 minutes total.
 **Parts:**
 * 2 * 3D printed rear corner pieces, one mirror of the other.
 * 4 * 608 type bearings
+
+Use a drill to remove bridge assist layers on 4 bolt holes facing the print bed.
 
 Install two bearings - one top and one bottom - onto each front corner piece.
 
