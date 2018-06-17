@@ -29,6 +29,7 @@ Slide wheel hub onto drive shaft.
 ![Servo and hub installed](images/DriveUnit03-ServoAndHub.jpg)
 
 The M3 thread heat-set insert in the hub should be facing inward, away from the wheel.
+(And this camera's viewpoint.)
 This way when the wheel mounting bolts are tightened, the force will pull the heat set
 insert tighter into the hub. If hub is installed reversed, wheel bolt force will be trying
 to pull the heat set insert out of the hub which is undesirable.
@@ -47,3 +48,5 @@ Repeat for a total of four steerable drive modules.
 Similar to above, except all the same parts are bolted onto the [non-steering fixed knuckle](Print%20Fixed%20Knuckle.md).
 
 ![Non-steerable Drive Module Parts](images/DriveUnit06-FixedParts.jpg)
+
+Repeat and assemble mirror-image module for the other side of the rover.
