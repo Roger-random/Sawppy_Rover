@@ -54,3 +54,5 @@ After all parts have been verified to fit, separate them again. They will be bui
 different sub-assemblies before meeting back up again later.
 
 ![Rocker joint separated](images/RockerJoint02-Shaft.jpg)
+
+Repeat for other side of rover.
