@@ -6,7 +6,7 @@ rovers and is intended to be a hardware platform for future software projects in
 operation. Go forth and boldly explore the back yard, Sawppy!
 
 All information for building Sawppy is free and public open source for anyone to build their
-own. Build instructions are not yet complete, but what's available can be found
+own. Build instructions can be found
 [under the docs subdirectory](docs/).
 
 Sawppy Rover was inspired by SGVHAK Rover, a six-wheeled robot inspired by the NASA JPL rovers
