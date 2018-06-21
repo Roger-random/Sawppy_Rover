@@ -24,7 +24,7 @@ And there are many options in between, limited only by your resourcesfulness and
 ## Detents for set screws
 
 The driving and steering shafts will need a flat detent cut into them for set screws. If precise metalworking
-tools are not available, they can be cut by clamping the shaft in a vise and use a metal file.
+tools are not available, they can be cut by [clamping the shaft in a vise and use a metal file](https://newscrewdriver.com/2018/06/20/improve-motor-shafts-with-larger-flatter-detents-and-apply-loctite-to-set-screws/).
 
 ## Dimensions
 
