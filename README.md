@@ -15,7 +15,8 @@ a desire to reduce cost and complexity. To accomplish this goal, Sawppy differs 
 design objectives:
 
 * Motorization: Instead of using gearmotors with encoders managed by RoboClaw motor controllers,
-moving the wheels will be done with servo motors.
+moving the wheels will be done with serial bus servo motors. For more information on these devices,
+please see [this article on Hackaday.com](https://hackaday.com/2018/07/05/wrangling-rc-servos-becoming-a-hassle-try-serial-bus-servos/).
 * Construction Method: Instead of using the [Actobotics construction system](https://www.servocity.com/actobotics),
 Sawppy will be built from [Misumi HFS3 aluminum extrusions](https://us.misumi-ec.com/vona2/detail/110300465870/)
 connected by 3D-printed plastic parts. For more information on this construction technique, please
