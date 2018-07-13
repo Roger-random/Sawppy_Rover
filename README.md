@@ -9,10 +9,13 @@ All information for building Sawppy is free and public open source for anyone to
 own. Build instructions can be found
 [under the docs subdirectory](docs/).
 
-Sawppy Rover was inspired by SGVHAK Rover, a six-wheeled robot inspired by the NASA JPL rovers
-sent to explore Mars. The major differences between Sawppy and SGVHAK Rover were motivated by
-a desire to reduce cost and complexity. To accomplish this goal, Sawppy differs in two major
-design objectives:
+Sawppy the Rover was inspired by [JPL's Open Source Rover project](https://opensourcerover.jpl.nasa.gov). 
+Most of the differences between Sawppy and its JPL inspiration were motivated by a desire to reduce cost
+and complexity. JPL's rover is designed for education, to be assembled by a school team and give a robust
+foundation for structured curriculum. Sawppy is more suited for individual hobbyists like myself who are
+happy to tinker and willing to make some trade-offs to lower cost.
+
+The budget was __$500__, and getting there required the following changes:
 
 * Motorization: Instead of using gearmotors with encoders managed by RoboClaw motor controllers,
 moving the wheels will be done with serial bus servo motors. For more information on these devices,
