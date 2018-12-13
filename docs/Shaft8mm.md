@@ -8,6 +8,20 @@ Sawppy the Rover uses 8mm shafts anywhere there is a rotary motion that whose lo
 
 Below are instructions on how to build your own shafts.
 
+## Shaft stock selection
+
+Any metal shaft should work, as long as it has the appropriate 8mm diameter to fit snugly within 608 type bearings used.
+As these shafts are not spun to high speeds, carry high torque, or mesh with other machinery, Sawppy does not require
+high precision industrial machinery shafts. (Example: unnecessarily expensive high precision shafts from
+[Misumi](https://us.misumi-ec.com/vona2/detail/110300086920/?ProductCode=SFMR8-300)
+and [McMaster-Carr](https://www.mcmaster.com/1265k64)) Low precision round bar stock are a fraction of the cost and will
+suffice. The worst that would happen with low precision shafts is that wheels may be a little wobblier.
+
+Aluminum shafts (example: McMaster-Carr [catalog #4634t34](https://www.mcmaster.com/4634t34)) are inexpensive and strong
+enough for normal rover operation. If the rover will be carrying additional equipment, or taken to public events with
+exposure to young children, consider upgrading to steel shafts for extra strength. (Example: McMaster-Carr
+[catalog #8920k26](https://www.mcmaster.com/8920k26) is used in the rover seen in assembly pictures.)
+
 ## Retaining clips
 
 The shafts are kept in place by small retaining clips. (Sometimes called e-clips.) The precise size of these clips
