@@ -36,6 +36,10 @@ high speeds or put heavy loads on them, expensive
 are unnecessary. Shop around for
 [inexpensive alternatives](https://www.amazon.com/dp/B073ST742Z),
 they'll probably suffice for a hobbyist rover.
+* __M3 Heat Set Inserts__ give metal threads for 3D-printed parts which are more
+durable than threads tapped into printed plastic. Sawppy's default design is sized
+for [these inserts](https://www.amazon.com/gp/product/B077CHFGVT) on my printer
+but the hole diameter may need adjustment for other inserts and/or other printers.
 
 ## Mechanical Assembly
 For an overview of the construction technique used here, combining aluminum extrusion beams with
