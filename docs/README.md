@@ -62,3 +62,24 @@ to see how parts are supposed to fit together.
 Once all the wheels are bolted on to the suspension, your Sawppy will be mechanically complete!
 
 ![Mechanical chassis](images/MechanicalChassis.jpg)
+
+## Electronic Schematic
+
+A bare-bones Sawppy build will have the following electronic components:
+* A 2-cell lithium polymer battery. (Visible in pictures is a 30C 5200mAh RC
+monster truck battery)
+* A power switch
+* Because the battery can deliver up to 150A and nothing on the rover can
+tolerate more than a few amps, a [10A fuse to protect against short circuits](https://newscrewdriver.com/2018/06/06/powering-sawppy-the-rover/  ).
+* A volt meter to monitor battery voltage.
+* A [voltage regulator](https://newscrewdriver.com/2017/07/27/powering-the-raspberry-pi-3-with-mp1584-voltage-step-down-converter/) to convert battery power to 5V.
+* A Raspberry Pi 3 powered by 5V regulator output, either via micro USB port or GPIO voltage pins.
+* A USB cable connecting Raspberry Pi 3 to serial bus translator board.
+* Ten serial bus servos connected in parallel to the translator board.
+
+![Schematic](images/Sawppy%20V1%20Schematic.png)
+
+Optional components visible in some Sawppy pictures:
+* A [USB webcam](https://newscrewdriver.com/2018/06/19/sawppy-the-backyard-rover/).
+* Google [AIY Vision kit](https://newscrewdriver.com/2018/06/18/sawppy-the-rovers-mast-cameras/).
+* A dual-band wireless router for [greater range and access to 5GHz band](https://newscrewdriver.com/2018/07/15/sawppy-the-rover-receives-wifi-upgrade-increases-range/).
