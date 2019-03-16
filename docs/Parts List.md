@@ -1,6 +1,7 @@
 # Parts List
 
-To Build Sawppy the Rover, you will need to print the following parts. Quantities and and notes are listed.
+## Printed Parts
+To Build Sawppy the Rover, you will need to print the following parts. Quantities and notes are listed.
 
 | QTY | PART | NOTES |
 |:---:|:----:|:-----:|
@@ -26,4 +27,17 @@ To Build Sawppy the Rover, you will need to print the following parts. Quantitie
 | 88 | Clip2n125 | |
 | 12 | Clip3n20 | |
 
+## Shafts
 
+
+| QTY | LENGTH | PAR |
+|:---:|:----:|:-----:|
+| 1 | 300 | Differential Shaft |
+
+## Hardware
+
+You will also need the following hardware
+
+| QTY | PART | NOTES |
+|:---:|:----:|:-----:|
+| 10 | LX-16A Servos | |
