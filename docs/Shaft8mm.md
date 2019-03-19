@@ -28,6 +28,8 @@ The shafts are kept in place by small retaining clips. (Sometimes called e-clips
 are not critical for rover function, they just need to be small enough to grip on a groove in a 8mm diameter shaft
 and large enough to hold against a 608 bearing. The clips used in the assembly pictures are McMaster-Carr
 [catalog #97431a310](https://www.mcmaster.com/#97431a310) designed for 5/16-inch shafts.
+As we will be cutting our own grooves for these retaining clips (see next item)
+we can adjust groove dimension to suit physical attributes like clip thickness.
 
 ## Grooves for retaining clips
 
