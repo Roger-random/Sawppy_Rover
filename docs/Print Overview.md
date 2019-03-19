@@ -42,6 +42,18 @@ the Monoprice Maker Select is technically capable of PETG, it could only reliabl
 slow rate. In order to speed up printing PETG the stock print hardware must be upgraded to an all-metal
 hot end, in my case an [E3D Titan Aero](https://e3d-online.com/titan-aero-builder).
 
+## STL Orientation
+
+All STL posted to Github were exported from Onshape CAD in medium resolution
+and retained their X/Y/Z orientation in 3D CAD space. Most pieces can be
+easily reoriented to place them properly on the print bed. However, the front
+and rear suspension corner pieces can be tricky with their odd angle. When
+possible, use your slicer's function to orient a model to print bed.
+
+* Simplify3D: Edit/[Place Surface on Bed](https://www.simplify3d.com/support/articles/importing-and-manipulating-your-models/) (Ctrl-L)
+* Slic3r Prusa Edition: [Place on Face](https://twitter.com/josefprusa/status/1033719313751044096)
+* Cura: [Lay flat](https://ultimaker.com/en/resources/16583-adjusting-the-model)
+
 ## STL Slicer Settings
 
 The rover prototypes were printed with the following parameters:
