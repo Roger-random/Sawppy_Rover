@@ -18,6 +18,7 @@ To Build Sawppy the Rover, you will need to print the following parts. Quantitie
 | 1 | DiffLower | |
 | 1 | DiffUpper | |
 | 2 | Rod Support | |
+| 1 | Power Panel | |
 | 2 | Fixed Knuckle | Mirrored |
 | 2 | Front Corner | Mirrored |
 | 2 | Rear Corner | Mirrored |
@@ -26,9 +27,10 @@ To Build Sawppy the Rover, you will need to print the following parts. Quantitie
 | 2 | Rocker | Mirrored |
 | 2 | Rocker Body Mount | Mirrored |
 | 2 | DiffEnd | Mirrored |
+| 2 | Battery Tray | Mirrored |
 
 ## Shafts
-The following are lengths and quantites for the shafts. You should make the differential axle form steel, and the others can be made from aluminum or steel.
+The following are lengths and quantites for the shafts. You should make the differential axle from steel, and the others can be made from aluminum or steel.
 
 | QTY | LENGTH | PART |
 |:---:|:----:|:-----:|

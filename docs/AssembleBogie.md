@@ -3,6 +3,7 @@
 Bogie portion of the suspension links the middle wheel to the rear wheel.
 
 **Estimated Time:** 30 minutes per side = 1 hour total
+
 You will use the 117mm extrusion and the 122mm extrusion for this.
 
 ![Bogie parts](images/Bogie01-Parts.jpg)
