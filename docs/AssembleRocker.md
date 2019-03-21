@@ -4,6 +4,7 @@ Rocker portion of suspension arm links the front wheel to the bogie assembly.
 The whole suspension subassembly is then mounted to the main body box.
 
 **Estimated Time:** 30 minutes each * 2 sides = 1 hour total
+You will use the 161mm and 182mm extrusions for this.
 
 ![Rocker parts](images/Rocker01-Parts.jpg)
 
