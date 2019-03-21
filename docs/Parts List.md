@@ -32,6 +32,8 @@ To Build Sawppy the Rover, you will need to print the following parts. Quantitie
 ## Shafts
 The following are lengths and quantites for the shafts. You should make the differential axle from steel, and the others can be made from aluminum or steel.
 
+If you're careful and/or lucky, you can get all the shaft you need from a pair of 500mm shafts, not counting the 300mm shaft you need for the differential shaft.
+
 | QTY | LENGTH | PART |
 |:---:|:----:|:-----:|
 | 1 | 300 | Differential Shaft |
