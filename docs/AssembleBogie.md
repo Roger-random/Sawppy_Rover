@@ -6,6 +6,8 @@ Bogie portion of the suspension links the middle wheel to the rear wheel.
 
 You will use the 117mm extrusion and the 122mm extrusion for this.
 
+You will also need the Rear Corner, Fixed Knuckle, and Bogie Wheel printed parts.
+
 ![Bogie parts](images/Bogie01-Parts.jpg)
 
 ![Bogie rear installed](images/Bogie02-Rear.jpg)

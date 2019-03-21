@@ -7,6 +7,8 @@ The whole suspension subassembly is then mounted to the main body box.
 
 You will use the 161mm and 182mm extrusions for this.
 
+You will also need the Bogie End, Front Corner, and the Rocker printed parts.
+
 ![Rocker parts](images/Rocker01-Parts.jpg)
 
 Aluminum beam to link to bogie.
