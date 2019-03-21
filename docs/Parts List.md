@@ -48,3 +48,23 @@ You will also need the following hardware
 |:---:|:----:|:-----:|
 | 10 | LX-16A Servos | |
 | 30 | 608ZZ Bearings | |
+| 200 | M3x8mm socket head screws | |
+| 200 | M3 washers | |
+| 200 | M3 nuts | |
+| 100 | M3 threaded inserts | |
+
+
+## Aluminum Extrusions Beams for Rover Chassis
+
+The following quantities and lengths are required to build Sawppy:
+
+Quantity | Length (mm) | Purpose
+--- | ---: | ---
+4 | 385 | Main body box, lengthwise
+4 | 245 | Main body box, widthwise
+1 | 238 | Main body differential fixed beam
+2 | 182 | Suspension member connecting rocker joint to front wheel
+2 | 161 | Suspension member connecting rocker joint to bogie joint
+2 | 122 | Suspension member connecting bogie joint to mid wheel
+2 | 117 | Suspension member connecting bogie joint to rear wheel
+
