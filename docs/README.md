@@ -41,6 +41,7 @@ durable than threads tapped into printed plastic. Sawppy's default design is siz
 for [these inserts](https://www.amazon.com/gp/product/B077CHFGVT) on my printer,
 and reportedly works well with [these inserts](https://www.mcmaster.com/94180a333)
 as well.
+* [Purchsed Parts List](Parts%20List.md)
 
 ## Mechanical Assembly
 For an overview of the construction technique used here, combining aluminum extrusion beams with
