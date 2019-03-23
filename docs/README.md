@@ -77,6 +77,7 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * A Raspberry Pi 3 powered by 5V regulator output, either via micro USB port or GPIO voltage pins.
 * A USB cable connecting Raspberry Pi 3 to serial bus translator board.
 * Ten serial bus servos connected in parallel to the translator board.
+* [Software source code](https://github.com/Roger-random/SGVHAK_Rover)
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
 
