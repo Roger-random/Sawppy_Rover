@@ -58,6 +58,7 @@ You will also need the following hardware
 | 100 | M3 threaded inserts | |
 | 100 | 5/16" external retaining clips (E-Clips) | |
 | 100 | M3x8 set screws | |
+| 2 | Turnbuckles | See above |
 
 
 
