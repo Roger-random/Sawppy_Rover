@@ -3,6 +3,8 @@
 ## Printed Parts
 To Build Sawppy the Rover, you will need to print the following parts. Quantities and notes are listed.
 
+You will need about 3kg of filament to print all the parts.
+
 | QTY | PART | NOTES |
 |:---:|:----:|:-----:|
 | 88 | Clip2n125 | Print a few extra for spares |
@@ -50,10 +52,13 @@ You will also need the following hardware
 |:---:|:----:|:-----:|
 | 10 | LX-16A Servos | |
 | 30 | 608ZZ Bearings | |
-| 200 | M3x8mm socket head screws | |
-| 200 | M3 washers | |
-| 200 | M3 nuts | |
+| 300 | M3x8mm socket head screws | |
+| 300 | M3 washers | |
+| 300 | M3 nuts | |
 | 100 | M3 threaded inserts | |
+| 100 | 5/16" external retaining clips (E-Clips) | |
+| 100 | M3x8 set screws | |
+
 
 
 ## Aluminum Extrusions Beams for Rover Chassis

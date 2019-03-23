@@ -25,3 +25,5 @@ These parts make up the box that serves as the rover's main body and equipment b
 ![Body right](images/Body05-Right.jpg)
 
 ![Body joined](images/Body06-Joined.jpg)
+
+The Rocker Body mounts should be spaced about 80mm from the edge of the front Body Corner.
