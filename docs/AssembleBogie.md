@@ -10,11 +10,11 @@ You will also need the Rear Corner, Fixed Knuckle, and Bogie Wheel printed parts
 
 ![Bogie parts](images/Bogie01-Parts.jpg)
 
-The 117mm extrusion goes to between the Rear Corner and the angled side of the Bogie Wheel part.
+The 117mm extrusion connects the Rear Corner and the angled side of the Bogie Wheel part.
 
 ![Bogie rear installed](images/Bogie02-Rear.jpg)
 
-The 122mm extrusion goes between the Bogie Wheel part on the straight side, and the  Fixed Knuckle. The extrusion extends from the open side of the Fixed knuckle.  
+The 122mm extrusion connects the Bogie Wheel part on the straight side, and the  Fixed Knuckle. The extrusion extends from the open side of the Fixed knuckle.  
 
 ![Bogie mid installed](images/Bogie03-Mid.jpg)
 

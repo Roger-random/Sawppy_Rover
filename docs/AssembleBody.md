@@ -26,4 +26,8 @@ These parts make up the box that serves as the rover's main body and equipment b
 
 ![Body joined](images/Body06-Joined.jpg)
 
-The Rocker Body mounts should be spaced about 80mm from the edge of the front Body Corner.
+For proportion faithful to Curiosity rover side view seen in Onshape CAD file, there should be 62mm of aluminum extrusion visible between front face of "Rocker Body mount" and rear face of front "Body Corner".
+
+In practice this can be moved forward/back as the builder pleases to maintain best balance for their rover chassis. Which will vary with every rover build as it depends on what's installed in equipment bay.
+
+

@@ -44,4 +44,4 @@ Bolt differential onto body box with 12 M3x8mm bolts with washers.
 
 ![Differential mounted on body](images/Differential08-Installed.jpg)
 
-The Differential Ends should be about 20mm from the Rocker Body mounts.
+The Differential Ends should be about 20mm from the Rocker Body mounts. The distance will vary slightly, depending on the length of the turnbuckle used.
