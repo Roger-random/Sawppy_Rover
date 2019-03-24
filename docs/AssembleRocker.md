@@ -5,13 +5,17 @@ The whole suspension subassembly is then mounted to the main body box.
 
 **Estimated Time:** 30 minutes each * 2 sides = 1 hour total
 
+You will use the 161mm and 182mm extrusions for this.
+
+You will also need the Bogie End, Front Corner, and the Rocker printed parts.
+
 ![Rocker parts](images/Rocker01-Parts.jpg)
 
-Aluminum beam to link to bogie.
+Aluminum beam to link to bogie. The 161mm extrusion goes between the Bogie End and the straight side of the Rocker.
 
 ![Rocker link to bogie](images/Rocker02-Rear.jpg)
 
-Aluminum beam to link to front corner.
+Aluminum beam to link to front corner. The 182mm extrusion goes between the angled side of the Rocker and the Front Corner.
 
 ![Rocker link to front wheel](images/Rocker03-Front.jpg)
 
@@ -23,7 +27,7 @@ Rocker subassembly complete.
 
 ![Rocker complete](images/Rocker05-Complete.jpg)
 
-Rocker subassembly plus bogie subassembly.
+Rocker subassembly plus bogie subassembly. The three wheel mounts should all be roughly in line with each other, with the center wheel extending slightly farther away from the body than the corner wheels. If the center wheel is splayed outward at an angle, the Bogie Wheel part has been swapped side to side.
 
 ![Join up with bogie](images/Rocker06-WithBogie.jpg)
 

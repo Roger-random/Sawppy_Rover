@@ -41,6 +41,7 @@ durable than threads tapped into printed plastic. Sawppy's default design is siz
 for [these inserts](https://www.amazon.com/gp/product/B077CHFGVT) on my printer,
 and reportedly works well with [these inserts](https://www.mcmaster.com/94180a333)
 as well.
+* [Purchased Parts List](Parts%20List.md)
 
 ## Mechanical Assembly
 For an overview of the construction technique used here, combining aluminum extrusion beams with
@@ -76,6 +77,7 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * A Raspberry Pi 3 powered by 5V regulator output, either via micro USB port or GPIO voltage pins.
 * A USB cable connecting Raspberry Pi 3 to serial bus translator board.
 * Ten serial bus servos connected in parallel to the translator board.
+* [Software source code](https://github.com/Roger-random/SGVHAK_Rover)
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
 
