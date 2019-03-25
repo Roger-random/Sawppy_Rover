@@ -15,7 +15,8 @@ and complexity. JPL's rover is designed for education, to be assembled by a scho
 foundation for structured curriculum. Sawppy is more suited for individual hobbyists like myself who are
 happy to tinker and willing to make some trade-offs to lower cost.
 
-The budget was __$500__, and getting there required the following changes:
+The budget was __$500__, see [price breakdown here](docs/Price%20breakdown.md).
+Getting to that price point required the following changes:
 
 * Motorization: Instead of using gearmotors with encoders managed by RoboClaw motor controllers,
 moving the wheels will be done with serial bus servo motors. For more information on these devices,
