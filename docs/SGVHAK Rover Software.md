@@ -28,6 +28,8 @@ For this step, connect a single servo to BusLinker. Connect a two-cell LiPo
 battery to BusLinker power inputs Vin and GND to power the servo. Connect USB
 cable to computer.
 
+![Single serial servo wired for rename](images/Serial-Servo-Rename.jpg "Serial Servo Rename")
+
 For Linux (such as Raspberry Pi's Debian or Ubuntu Linux on laptop visible in
 picture) run the ```dmesg``` command immediately after plugging in the USB cable
 to see which port it has been assigned. The final few lines of output from
