@@ -77,7 +77,6 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * A Raspberry Pi 3 powered by 5V regulator output, either via micro USB port or GPIO voltage pins.
 * A USB cable connecting Raspberry Pi 3 to serial bus translator board.
 * Ten serial bus servos connected in parallel to the translator board.
-* [Software source code](https://github.com/Roger-random/SGVHAK_Rover)
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
 
@@ -85,3 +84,9 @@ Optional components visible in some Sawppy pictures:
 * A [USB webcam](https://newscrewdriver.com/2018/06/19/sawppy-the-backyard-rover/).
 * Google [AIY Vision kit](https://newscrewdriver.com/2018/06/18/sawppy-the-rovers-mast-cameras/).
 * A dual-band wireless router for [greater range and access to 5GHz band](https://newscrewdriver.com/2018/07/15/sawppy-the-rover-receives-wifi-upgrade-increases-range/).
+
+## Rover Control Software
+
+For driving Sawppy like a remote controlled vehicle (a.k.a. 'teleoperation')
+Sawppy can borrow software from [SGVHAK Rover](http://bit.ly/sgvhak_rover).
+See [instructions to modify SGVHAK Rover software to Sawppy](SGVHAK%20Rover%20Software.md).
