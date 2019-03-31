@@ -8,11 +8,12 @@ car. (Mouse click and drag can also be used on non-touchscreen devices.) This
 is also called a 'teleoperation' mode.
 
 Clone the [SGVHAK Rover software repository](https://github.com/Roger-random/SGVHAK_Rover) 
-and follow instructions to install dependencies. (Optional ```virtualenv``` and required ```pip install -e .```)
-But stop before proceeding to "Start Flask" and make the modifications below.
+and follow instructions to install dependencies. (Optional installation of ```virtualenv```
+and required installation of Python libraries ```pip install -e .```)
+Before proceeding to step "Start Flask", make the modifications below.
 
 The information below are specific to the LewanSoul serial bus servos used
-on my reference implementation, but the general concept are applicable to
+on first Sawppy implementation, but the general concept are applicable to
 alternative serial bus servos with modification.
 
 # Before Rover Wiring: Assign Unique ID To Each Servo
@@ -93,7 +94,8 @@ Servo successfully renamed to ID 30
 Give each of our ten servo their own individual ID. The exact values are not
 important but they must be ten different IDs. If desired to copy reference
 Sawppy implementation, give them ID #20 through #29. Mark each servo with 
-their new ID for reference. (I used a label maker on each servo.)
+their new ID for reference. Sawppy visible in pictures used a label maker
+to record each servo ID.
 
 # Servo Placement During Construction
 
@@ -102,11 +104,11 @@ implementation, here is a table of servo position along with their ID. This
 information is duplicated in [```config_sawppy.json```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_sawppy.json)
 in JSON format.
 
-|Left |Rolling|Steering|Steering|Rolling|Right|
-|-----|-------|--------|--------|-------|-----|
-|Front|     25|      23|      29|     27|Front|
-|Mid  |     21|        |        |     22|Mid  |
-|Rear |     20|      24|      26|     28|Rear |
+|Left |Rolling|Steering| |Steering|Rolling|Right|
+|-----|-------|--------|-|--------|-------|-----|
+|Front|     25|      23| |      29|     27|Front|
+|Mid  |     21|        | |        |     22|Mid  |
+|Rear |     20|      24| |      26|     28|Rear |
 
 # Rover Suspension Geometry
 
@@ -140,14 +142,14 @@ Update [```config_sawppy.json```](https://github.com/Roger-random/SGVHAK_Rover/b
 with correct center position for each of four steering servos.
 
 NOTE: SGVHAK rover software menu has a "Steering Trim" menu item, but that is
-specific to RoboClaw controller used by SGVHAK rover and does nothing for
+specific to RoboClaw controller used by SGVHAK rover and does not apply to
 Sawppy rover.
 
-# Copy Rover Chassis Configuration File
+# Overwrite Rover Chassis Configuration File
 
-Once our config_sawppy.json has been properly updated for a specific rover, copy
-it over ```config_roverchassis.json``` to replace default SGVHAK rover 
-configuration with configuration for our build of Sawppy.
+Once our ```config_sawppy.json``` has been properly updated, copy
+it over ```config_roverchassis.json``` to overwrite SGVHAK rover 
+configuration with Sawppy configuration.
 
 # Start Flask
 
