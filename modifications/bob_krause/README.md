@@ -27,7 +27,7 @@ that will move the bot much (much) faster than the LX-16A servos currently
 allow. The first step in that direction is to design in FTC-compatible (First
 Technical Challenge) components, which we have an almost endless supply of
 parts laying around the lab. Driving a bogie suspended robot around on rough
-terrian at high speedswill likely require adding shock dampeners to the
+terrian at high speeds will likely require adding shock dampeners to the
 suspension.
 
 Our longer-term aspiration is to create a more flexible robot design tool
