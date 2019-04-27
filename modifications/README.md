@@ -18,4 +18,5 @@ __Marco Walther (mw46d)__
 
 * Dynamixel AX-12 brackets
 * 25D geared motors with encoders
+
 More info [here](Marco_Walther/README.md)
