@@ -14,7 +14,9 @@
 
 #include "arduino.h"
 
-#define ANALOG_MID 512
+#define STEER_MID 500
+#define VEL_MID 520
+#define ADC_MID 512
 #define DEAD_ZONE 3
 
 #define INVERT_STEERING false
@@ -29,7 +31,7 @@ class JoyDrive
     int getVelocity();
 
   private:
-    int normalized(int raw, bool invert);
+    int normalized(int raw, int midpoint, bool invert);
 
     int _steeringPin;
     int _velocityPin;

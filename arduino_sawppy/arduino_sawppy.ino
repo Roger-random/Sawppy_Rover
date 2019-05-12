@@ -185,6 +185,14 @@ void loop()
   delay(100);
   velocity = jd.getVelocity(); // Read velocity potentiometer
 
+#if PRINTCMD
+  Serial.print("S");
+  Serial.print(steering);
+  Serial.print(" V");
+  Serial.print(velocity);
+  Serial.print(" ");
+#endif
+
   if (turnInPlace)
   {
     // Turn in place mode: point all wheels at center so we can rotate about center.
