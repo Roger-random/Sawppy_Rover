@@ -120,6 +120,12 @@ typedef struct ServoCommand {
 
 ServoCommand servoCommands[6];
 
+// Enumeration tracking current state of rover control
+enum RoverState { driving, enterTurnInPlace, turnInPlace, enterDriving };
+
+enum RoverState state = driving;
+unsigned long stateChangeStart; // track time in transition for enterX states
+
 // Use the servoCommands[].radius values to scale all servoCommands[].speed relative
 // to a given velocity.
 void speedFromRadius(float maxSpeed)
@@ -136,11 +142,59 @@ void speedFromRadius(float maxSpeed)
     }
   }
 
-  // Max radius found, now scale all wheel speeds so those with max radius spins
-  // at commanded velocity and other wheels at slower speed based on radius ratio.
-  for (wheel = 0; wheel < 6; wheel++)
+  if (maxRadius > 0)
   {
-    servoCommands[wheel].speed = (servoCommands[wheel].radius/maxRadius)*maxSpeed;
+    // Max radius found, now scale all wheel speeds so those with max radius spins
+    // at commanded velocity and other wheels at slower speed based on radius ratio.
+    for (wheel = 0; wheel < 6; wheel++)
+    {
+      servoCommands[wheel].speed = (servoCommands[wheel].radius/maxRadius)*maxSpeed;
+    }
+  }
+  else
+  {
+    // No radius information to work with, every wheel gets same speed.
+    for (wheel = 0; wheel < 6; wheel++)
+    {
+      servoCommands[wheel].speed = maxSpeed;
+    }
+  }
+}
+
+// Turn in place mode: point all wheels at center so we can rotate about center.
+void wheelsToTurnInPlace()
+{
+  for (int wheel = 0; wheel < 6; wheel++)
+  {
+    // Calculate angles to point at center
+    if (Chassis[wheel].y == 0)
+    {
+      servoCommands[wheel].angle = 0;
+      servoCommands[wheel].radius = abs(Chassis[wheel].x);
+    }
+    else
+    {
+      servoCommands[wheel].angle = -atan(Chassis[wheel].y/Chassis[wheel].x)*180.0/M_PI;
+      servoCommands[wheel].radius = sqrt(pow(Chassis[wheel].x,2)+pow(Chassis[wheel].y,2));
+    }
+
+    // When turning in place, one side wheels turn opposite the other. Change direction of
+    // this inequality comparison to reverse turn-in-place direction relative to joystick.
+    if (Chassis[wheel].x > 0)
+    {
+      servoCommands[wheel].radius *= -1;
+    }
+  }
+}
+
+// All wheels to default position: pointing straight ahead and at given velocity
+void wheelsToDefault(int velocity)
+{
+  for (int wheel = 0; wheel < 6; wheel++)
+  {
+    servoCommands[wheel].angle = 0;
+    servoCommands[wheel].radius = 0;
+    servoCommands[wheel].speed = velocity;
   }
 }
 
@@ -165,6 +219,9 @@ void setup()
   float adjacent = Chassis[MID_LEFT].x - Chassis[FRONT_LEFT].x;
   float opposite = Chassis[FRONT_LEFT].y;
   maxSteering = abs(atan(opposite/adjacent)*180.0/M_PI);
+
+  // Start in driving state
+  state = driving;
 }
 
 // Runs regularly as long as there is power to Arduino
@@ -179,7 +236,7 @@ void loop()
   int invert; // Multiplier for implementing RoverWheel.rollServoInverted
   int referenceWheel; // Wheel used to calculate turnCenterX
 
-  bool turnInPlace = (digitalRead(INPLACE_BUTTON) == LOW); // Read button that commands turn-in-place mode.
+  bool triggerStateChange = (digitalRead(INPLACE_BUTTON) == LOW); // Read button that commands turn-in-place mode.
   delay(100);
   steering = jd.getSteering(); // Read steering potentiometer
   delay(100);
@@ -193,35 +250,68 @@ void loop()
   Serial.print(" ");
 #endif
 
-  if (turnInPlace)
+  // State changes can only be triggered when going slowly or stopped
+  if (triggerStateChange && abs(velocity) < 10 && abs(steering) < 10)
   {
-    // Turn in place mode: point all wheels at center so we can rotate about center.
-    for (wheel = 0; wheel < 6; wheel++)
+    if (state == driving)
     {
-      // Calculate angles to point at center
-      if (Chassis[wheel].y == 0)
-      {
-        servoCommands[wheel].angle = 0;
-        servoCommands[wheel].radius = abs(Chassis[wheel].x);
-      }
-      else
-      {
-        servoCommands[wheel].angle = -atan(Chassis[wheel].y/Chassis[wheel].x)*180.0/M_PI;
-        servoCommands[wheel].radius = sqrt(pow(Chassis[wheel].x,2)+pow(Chassis[wheel].y,2));
-      }
+      // If we were slowed, command a stop now, and start our transition timer.
+      velocity = 0;
 
-      // When turning in place, one side wheels turn opposite the other. Change direction of
-      // this inequality comparison to reverse turn-in-place direction relative to joystick.
-      if (Chassis[wheel].x > 0)
-      {
-        servoCommands[wheel].radius *= -1;
-      }
+      stateChangeStart = millis();
+      state = enterTurnInPlace;
     }
+    else if (state == turnInPlace)
+    {
+      // If we were slowed, command a stop now, and start our transition timer.
+      velocity = 0;
+
+      stateChangeStart = millis();
+      state = enterDriving;
+    }
+  }
+
+  if (state == enterTurnInPlace)
+  {
+    velocity = 0;
+    if (millis() > stateChangeStart + 1000)
+    {
+      // We've waited long enough for everything to settle
+      state = turnInPlace;
+    }
+    else if(millis() > stateChangeStart + 600)
+    {
+      // We should be at full stop now, turn corner wheels.
+      wheelsToTurnInPlace();
+    }
+    speedFromRadius(0);
+  }
+
+  if (state == enterDriving)
+  {
+    velocity = 0;
+    if (millis() > stateChangeStart + 1000)
+    {
+      // We've waited long enough for everything to settle
+      state = driving;
+    }
+    else if(millis() > stateChangeStart + 600)
+    {
+      // We should be at full stop now, turn corner wheels.
+      wheelsToDefault(0);
+    }
+    speedFromRadius(0);
+  }
+
+  if (state == turnInPlace)
+  {
+    wheelsToTurnInPlace();
 
     // Calculate speed from relative radii
     speedFromRadius(steering);
   }
-  else
+
+  if (state == driving)
   {
     // Choose a reference wheel and, from there, calculate turn center X
     if (steering == 0)
