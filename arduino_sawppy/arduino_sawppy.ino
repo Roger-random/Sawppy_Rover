@@ -125,6 +125,8 @@ enum RoverState { driving, enterTurnInPlace, turnInPlace, enterDriving };
 
 enum RoverState state = driving;
 unsigned long stateChangeStart; // track time in transition for enterX states
+#define WAIT_FOR_STOP 600 // number of milliseconds from stateChangeStart to ensure we're stopped.
+#define WAIT_TRANSITION 1000 // number of milliseconds from stateChangeStart for a transition. Should be greater than WAIT_FOR_STOP
 
 // Use the servoCommands[].radius values to scale all servoCommands[].speed relative
 // to a given velocity.
@@ -274,12 +276,13 @@ void loop()
   if (state == enterTurnInPlace)
   {
     velocity = 0;
-    if (millis() > stateChangeStart + 1000)
+    if (millis() > stateChangeStart + WAIT_TRANSITION && !triggerStateChange)
     {
       // We've waited long enough for everything to settle
+      // and button has been released.
       state = turnInPlace;
     }
-    else if(millis() > stateChangeStart + 600)
+    else if(millis() > stateChangeStart + WAIT_FOR_STOP)
     {
       // We should be at full stop now, turn corner wheels.
       wheelsToTurnInPlace();
@@ -290,12 +293,13 @@ void loop()
   if (state == enterDriving)
   {
     velocity = 0;
-    if (millis() > stateChangeStart + 1000)
+    if (millis() > stateChangeStart + WAIT_TRANSITION && !triggerStateChange)
     {
       // We've waited long enough for everything to settle
+      // and button has been released.
       state = driving;
     }
-    else if(millis() > stateChangeStart + 600)
+    else if(millis() > stateChangeStart + WAIT_FOR_STOP)
     {
       // We should be at full stop now, turn corner wheels.
       wheelsToDefault(0);
