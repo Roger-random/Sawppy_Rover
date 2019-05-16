@@ -15,24 +15,36 @@ JoyDrive::JoyDrive(int steeringPin, int velocityPin)
 {
   _steeringPin = steeringPin;
   _velocityPin = velocityPin;
+  _previousSteering = 0;
+  _previousVelocity = 0;
 }
 
 int JoyDrive::getSteering()
 {
   // analogRead returns between 0 and 1023
-  int vRaw = analogRead(_steeringPin);
+  int steeringRaw = analogRead(_steeringPin);
+  int steeringNormalized  = normalized(steeringRaw, STEER_MID, INVERT_STEERING);
+  int steeringConstrained = constrained(steeringNormalized, _previousSteering, MAX_DELTA_STEERING);
 
-  return normalized(vRaw, STEER_MID, INVERT_STEERING);
+  _previousSteering = steeringConstrained;
+
+  return steeringConstrained;
 }
 
 int JoyDrive::getVelocity()
 {
   // analogRead returns between 0 and 1023
-  int vRaw = analogRead(_velocityPin);
+  int velocityRaw = analogRead(_velocityPin);
+  int velocityNormalized = normalized(velocityRaw, VEL_MID, INVERT_VELOCITY);
+  int velocityConstrained = constrained(velocityNormalized, _previousVelocity, MAX_DELTA_VELOCITY);
 
-  return normalized(vRaw, VEL_MID, INVERT_VELOCITY);
+  _previousVelocity = velocityConstrained;
+
+  return velocityConstrained;
 }
 
+// The normalized() function accepts a value in the full range of ADC (0-1023) and
+// turns it into a range from -100 to 100 with 0 at the given midpoint.
 int JoyDrive::normalized(int raw, int midpoint, bool invert)
 {
   float range = ADC_MID - DEAD_ZONE;
@@ -75,4 +87,26 @@ int JoyDrive::normalized(int raw, int midpoint, bool invert)
   }
 
   return normalized;
+}
+
+// The constrained() function accepts a normalized value and returns a
+// value that is not more than maxDelta away from previous value.
+int JoyDrive::constrained(int normalized, int previous, int maxDelta)
+{
+  int constrained = 0;
+
+  if (normalized > previous + maxDelta)
+  {
+    constrained = previous + maxDelta;
+  }
+  else if (normalized < previous - maxDelta)
+  {
+    constrained = previous - maxDelta;
+  }
+  else
+  {
+    constrained = normalized;
+  }
+
+  return constrained;
 }

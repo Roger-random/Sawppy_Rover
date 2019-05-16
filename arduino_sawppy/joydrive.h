@@ -22,6 +22,9 @@
 #define INVERT_STEERING false
 #define INVERT_VELOCITY false
 
+#define MAX_DELTA_STEERING 10
+#define MAX_DELTA_VELOCITY 15
+
 class JoyDrive
 {
   public:
@@ -32,8 +35,12 @@ class JoyDrive
 
   private:
     int normalized(int raw, int midpoint, bool invert);
+    int constrained(int normalized, int previous, int maxDelta);
 
     int _steeringPin;
     int _velocityPin;
+
+    int _previousSteering;
+    int _previousVelocity;
 };
 #endif // joydrive_h
