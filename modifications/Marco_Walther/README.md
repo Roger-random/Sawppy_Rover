@@ -7,3 +7,10 @@ and they work very well and allow me to get the encoder readings and use those f
 cables:-( Originally, each side had just three, now I have 3 (for the steering servos) + 3 * 6 (for the drive motors).
 
 A little night excursion: https://youtu.be/rvCmtjlanaQ
+
+![25D_Motor_1.jpg](25D_Motor_1.jpg)
+![25D_Motor_2.jpg](25D_Motor_2.jpg)
+![25D_Motor_3.jpg](25D_Motor_3.jpg)
+![25D_Motor_Control.jpg](25D_Motor_Control.jpg)
+
+![Sawppy.jpg](Sawppy.jpg)

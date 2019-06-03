@@ -40,6 +40,13 @@ the chassis in action, climbing a backpack that is almost double the height of w
 
 [![Sawppy conquers a backpack](https://img.youtube.com/vi/acANiRFg-qA/0.jpg)](https://www.youtube.com/watch?v=acANiRFg-qA)
 
+# Modifications From Rover Builders
+
+Many people who built their own Sawppy rover are also people who love to tinker
+and experiment. As a result these rovers reflect the individuality of their
+builder. Some of these builders have shared their work with the community,
+see the [`modifications` folder](/modifications) for more information.
+
 # Other Project Resources
 
 * [Project page on Hackaday.io](https://hackaday.io/project/158208-sawppy-the-rover)
