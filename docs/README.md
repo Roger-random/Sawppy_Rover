@@ -90,3 +90,7 @@ Optional components visible in some Sawppy pictures:
 For driving Sawppy like a remote controlled vehicle (a.k.a. 'teleoperation')
 Sawppy can borrow software from [SGVHAK Rover](http://bit.ly/sgvhak_rover).
 See [instructions to modify SGVHAK Rover software to Sawppy](SGVHAK%20Rover%20Software.md).
+
+The standard SGVHAK Rover software will present a web-based control interface.
+Rover builders who prefer a more traditional remote control unit can draw from
+[Marco Walther's implementation](https://github.com/mw46d/SGVHAK_Rover).
