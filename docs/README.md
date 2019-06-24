@@ -94,3 +94,16 @@ See [instructions to modify SGVHAK Rover software to Sawppy](SGVHAK%20Rover%20So
 The standard SGVHAK Rover software will present a web-based control interface.
 Rover builders who prefer a more traditional remote control unit can draw from
 [Marco Walther's implementation](https://github.com/mw46d/SGVHAK_Rover).
+
+## Wired Arduino Control
+
+As an alternative to Raspberry Pi based wireless control, there is now an
+option to build Sawppy as a wired control rover. This avoids wireless
+communication issues in crowded environments (like a Maker Faire) and can
+be kept as a backup option. Alternatively, it allows interfacing with
+anything that can communicate with an Arduino. Code for Arduino sketch is
+under the [arduino_sawppy](../arduino_sawppy) directory.
+
+Here's a wiring diagram contributed by [Martin](https://hackaday.io/Plaville)
+
+![Arduino wiring diagram by martin](images/Arduino-wiring-by-Martin.jpg)
