@@ -1,6 +1,7 @@
 # Instructions
 
-This directory has information for building your own Sawppy the Rover
+This directory has information for building your own Sawppy the Rover.
+Some of the tools required are listed in the [tools list](Tools.md).
 
 ## 3D Printed Components
 [General overview](Print%20Overview.md) of 3D-printed rover parts.
