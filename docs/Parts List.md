@@ -36,10 +36,10 @@ The following are lengths and quantites for the shafts. You should make the diff
 
 If you're careful and/or lucky, you can get all the shaft you need from a pair of 500mm shafts, not counting the 300mm shaft you need for the differential shaft.
 
-Please see [Shaft dimensions](Shaft8mm.md) for more details. 
+Please see [Shaft dimensions](Shaft8mm.md) for more details.
 
 The lengths below are approximate, depending on groove size. The important dimensions are the distances between the grooves.
- 
+
 | QTY | LENGTH | PART |
 |:---:|:----:|:-----:|
 | 1 | 300 | Differential Shaft |
@@ -57,6 +57,7 @@ You will also need the following hardware
 | 10 | LX-16A Servos | |
 | 30 | 608 Bearings | |
 | 300 | M3x8mm socket head screws | |
+|  28 | M3x16mm socket head screws | |
 | 300 | M3 washers | |
 | 300 | M3 nuts | |
 | 100 | M3 threaded inserts | |
