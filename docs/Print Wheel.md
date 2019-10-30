@@ -11,7 +11,7 @@ It will likely require a few tries while tuning 3D slicer for optimal output.
 * The wheel is designed to print without supports, outer face of the wheel against the bed.
 * The wheel spoke and perimeter is an even multiple of nozzle diameter and should print in a few large continuous motions.
 But the thin dimensions could confuse some slicers. If it generates paths broken up into an excessive number of segments, adjust your slicer settings.
-* The rover will need need 6 wheels. Printing half of them in a left/right mirror-image is an optional aesthetic choice.
+* The rover will need 6 wheels. Printing half of them in a left/right mirror-image is an optional aesthetic choice.
 Note that the [real Curiosity rover](https://www.jpl.nasa.gov/video/details.php?id=910) does not left/right mirror its wheel spoke design.
 * Example print durations:
   * Fast PLA rough draft: 7.5 hours per wheel * 6 wheels = 45 hours total
@@ -36,7 +36,7 @@ cleaned up, one is in progress, and one awaits cleanup.
 
 ![Wheel bridge removal](images/Wheel-BridgeRemove.jpg)
 
-We want our 8mm steel drive shaft to fit snugly within the wheel's center. To help with this, use an 8mm reamer 
+We want our 8mm steel drive shaft to fit snugly within the wheel's center. To help with this, use an 8mm reamer
 to bring the center hole into precise dimension.
 
 ![Wheel axle hold precisely reamed to 8mm](images/Wheel-Ream.jpg)
