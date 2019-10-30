@@ -10,7 +10,7 @@ with brackets to mount to body in [Body Box Mounts](https://cad.onshape.com/docu
 
 **3D Printing STL Files:**
 * [DiffBrace.stl](../STL/DiffBrace.stl) * 2
-* [DiffEnd.stl](../STL/DiffEnd.stl) * 2
+* [DiffEnd.stl](../STL/DiffEnd.stl) * 2 (Mirror one of them)
 * [DiffLink.stl](../STL/DiffLink.stl) * 2
 * [DiffLower.stl](../STL/DiffLower.stl) * 1
 * [DiffUpper.stl](../STL/DiffUpper.stl) * 1

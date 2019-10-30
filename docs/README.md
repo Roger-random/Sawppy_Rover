@@ -61,7 +61,7 @@ to see how parts are supposed to fit together.
 * [Suspension Bogie](AssembleBogie.md)
 * [Suspension Rocker and final assembly](AssembleRocker.md)
 
-Once all the wheels are bolted on to the suspension, your Sawppy will be mechanically complete!
+Once all the wheels are attached to the suspension via M3x16mm bolts, your Sawppy will be mechanically complete!
 
 ![Mechanical chassis](images/MechanicalChassis.jpg)
 

@@ -28,6 +28,8 @@ Use 10 M3x16mm bolts and nuts (with washers) to fasten top and bottom parts of d
 
 ![Brace installed](images/Differential04-Brace.jpg)
 
+Insert 2 M3 nut installation tools in center of differential beam side slots for future attachment of differential.
+
 6 M3 nut installation tools, 12 M3x8mm bolts with washers.
 
 ![Left and right brackets for differential beam installed](images/Differential05-Beam.jpg)
@@ -36,7 +38,7 @@ Use 10 M3x16mm bolts and nuts (with washers) to fasten top and bottom parts of d
 
 ![Links at end of pivot bar installed](images/Differential06-Links.jpg)
 
-Bolt the differential onto the beam with 2 more M3 nut installation tools, 4 M3x8mm bolts with washers.
+Bolt the differential onto the beam with 4 M3x8mm bolts with washers and the 2 previously installed M3 nut installation tools.
 
 ![Differential complete](images/Differential07-Complete.jpg)
 

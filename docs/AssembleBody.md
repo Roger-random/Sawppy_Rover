@@ -24,6 +24,8 @@ These parts make up the box that serves as the rover's main body and equipment b
 
 ![Body right](images/Body05-Right.jpg)
 
+**Note:** Before attaching the rear body portion to the body sides, the last 4 of the [Installation tools for 3 M3 nuts, 20mm apart](Print%20M3%20Installation%20Tool.md) should be installed in the top beam of the right and left body sides for future installation of the [Differential End Pieces](../STL/DiffEnd.stl) during the [Suspension Differential Assembly](AssembleDifferential.md). They are installed in the top and outside slots of the top beams.
+
 ![Body joined](images/Body06-Joined.jpg)
 
 For proportion faithful to Curiosity rover side view seen in Onshape CAD file, there should be 62mm of aluminum extrusion visible between front face of "Rocker Body mount" and rear face of front "Body Corner".
