@@ -18,7 +18,7 @@ signs of (ab)use by its previous owner. The condition will be the luck of the dr
 
 This printer has a print bed 200mm wide by 200mm deep and roughly 180mm tall which can
 comfortably print any single rover part. (It's actually large enough to print several parts at once.)
-Most rover parts can in theory fit within the 120mm x 120mm area of the 
+Most rover parts can in theory fit within the 120mm x 120mm area of the
 [Monoprice Maker Select Mini](https://www.monoprice.com/product?p_id=15365)
 (or [open box](https://www.monoprice.com/product?p_id=30386)) but a few large parts (like the differential
 brace) will not fit and some parts (like the wheel) will be a very tight fit.
@@ -40,7 +40,7 @@ an [Azteeg X5 mini](http://www.panucatt.com/azteeg_X5_mini_reprap_3d_printer_con
 * The first draft of the rover was printed in PLA, the second in PETG. While the stock print head for
 the Monoprice Maker Select is technically capable of PETG, it could only reliable extrude at a very
 slow rate. In order to speed up printing PETG the stock print hardware must be upgraded to an all-metal
-hot end, in my case an [E3D Titan Aero](https://e3d-online.com/titan-aero-builder).
+hot end, in my case an [E3D Titan Aero](https://e3d-online.com/titan-aero).
 
 ## STL Orientation
 
