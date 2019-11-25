@@ -1,6 +1,6 @@
 # LewanSoul LX-16A shaft coupler and mounting bracket
 
-Information here builds Sawppy with [LewanSoul LX-16A](http://www.lewansoul.com/product/detail-146.html) servos. 
+Information here builds Sawppy with [LewanSoul LX-16A](http://www.lewansoul.com/product/detail-17.html) servos.
 
 **CAD source** [LX-16A](https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/214191f692ee748deef95a8d)
 
@@ -41,7 +41,7 @@ Estimated time: 5 minutes per coupler * 10 couplers = 50 minutes total.
 
 ![Servo coupler parts](images/ServoCoupler-Parts.jpg)
 
-Just like the wheels, we'll want to clean up the 8mm hole with a reamer so it fits snugly over an 8mm steel shaft. 
+Just like the wheels, we'll want to clean up the 8mm hole with a reamer so it fits snugly over an 8mm steel shaft.
 
 Then we'll install the heat-set insert. Because the set screw will be pushing against the shaft, installing the
 heat-set insert from outside is bad: it'll want to pop back out when we tighten the screw. So for durability we

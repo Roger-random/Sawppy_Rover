@@ -10,7 +10,7 @@ for future sensors installation.
 
 **3D Printing Notes**
 * We will need 4 of these, one for each corner of rover equipment bay.
-* Lay the shape on print bed as shown in picture below for best strengh from print layer orientation.
+* Lay the shape on print bed as shown in picture below for best strength from print layer orientation.
 * Example print durations:
   * Fast PLA rough draft: 4 hours each * 4 units = 16 hours total.
   * Slow PETG final draft: 6.5 hours each * 4 units = 26 hours total.
