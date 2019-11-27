@@ -53,6 +53,11 @@ possible, use your slicer's function to orient a model to print bed.
 * Simplify3D: Edit/[Place Surface on Bed](https://www.simplify3d.com/support/articles/importing-and-manipulating-your-models/) (Ctrl-L)
 * Slic3r Prusa Edition: [Place on Face](https://twitter.com/josefprusa/status/1033719313751044096)
 * Cura: [Lay flat](https://ultimaker.com/en/resources/16583-adjusting-the-model)
+* MatterControl: [Lay flat](https://www.matterhackers.com/articles/mattercontrol-design-tools)
+
+If your slicer software does not have similar functionality, use
+[Meshmixer](http://www.meshmixer.com/) to reorient STL. Here is [one tutorial](https://mattshub.com/2018/02/24/orientating-parts-in-meshmixer/)
+out of many available online to guide through the process.
 
 ## STL Slicer Settings
 
