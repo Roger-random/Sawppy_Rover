@@ -48,7 +48,7 @@ on software, with contributions by the Sawppy community.
 
 A Sawppy builder can now choose from many Sawppy software options. Roughly in order of power and complexity, they are:
 
-* **Simplest**: Wired control [running on an Arduino](https://github.com/Roger-random/Sawppy_Rover/tree/master/arduino_sawppy) instead of Raspberry Pi. Bare-bones version of Sawppy geometry calculations. Wired control meant skipping all the overhead of wireless communication. Cutting out all HTML code also meant this is a good basis for other control schemes: send desired speed and direction into Arduino and let it handle Sawppy chassis geometry calculation.
+* **Simplest**: Wired control [running on an Arduino](https://github.com/Roger-random/Sawppy_Rover/tree/master/arduino_sawppy) instead of Raspberry Pi. Created as a [backup control option](https://newscrewdriver.com/2019/05/20/sawppy-roving-with-wired-handheld-controller/) in noisy RF environments where WiFi is unreliable. It also happens to feature the bare-bones version of Sawppy geometry calculations. Wired control meant skipping all the overhead of wireless communication. Cutting out all HTML code also meant this is a good basis for other control mechanisms: send desired speed and direction into Arduino and let it handle Sawppy chassis geometry calculation.
 * **Original**: HTML-based wireless teleoperation software stack [modified from SGVHAK rover](/docs/SGVHAK%20Rover%20Software.md). This was written to be easy for others to understand and modify.
 * **R/C control**: [lightly modified from my SGVHAK rover software](https://github.com/mw46d/SGVHAK_Rover) by Marco Walther (mw46d) for a Raspberry Pi-based way to interface with traditional remote control receivers.
 
