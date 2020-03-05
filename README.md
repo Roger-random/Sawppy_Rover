@@ -1,6 +1,6 @@
 # Sawppy the Rover
 
-Sawppy is a motorized model of Mars rovers Curiosity and Mars 2020. It faithfully reproduces
+Sawppy is a motorized model of Mars rovers Curiosity and Perseverance. It faithfully reproduces
 the [Rocker-Bogie suspension kinematics](https://en.wikipedia.org/wiki/Rocker-bogie) of real
 rovers and is intended to be a hardware platform for future software projects in autonomous
 operation. Go forth and boldly explore the back yard, Sawppy!
@@ -38,7 +38,7 @@ The remaining areas (electrical, software, etc.) are still very immature, just b
 to validate mechanical chassis function. Click this image for a YouTube video illustrating
 the chassis in action, climbing a backpack that is almost double the height of wheel diameter.
 
-[![Sawppy conquers a backpack](https://img.youtube.com/vi/acANiRFg-qA/0.jpg)](https://www.youtube.com/watch?v=acANiRFg-qA)
+[![Sawppy conquers a backpack](https://img.youtube.com/vi/SEBBMDWgtC4/0.jpg)](https://www.youtube.com/watch?v=SEBBMDWgtC4)
 
 # Modifications From Rover Builders
 
