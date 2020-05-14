@@ -1,7 +1,20 @@
-# Misumi HFS 3-series
+# Structural Beams
 
 Sawppy the Rover's aluminum beam structures are from [Misumi's HFS 3-series.](https://us.misumi-ec.com/vona2/detail/110300465870/)
-They are 15mm by 15mm square in profile and there are different options for purchase, more details below.
+They are 15mm by 15mm square in profile and there are different options for purchase, more details below for aspiring
+rover builders in the USA.
+
+Unfortunately, Misumi subsidiaries outside United States (such as Misumi Europe) are not as hobbyist-friendly
+selling only to businesses and not individuals. Fortunately, Sawppy design is not picky about the exact extrusion 
+profile and any beams 15mm by 15mm square should work with little to no modifications. One such alternative is
+[MakerBeamXL](https://www.makerbeam.com/makerbeamxl/) which has been successfully used to build Sawppy rovers by 
+[Rhys in Wales](https://hackaday.io/rhys.mainwaring) and [HolgerDK in Denmark](https://hackaday.io/HolgerDK).
+Another option is AliExpress, source of
+[beams used to build Aussie Sawppy](https://hackaday.io/project/166017-aussie-sawppy/log/164843-aussie-sawppy-parts-procurement).
+
+I've also heard from a rover builder using 15mm wooden beams, which gives the rover a smooth external profile.
+There is also an Argentinian contingent investigating 15mm square profile metal tubes. I expect additional modifications
+will be necessary for these efforts, but we won't know until these intrepid explorers report their results.
 
 ## Aluminum Extrusions Beams for Rover Chassis
 
@@ -29,12 +42,10 @@ Fortunately Sawppy is designed so precise length is not necessary, and the cut e
 An extrusion can be up to 5mm shorter than specified, or have sloped cut ends, and the rover will still work. Such
 imperfections can be compensated for with few extra millimeters of space when bolting plastic pieces onto beams.
 
-The above lengths add up to 3922mm. If you are really good with planning and have a very thin saw blade, you might
-be able to cut all rover parts out of two 2-meter pieces of extrusion. 
+The above lengths add up to 3922mm. If you are really good with planning and have a very thin saw blade, it is possible to
+cut all rover parts out of two 2-meter pieces of extrusion. This has been confirmed by several other rover builders.
 
 2 * $7.40 = $14.80
-
-Realistically, you will probably need three beams which will leave plenty left over for future rover additions.
 
 __Option 2: Order beams from Misumi cut to length__
 
