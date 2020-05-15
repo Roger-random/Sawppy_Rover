@@ -40,7 +40,8 @@ Rocker subassembly complete.
 
 ![Rocker complete](images/Rocker05-Complete.jpg)
 
-Rocker subassembly attached to bogie subassembly via E-clip. The three wheel mounts should all be roughly in line with each other, with the center wheel extending slightly farther away from the body than the corner wheels. If the center wheel is splayed outward at an angle, the Bogie Wheel part has been swapped side to side.
+Rocker subassembly attached to bogie subassembly via E-clip. The three wheel mounts should all be roughly in line with each other, with the center wheel extending slightly farther away from the body than the corner wheels. If the center wheel is splayed outward at an angle, the Bogie Wheel part has been swapped side to side. See "Sawppy V1 Errata" at the end of the
+[bogie assembly page](AssembleBogie.md)
 
 ![Join up with bogie](images/Rocker06-WithBogie.jpg)
 
