@@ -46,4 +46,5 @@ had been installed left-right reversed from intended. (Thanks to
 
 Correct | Bogie-Wheel part reversed left-right
 --- | ---
-![Correct Bogie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRCorrect-360.jpeg) | ![Left-right reversed BOgie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRSwapped-360.jpeg)
+![Correct Bogie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRCorrect-360.jpeg) | ![Left-right reversed Bogie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRSwapped-360.jpeg)
+![Correct Bogie-Wheel installation annotated](images/Tim-Sawppy-Bogie-Wheels-LRCorrect-annotated-360.jpeg) | ![Left-right reversed Bogie-Wheel installation annotated](images/Tim-Sawppy-Bogie-Wheels-LRSwapped-annotated-360.jpeg)
