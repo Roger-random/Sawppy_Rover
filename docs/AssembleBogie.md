@@ -23,7 +23,7 @@ The 117mm extrusion connects the Rear Corner and the angled side of the Bogie Wh
 
 ![Bogie rear installed](images/Bogie02-Rear.jpg)
 
-The 122mm extrusion connects the Bogie Wheel part on the straight side, and the  Fixed Knuckle. The extrusion extends from the open side of the Fixed knuckle.
+The 122mm extrusion connects the Bogie Wheel part on the straight side, and the Fixed Knuckle. The extrusion extends from the open side of the Fixed knuckle.
 
 ![Bogie mid installed](images/Bogie03-Mid.jpg)
 
@@ -34,3 +34,16 @@ The Rear Corner should extend out away from the body when the assembly is mounte
 ![Bogie complete](images/Bogie05-Complete.jpg)
 
 Repeat for other side of rover.
+
+## Sawppy V1 Errata
+Sawppy v1 has a design flaw where it is easy to make the mistake of using the
+left side Bogie-Wheel part on the right side of the rover. (And vice-versa.) Several
+rover builders ran into this, and I am contemplating several ways to improve. In the
+meantime please be aware: If a Sawppy rover's middle wheels are splayed out at
+an angle rather than forward-back as designed, it is because the Bogie-Wheel parts
+had been installed left-right reversed from intended. (Thanks to
+[Tim](https://hackaday.io/timing2211) for sharing these pictures.)
+
+Correct | Bogie-Wheel part reversed left-right
+--- | ---
+![Correct Bogie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRCorrect-360.jpeg) | ![Left-right reversed BOgie-Wheel installation](images/Tim-Sawppy-Bogie-Wheels-LRSwapped-360.jpeg)
