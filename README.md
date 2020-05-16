@@ -69,3 +69,9 @@ see the [`modifications` folder](/modifications) for more information.
 * [Project page on Hackaday.io](https://hackaday.io/project/158208-sawppy-the-rover)
 * [Build blog](https://newscrewdriver.com/category/projects/sawppy-the-rover/)
 * [Live Onshape CAD file "Sawppy the Rover"](https://cad.onshape.com/documents/43678ef564a43281c83e1aef/w/392bbf8745395bc24367a35c/e/9bd6bbb7aba50a97523d14f2)
+
+# Financial Support
+
+Sawppy is shared free of charge, but builders in the United States may choose to buy some parts via
+[Amazon affiliate links](docs/AmazonAssociate.md)
+which will send a small sales commission to Sawppy's creator.

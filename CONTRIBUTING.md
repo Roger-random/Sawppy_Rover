@@ -33,3 +33,10 @@ If you see a problem but are not sure of the solution, feel free to open an
 issue to describe the problem. We'll do our best, but please keep in mind
 everyone here is working on their own time and there is no guarantee of a
 timely answer.
+
+## Money
+
+Sawppy is shared free of charge, but builders in the United States may
+choose to buy some parts via
+[Amazon affiliate links](docs/AmazonAssociate.md)
+which will send a small sales commission to Sawppy's creator.

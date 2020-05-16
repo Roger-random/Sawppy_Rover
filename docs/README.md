@@ -3,6 +3,11 @@
 This directory has information for building your own Sawppy the Rover.
 Some of the tools required are listed in the [tools list](Tools.md).
 
+All Sawppy information is shared freely. Those who wish to support this
+project may choose to purchase certain parts via
+[Amazon affiliate links.](AmazonAssociate.md)
+(This does not increase your purchase price.)
+
 ## 3D Printed Components
 [General overview](Print%20Overview.md) of 3D-printed rover parts.
 
