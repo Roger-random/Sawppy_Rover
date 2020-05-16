@@ -36,6 +36,8 @@ Joystick module | | [WMYCONGCONG](https://amzn.to/3fNR0KB) | (Optional) backup [
 _**Power System**_ |
 Battery | [Floureon](https://amzn.to/3dQJ21r) | [2S LiPo](https://amzn.to/2WWz2ge) | Typically sold for remote control cars/boats/aircraft.
 Battery Connector | [Adoreco](https://amzn.to/2WZhikp) | [Deans T Plug](https://amzn.to/3dPsbfh) | Commodity plug
+Inline Fuse Holder | [Nilight](https://amzn.to/3cCqfXf) | | Holds automotive style blade fuses
+Fuse Assortment | [BESTTOYHOME](https://amzn.to/2WY3zKA) | | 5A fuse allows normal operations while protecting against abuse
 5V Regulator | [Qunqi](https://amzn.to/2AyxH7T) | [MP1584EN](https://amzn.to/361HHlK) | Converts raw battery power to 5V for Raspberry Pi
 Battery Charger | [Tenergy TB6-B](https://amzn.to/3dNjMZV) | [LiPo Charger](https://amzn.to/2TcliwL) | Cell balancing capability preferred
 Power Switch | [Conwork SPST](https://amzn.to/2ApRB4L) | | (Optional) This one fits in my power panel
