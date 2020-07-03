@@ -103,7 +103,7 @@ to record each servo ID.
 
 Take note of servo ID in each location. If desired to copy reference Sawppy
 implementation, here is a table of servo position along with their ID. This
-information is duplicated in [```config_sawppy.json```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_sawppy.json)
+information is duplicated in [```config_roverchassis.json.sawppy```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_roverchassis.json.sawppy)
 in JSON format.
 
 |Left |Rolling|Steering| |Steering|Rolling|Right|
@@ -116,7 +116,7 @@ in JSON format.
 
 If a rover has been modified in a way that changes its suspension geometry
 such that wheel positions have shifted, their position needs to be updated
-in [```config_sawppy.json```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_sawppy.json)
+in [```config_roverchassis.json.sawppy```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_roverchassis.json.sawppy)
 for proper calculation of [Ackermann steering](https://en.wikipedia.org/wiki/Ackermann_steering_geometry)
 angles on each of four corner wheels. See section "Physical Geometry" under
 "Configurations and Modifications" of [SGVHAK Rover instructions](https://github.com/Roger-random/SGVHAK_Rover).
@@ -140,7 +140,7 @@ Moving servo 30 to position 510
 Moving servo 30 to position 490
 ```
 
-Update [```config_sawppy.json```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_sawppy.json)
+Update [```config_roverchassis.json.sawppy```](https://github.com/Roger-random/SGVHAK_Rover/blob/master/config_roverchassis.json.sawppy)
 with correct center position for each of four steering servos.
 
 NOTE: SGVHAK rover software menu has a "Steering Trim" menu item, but that is
