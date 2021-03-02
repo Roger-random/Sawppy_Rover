@@ -31,6 +31,44 @@ These two major design goals can be summarized as: **S**ervo **A**ctuated **W**h
 
 # Development Status
 
+**Status Update, Perseverance Landing Edition**
+
+Generating web traffic was never an objective of my Sawppy project so I hadn't kept an eye on the
+statistics, but I looked at it just now and noticed a distinct rise over the past two weeks. I
+guess the successful landing of Perseverance rover on Mars motivated a lot of people to think about
+3D-printing their own rover here on Earth. Welcome, fellow rover fans!
+
+Here's a quick summary past and future for fans new and old alike:
+
+What you see on this project page is what I now refer to as "Sawppy V1". It was my first project
+that I documented with the explicit goal of helping others build their own. In contrast to most
+of my other projects which were just to show an example and/or notes to remind myself later. I was
+happy to see that many people have accepted my invitation and built their own rovers.
+(See "Sawppy Builders" log entries on [Sawppy's Hackaday.io page](https://hackaday.io/project/158208).)
+I appreciate constructive feedback submitted by Sawppy rover builders from around the world,
+and have been pondering how I can evolve future Sawppy versions to address feedback.
+
+One persistent line of feedback was that Sawppy was still too complex and expensive for some rover
+fans, even though Sawppy was designed to be more affordable and simpler than the JPL Open Source
+Rover that inspired it. It is true I built Sawppy for myself and others with roughly my level of
+skill and budget. This translated to an audience of mostly adult hobbyists and some students of
+college and high school age who can drop $500 USD on a project.
+
+To address the audience left out of the fun by Sawppy V1, my current step in Sawppy evolution is
+"Micro Sawppy". I am designing and developing a smaller, simpler, and more affordable rover. One
+that I want to be accessible to elementary school age students (with adult supervision) with a
+target parts cost of $100 USD. I also want to write the instructions to be more exact and prescriptive.
+Sawppy V1 instructions had several areas that were left open to builder preference, something I've
+learned is confusing to beginners who lacked the experience to have a preference.
+
+Micro Sawppy also serves as my testbed for several ideas for 3D-printed rover construction that,
+if successful, I want to adapt and scale up to a "Sawppy V2". This future rover would be roughly
+the same size as Sawppy V1. But I want to make it easier to build, more adaptable to variations,
+and a lower base cost target of $400 USD.
+
+For latest updates and/or more details, I post my development progress to the
+[Sawppy category on my personal blog](https://newscrewdriver.com/category/projects/sawppy-the-rover/). 
+
 **Sawppy version 1.0** 
 
 This milestone includes a motorized rolling chassis that is mechanically functional.
