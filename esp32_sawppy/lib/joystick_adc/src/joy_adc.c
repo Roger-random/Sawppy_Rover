@@ -1,14 +1,38 @@
 #include "joy_adc.h"
 
+// Converts raw ADC reading ()
+float joystick_axis_conversion(uint32_t center, uint32_t reading)
+{
+  uint32_t threshold_positive = center + joystick_null;
+  uint32_t threshold_negative = center - joystick_null;
+  if (reading > threshold_positive)
+  {
+    return ((float)reading - threshold_positive)/(joystick_max - threshold_positive);
+  }
+  else if (reading < threshold_negative)
+  {
+    return ((float)reading - threshold_negative)/threshold_negative;
+  }
+  else
+  {
+    return 0.0;
+  }
+}
+
 // FreeRTOS task which will read joystick data every joystick_read_period and
 // posts to the given queue of type joy_msg.
 void joy_adc_read_task(void* pvParameter)
 {
+  uint32_t uiXcenter = 0;
+  uint32_t uiYcenter = 0;
+  joy_msg  message;
+  uint32_t retry;
+
   // Get ready to use caller-allocated queue for communicating joystick data
   QueueHandle_t xJoystickQueue;
   if (NULL == pvParameter)
   {
-    printf("ERROR: joy_adc_read_task parameter is null. Expected handle to joystick data queue.");
+    printf("ERROR: joy_adc_read_task parameter is null. Expected handle to joystick data queue.\n");
     vTaskDelete(NULL); // Delete self.
   }
   xJoystickQueue = (QueueHandle_t)pvParameter;
@@ -26,21 +50,36 @@ void joy_adc_read_task(void* pvParameter)
   adc1_config_channel_atten(joystick_x, joystick_attenuation);
   adc1_config_channel_atten(joystick_y, joystick_attenuation);
 
+  // Read initial values as center. In case of low quality joysticks that drift, may need
+  // to kill and restart this task in order to update these centering values.
+  retry = 0;
+  while(uiXcenter < joystick_null || uiXcenter > (joystick_max - joystick_null))
+  {
+    uiXcenter = adc1_get_raw(joystick_x);
+    if (retry++ > 10)
+    {
+      printf("ERROR: unable to retrieve reasonable joystick center X.\n");
+      vTaskDelete(NULL); // Delete self.
+    }
+  }
+  retry = 0;
+  while(uiYcenter < joystick_null || uiYcenter > (joystick_max - joystick_null))
+  {
+    uiYcenter = adc1_get_raw(joystick_y);
+    if (retry++ > 10)
+    {
+      printf("ERROR: unable to retrieve reasonable joystick center Y.\n");
+      vTaskDelete(NULL); // Delete self.
+    }
+  }
+
   // Read loop
-  uint32_t uiX;
-  uint32_t uiY;
-  bool     bButtonUp;
-  joy_msg  message;
   while(true)
   {
-    uiX = adc1_get_raw(joystick_x);
-    uiY = adc1_get_raw(joystick_y);
-    bButtonUp = gpio_get_level(joystick_button); // 1 == button is up.
-
     message.timeStamp = xTaskGetTickCount();
-    message.buttons[axis_steer] = ((float)uiX/256.0) - 1.0;
-    message.buttons[axis_speed] = ((float)uiY/256.0) - 1.0;
-    message.buttons[button_mode] = !bButtonUp; // 1 == button is pressed.
+    message.axes[axis_speed] = joystick_axis_conversion(uiXcenter, adc1_get_raw(joystick_x));
+    message.axes[axis_steer] = joystick_axis_conversion(uiYcenter, adc1_get_raw(joystick_y));
+    message.buttons[button_mode] = !gpio_get_level(joystick_button); // nonzero == button is pressed.
 
     xQueueOverwrite(xJoystickQueue, &message);
     vTaskDelay(pdMS_TO_TICKS(joystick_read_period));
