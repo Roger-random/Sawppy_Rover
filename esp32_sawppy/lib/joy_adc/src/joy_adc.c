@@ -82,6 +82,6 @@ void joy_adc_read_task(void* pvParameter)
     message.buttons[button_mode] = !gpio_get_level(joystick_button); // nonzero == button is pressed.
 
     xQueueOverwrite(xJoystickQueue, &message);
-    vTaskDelay(pdMS_TO_TICKS(joystick_read_period));
+    vTaskDelay(joystick_read_period);
   }
 }

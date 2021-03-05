@@ -16,7 +16,7 @@
 
 #include <joy_msg.h>
 
-// Milliseconds to wait between prints
+// Ticks to wait between prints
 static const TickType_t print_interval = pdMS_TO_TICKS(1000);
 
 // FreeRTOS task which will read joystick message queue

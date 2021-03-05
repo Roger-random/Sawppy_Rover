@@ -57,8 +57,8 @@ static const float joystick_null = 10; // ADC range treated as center null zone.
 // any analog proportionality, so ignore until we need that precision.
 static const adc_atten_t    joystick_attenuation = ADC_ATTEN_DB_11;
 
-// Amount of time to wait between reads, in milliseconds.
-static const int            joystick_read_period   = 20;
+// Number of ticks to wait between reads.
+static const TickType_t     joystick_read_period = pdMS_TO_TICKS(200);
 
 // FreeRTOS task which will read joystick data every joystick_read_period and
 // posts to the given queue of type joy_msg.
