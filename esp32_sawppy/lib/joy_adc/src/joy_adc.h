@@ -47,8 +47,9 @@ static const gpio_num_t     joystick_button = GPIO_NUM_34; // Needs external pul
 // Could a read operation be faster for fewer bits of precision?
 // Available widths are 9 through 12. 2^9 = 512 and plenty for this scenario.
 static const adc_bits_width_t joystick_precision = ADC_WIDTH_BIT_9;
-static const uint32_t joystick_max = 512; // Maximum ADC value based on joystick_precision
-static const float joystick_null = 15; // ADC range treated as center null zone.
+
+// ADC range treated as center null zone. Center +/- this value is still center.
+static const uint32_t joystick_nullzone = 15;
 
 // ADC measures up to ~800mV. But we can add attenuation to extend range
 // of measurement. DB11 gets us up to ~2600mV. Since the joysticks are
@@ -57,8 +58,37 @@ static const float joystick_null = 15; // ADC range treated as center null zone.
 // any analog proportionality, so ignore until we need that precision.
 static const adc_atten_t    joystick_attenuation = ADC_ATTEN_DB_11;
 
-// Number of ticks to wait between reads.
-static const TickType_t     joystick_read_period = pdMS_TO_TICKS(200);
+// Number of ticks to wait between reads while getting joystick range
+// This should be faster than joystick_read_period because user will likely flick
+// through full range rapidly and we need to catch that.
+static const TickType_t     joystick_ranging_read_period = pdMS_TO_TICKS(10);
+
+// Number of ticks to wait between normal read operations.
+static const TickType_t     joystick_read_period = pdMS_TO_TICKS(100);
+
+// Historically lowest value of X axis
+uint32_t uiXlow;
+
+// X axis value treated as center
+uint32_t uiXcenter;
+
+// Historically highest value of X axis
+uint32_t uiXhigh;
+
+// Current value of X axis
+uint32_t uiXnow;
+
+// Historically lowest value of Y axis
+uint32_t uiYlow;
+
+// Y axis value treated as center
+uint32_t uiYcenter;
+
+// Historically highest value of Y axis
+uint32_t uiYhigh;
+
+// Current value of Y axis
+uint32_t uiYnow;
 
 // FreeRTOS task which will read joystick data every joystick_read_period and
 // posts to the given queue of type joy_msg.

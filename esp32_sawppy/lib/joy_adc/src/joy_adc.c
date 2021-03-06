@@ -1,17 +1,24 @@
 #include "joy_adc.h"
 
-// Converts raw ADC reading ()
-float joystick_axis_conversion(uint32_t center, uint32_t reading)
+/**
+ * @brief Normalizes ADC value to range from -1 to 1
+ * @param low Lowest ADC value seen to date, which will map to -1
+ * @param center Center position that will map to 0
+ * @param high Highest ADC value seen to date, which will map to 1
+ * @param now The current ADC value
+ * @return Position repesented by 'now' normalized from (low,center,high) to (-1,0,1)
+ */
+float joystick_axis_conversion(uint32_t low, uint32_t center, uint32_t high, uint32_t now)
 {
-  uint32_t threshold_positive = center + joystick_null;
-  uint32_t threshold_negative = center - joystick_null;
-  if (reading > threshold_positive)
+  uint32_t threshold_positive = center + joystick_nullzone;
+  uint32_t threshold_negative = center - joystick_nullzone;
+  if (now > threshold_positive)
   {
-    return ((float)reading - threshold_positive)/(joystick_max - threshold_positive);
+    return ((float)now - threshold_positive)/(high - threshold_positive);
   }
-  else if (reading < threshold_negative)
+  else if (now < threshold_negative)
   {
-    return ((float)reading - threshold_negative)/threshold_negative;
+    return ((float)now - threshold_negative)/(threshold_negative - low);
   }
   else
   {
@@ -19,14 +26,58 @@ float joystick_axis_conversion(uint32_t center, uint32_t reading)
   }
 }
 
-// FreeRTOS task which will read joystick data every joystick_read_period and
-// posts to the given queue of type joy_msg.
+/**
+ * @brief Read ADC for joystick X and Y values
+ *
+ * @note  Updates 'now' value, will also update 'low' and 'high' as needed
+ */
+void joystick_get_x_y()
+{
+  // Get current joystick X,Y values
+  uiXnow = adc1_get_raw(joystick_x);
+  uiYnow = adc1_get_raw(joystick_y);
+
+  // If current X is higher/lower than historical values, update accordingly.
+  if (uiXlow > uiXnow)
+  {
+    uiXlow = uiXnow;
+  }
+  else if (uiXhigh < uiXnow)
+  {
+    uiXhigh = uiXnow;
+  }
+
+  // If current Y is higher/lower than historical values, update accordingly.
+  if (uiYlow > uiYnow)
+  {
+    uiYlow = uiYnow;
+  }
+  else if (uiYhigh < uiYnow)
+  {
+    uiYhigh = uiYnow;
+  }
+}
+
+/**
+ * @brief Poll joystick button until it is released
+ */
+void wait_for_button_release()
+{
+  while(!gpio_get_level(joystick_button))
+  {
+    printf("joy_adc waiting for button release\n");
+    vTaskDelay(joystick_read_period);
+  }
+}
+
+/**
+ * @brief FreeRTOS task which will read joystick data every joystick_read_period
+ * convert to normalized value and overwrites joy_msg at head of a queue.
+ * @param pvParameter A QueueHandle_t of type joy_msg
+ */
 void joy_adc_read_task(void* pvParameter)
 {
-  uint32_t uiXcenter = 0;
-  uint32_t uiYcenter = 0;
   joy_msg  message;
-  uint32_t retry;
 
   // Get ready to use caller-allocated queue for communicating joystick data
   QueueHandle_t xJoystickQueue;
@@ -52,33 +103,41 @@ void joy_adc_read_task(void* pvParameter)
 
   // Read initial values as center. In case of low quality joysticks that drift, may need
   // to kill and restart this task in order to update these centering values.
-  retry = 0;
-  while(uiXcenter < joystick_null || uiXcenter > (joystick_max - joystick_null))
+  uiXlow = uiXcenter = uiXhigh = adc1_get_raw(joystick_x);
+  uiYlow = uiYcenter = uiYhigh = adc1_get_raw(joystick_y);
+
+  // If button is currently pressed, wait until it is released.
+  wait_for_button_release();
+
+  // Print instructions to output in case anyone is reading.
+  printf("joy_adc entering auto-ranging mode. Move joystick to min and max on all axes then press button.\n");
+
+  // Joystick auto-ranging routine: move stick to min and max on both axes
+  // then press the button.
+  while(gpio_get_level(joystick_button) ||
+        uiXlow > uiXcenter - joystick_nullzone ||
+        uiXhigh < uiXcenter + joystick_nullzone ||
+        uiYlow > uiYcenter - joystick_nullzone ||
+        uiYhigh < uiYcenter + joystick_nullzone)
   {
-    uiXcenter = adc1_get_raw(joystick_x);
-    if (retry++ > 10)
-    {
-      printf("ERROR: unable to retrieve reasonable joystick center X.\n");
-      vTaskDelete(NULL); // Delete self.
-    }
+    joystick_get_x_y();
+    vTaskDelay(joystick_ranging_read_period);
   }
-  retry = 0;
-  while(uiYcenter < joystick_null || uiYcenter > (joystick_max - joystick_null))
-  {
-    uiYcenter = adc1_get_raw(joystick_y);
-    if (retry++ > 10)
-    {
-      printf("ERROR: unable to retrieve reasonable joystick center Y.\n");
-      vTaskDelete(NULL); // Delete self.
-    }
-  }
+
+  // Wait for button to release before entering read loop.
+  wait_for_button_release();
+
+  // Report joystick range to serial output.
+  printf("joy_adc using range X (%d, %d, %d) Y (%d, %d, %d)\n", uiXlow, uiXcenter, uiXhigh, uiYlow, uiYcenter, uiYhigh);
 
   // Read loop
   while(true)
   {
+    joystick_get_x_y();
+
     message.timeStamp = xTaskGetTickCount();
-    message.axes[axis_speed] = joystick_axis_conversion(uiXcenter, adc1_get_raw(joystick_x));
-    message.axes[axis_steer] = joystick_axis_conversion(uiYcenter, adc1_get_raw(joystick_y));
+    message.axes[axis_speed] = joystick_axis_conversion(uiXlow, uiXcenter, uiXhigh, uiXnow);
+    message.axes[axis_steer] = joystick_axis_conversion(uiYlow, uiYcenter, uiYhigh, uiYnow);
     message.buttons[button_mode] = !gpio_get_level(joystick_button); // nonzero == button is pressed.
 
     xQueueOverwrite(xJoystickQueue, &message);
