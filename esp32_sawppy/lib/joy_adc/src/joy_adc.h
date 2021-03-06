@@ -48,7 +48,7 @@ static const gpio_num_t     joystick_button = GPIO_NUM_34; // Needs external pul
 // Available widths are 9 through 12. 2^9 = 512 and plenty for this scenario.
 static const adc_bits_width_t joystick_precision = ADC_WIDTH_BIT_9;
 static const uint32_t joystick_max = 512; // Maximum ADC value based on joystick_precision
-static const float joystick_null = 10; // ADC range treated as center null zone.
+static const float joystick_null = 15; // ADC range treated as center null zone.
 
 // ADC measures up to ~800mV. But we can add attenuation to extend range
 // of measurement. DB11 gets us up to ~2600mV. Since the joysticks are

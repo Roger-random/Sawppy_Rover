@@ -13,7 +13,7 @@ void joy_msg_print_task(void* pvParameter)
 
   while(true)
   {
-    if (pdTRUE == xQueuePeek(xJoystickQueue, &message, 1000))
+    if (pdTRUE == xQueuePeek(xJoystickQueue, &message, portMAX_DELAY))
     {
       printf("joy_msg_print_task - time %d - steer %+.2f - speed %+.2f - button %d\n", 
         message.timeStamp,
@@ -23,8 +23,11 @@ void joy_msg_print_task(void* pvParameter)
     }
     else
     {
+      // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
       printf("joy_msg_print_task failed to peek joystick queue data.\n");
     }
+
+    // Wait before we perform the next queue peek
     vTaskDelay(print_interval);
   }
 }

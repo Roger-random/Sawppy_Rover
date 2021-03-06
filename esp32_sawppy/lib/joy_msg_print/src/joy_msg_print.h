@@ -16,7 +16,9 @@
 
 #include <joy_msg.h>
 
-// Ticks to wait between prints
+// Ticks to wait between prints. NEVER SET TO ZERO.
+// xQueuePeek does not block() and setting this to zero would consume all
+// CPU, starving other tasks.
 static const TickType_t print_interval = pdMS_TO_TICKS(1000);
 
 // FreeRTOS task which will read joystick message queue
