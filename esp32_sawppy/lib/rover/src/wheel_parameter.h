@@ -1,10 +1,11 @@
 /*
- * @brief Rover chassis geometry - wheel position
- * Units are in meters
+ * @brief Rover chassis wheel parameters
+ * Lengths in meters, angles in radians, coordinates as per REP103
+ * https://www.ros.org/reps/rep-0103.html
  */
 
-#ifndef INC_WHEEL_POSITION_H
-#define INC_WHEEL_POSITION_H
+#ifndef INC_WHEEL_PARAMETER_H
+#define INC_WHEEL_PARAMETER_H
 
 // Enumeration for indexing into wheel information array
 enum wheel_name {
@@ -73,4 +74,22 @@ const wheel_position wheel_positions[wheel_count] = {
   },
 };
 
-#endif // #ifndef INC_WHEEL_POSITION_H
+// Rover max speed (meters/second) dictated by wheel motors
+// Achieved when going straight forwards or backwards. This might not be exact
+// due to variations from motor to motor, but close enough to serve as limit.
+static const float velocity_linear_max = 1.0; 
+
+// Rover max turning speed achieved by running the motors at max speed
+// while turning in place. (Not a very practical motion but it's the max.)
+// Calculated from circle with diameter of track_mid, the distance on its
+// circumference covered by velocity_linear_max gives us the angular velocity
+// in radians.
+//
+//   velocity_linear_max         velocity_angular_max
+//  ---------------------   =   ----------------------
+//     track_mid * Pi                  2 * Pi
+//
+// Again this does not need to be exact, just close enough to use as limit.
+static const float velocity_angular_max = velocity_linear_max * 2 / track_mid;
+
+#endif // #ifndef INC_WHEEL_PARAMETER_H
