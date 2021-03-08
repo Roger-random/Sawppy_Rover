@@ -31,3 +31,39 @@ void joy_msg_print_task(void* pvParameter)
     vTaskDelay(print_interval);
   }
 }
+
+
+void twist_msg_print_task(void* pvParameter)
+{
+  twist_msg message;
+  QueueHandle_t xTwistQueue;
+  if (NULL == pvParameter)
+  {
+    printf("ERROR: twist_msg_print_task parameter is null. Expected handle to twist message queue\n");
+    vTaskDelete(NULL); // Delete self.
+  }
+  xTwistQueue = (QueueHandle_t)pvParameter;
+
+  while(true)
+  {
+    if (pdTRUE == xQueuePeek(xTwistQueue, &message, portMAX_DELAY))
+    {
+      printf("twist_msg_print_task - time %d - linear %+.2f,%+.2f,%+.2f - angular %+.2f,%+.2f,%+.2f\n",
+        message.timeStamp,
+        message.linear.x,
+        message.linear.y,
+        message.linear.z,
+        message.angular.x,
+        message.angular.y,
+        message.angular.z);
+    }
+    else
+    {
+      // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
+      printf("twist_msg_print_task failed to peek twist queue data.\n");
+    }
+
+    // Wait before we perform the next queue peek
+    vTaskDelay(print_interval);
+  }
+}
