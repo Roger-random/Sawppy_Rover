@@ -1,14 +1,14 @@
 /*
  *
- * Debug tool: a task to peek joystick queue and print current value
+ * Debug tool: a task to peek a message queue and print current value
  * 
  * Copyright (c) Roger Cheng
  * Released AS-IS under MIT license
  * 
  */
 
-#ifndef INC_JOY_MSG_PRINT_H
-#define INC_JOY_MSG_PRINT_H
+#ifndef INC_MSG_PRINT_H
+#define INC_MSG_PRINT_H
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -28,4 +28,4 @@ void joy_msg_print_task(void*);
 // FreeRTOS task which will read twist message queue
 void twist_msg_print_task(void*);
 
-#endif // #ifndef INC_JOY_MSG_PRINT_H
+#endif // #ifndef INC_MSG_PRINT_H

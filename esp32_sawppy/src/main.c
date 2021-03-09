@@ -3,10 +3,11 @@
 #include "freertos/task.h"
 
 #include <joy_msg.h>
-#include <joy_adc.h>
-#include <joy_msg_print.h>
-#include <joy_steer.h>
 #include <twist_msg.h>
+#include <msg_print.h>
+
+#include <joy_adc.h>
+#include <joy_steer.h>
 
 void app_main()
 {
