@@ -43,6 +43,21 @@ static const float steering_epsilon = 0.01;
  */
 static const float speed_epsilon = 0.01;
 
+// From a system architecture point of view, it should be the joystick driver's
+// responsibility to ensure correct axis alignment. (Positive steer axis is forward
+// speed, etc.) In practice we won't necessarily be able to edit joystick
+// driver so we'll include a provision at this layer to invert joystick axis.
+
+/*
+ * @brief True if positive value in steering axis is negative rotation about Z axis by right-hand rule
+ */
+static const bool joy_steer_invert = false;
+
+/*
+ * @brief True if positive value in speed axis is rover traveling backwards.
+ */
+static const bool joy_speed_invert = false;
+
 /*
  * @brief FreeRTOS task which reads joy_msg and generates velocity command
  * @param Instance of joy_steer_task_parameters filled with queue handles

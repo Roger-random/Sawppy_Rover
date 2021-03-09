@@ -90,6 +90,12 @@ uint32_t uiYhigh;
 // Current value of Y axis
 uint32_t uiYnow;
 
+// Above values "High" and "Low" is relative to raw ADC values. However
+// depending on how a joystick is wired, we may want to invert one or both
+// axis at the end, just before sending out the joystick message.
+static const bool invert_steer = true;
+static const bool invert_speed = false;
+
 // FreeRTOS task which will read joystick data every joystick_read_period and
 // posts to the given queue of type joy_msg.
 void joy_adc_read_task(void*);

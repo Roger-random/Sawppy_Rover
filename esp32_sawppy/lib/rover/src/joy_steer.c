@@ -27,8 +27,9 @@ void joy_steer_task(void* pvParameter)
 
   // Steering angle, in radians, that will point front wheel axle towards mid wheel,
   // making that mid wheel the center of rotation. This is the minimum turning radius
-  // when not in turn-in-place mode.
-  float mid_wheel_point = atan2((track_mid - track_front)/2, wheelbase_front);
+  // when not in turn-in-place mode. Not because of any mechanical limitation but to
+  // keep from confusing human pilots unfamiliar with full range of rover maneuverability.
+  float mid_wheel_point = atan2(wheelbase_front, (track_mid - track_front)/2);
   printf("joy_steer_task mid_wheel_point= %.3f\n", mid_wheel_point);
 
   // Setup complete, begin processing loop.
@@ -42,6 +43,11 @@ void joy_steer_task(void* pvParameter)
       if (fabs(joyData.axes[axis_speed]) > speed_epsilon)
       {
         velocity_linear = joyData.axes[axis_speed] * velocity_linear_max;
+        if (joy_speed_invert)
+        {
+          // Some joysticks are wired positive direction pointing towards rover rear
+          velocity_linear *= -1;
+        }
       }
       else
       {
@@ -51,7 +57,33 @@ void joy_steer_task(void* pvParameter)
       if (fabs(joyData.axes[axis_steer]) > steering_epsilon)
       {
         // Calculate angular velocity based on speed and steering angle
-        velocity_angular = velocity_linear / (tan(joyData.axes[axis_steer] * mid_wheel_point) * wheelbase_front);
+
+        // Joystick axis dictates steering as percentage of steering angle that gives us
+        // our minimum turning radius calculated earlier.
+        float steering_angle = joyData.axes[axis_steer] * mid_wheel_point;
+        if (joy_steer_invert)
+        {
+          // Some joysticks are wired positive direction pointing towards rover right,
+          // which is negative Z rotation by right-hand rule.
+          steering_angle *= -1;
+        }
+
+        // Based on steering angle, calculate the center of turn for the arc which will be
+        // a point on the Y-axis. The first calculation is relative to front wheel, then
+        // we add (or subtract) half of the front wheel track to obtain actual Y coordinate.
+        float turn_center = (wheelbase_front / tan(steering_angle));
+        if (turn_center > 0)
+        {
+          turn_center += (track_front / 2.0);
+        }
+        else
+        {
+          turn_center -= (track_front / 2.0);
+        }
+
+        // Given the desired center of turn and linear velocity, we can calculate
+        // an angular velocity that should hit our desired arc center and speed.
+        velocity_angular = velocity_linear / turn_center;
       }
       else
       {

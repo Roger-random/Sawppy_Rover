@@ -8,22 +8,26 @@
  * @param now The current ADC value
  * @return Position repesented by 'now' normalized from (low,center,high) to (-1,0,1)
  */
-float joystick_axis_conversion(uint32_t low, uint32_t center, uint32_t high, uint32_t now)
+float joystick_axis_conversion(uint32_t low, uint32_t center, uint32_t high, uint32_t now, bool invert)
 {
   uint32_t threshold_positive = center + joystick_nullzone;
   uint32_t threshold_negative = center - joystick_nullzone;
+  float normalized = 0.0;
   if (now > threshold_positive)
   {
-    return ((float)now - threshold_positive)/(high - threshold_positive);
+    normalized = ((float)now - threshold_positive)/(high - threshold_positive);
   }
   else if (now < threshold_negative)
   {
-    return ((float)now - threshold_negative)/(threshold_negative - low);
+    normalized = ((float)now - threshold_negative)/(threshold_negative - low);
   }
-  else
+
+  if (invert)
   {
-    return 0.0;
+    normalized *= -1;
   }
+
+  return normalized;
 }
 
 /**
@@ -136,8 +140,8 @@ void joy_adc_read_task(void* pvParameter)
     joystick_get_x_y();
 
     message.timeStamp = xTaskGetTickCount();
-    message.axes[axis_speed] = joystick_axis_conversion(uiXlow, uiXcenter, uiXhigh, uiXnow);
-    message.axes[axis_steer] = joystick_axis_conversion(uiYlow, uiYcenter, uiYhigh, uiYnow);
+    message.axes[axis_speed] = joystick_axis_conversion(uiXlow, uiXcenter, uiXhigh, uiXnow, invert_speed);
+    message.axes[axis_steer] = joystick_axis_conversion(uiYlow, uiYcenter, uiYhigh, uiYnow, invert_steer);
     message.buttons[button_mode] = !gpio_get_level(joystick_button); // nonzero == button is pressed.
 
     xQueueOverwrite(xJoystickQueue, &message);
