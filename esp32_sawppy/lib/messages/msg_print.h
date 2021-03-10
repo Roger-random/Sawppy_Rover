@@ -16,6 +16,7 @@
 
 #include <joy_msg.h>
 #include <twist_msg.h>
+#include <wheel_msg.h>
 
 // Ticks to wait between prints. NEVER SET TO ZERO.
 // xQueuePeek does not block() and setting this to zero would consume all
@@ -27,5 +28,8 @@ void joy_msg_print_task(void*);
 
 // FreeRTOS task which will read twist message queue
 void twist_msg_print_task(void*);
+
+// FreeRTOS task which will read wheel control message
+void wheel_msg_print_task(void*);
 
 #endif // #ifndef INC_MSG_PRINT_H

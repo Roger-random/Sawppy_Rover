@@ -67,3 +67,37 @@ void twist_msg_print_task(void* pvParameter)
     vTaskDelay(print_interval);
   }
 }
+
+void wheel_msg_print_task(void* pvParameter)
+{
+  wheel_msg message;
+  QueueHandle_t xWheelQueue;
+  if (NULL == pvParameter)
+  {
+    printf("ERROR: wheel_msg_print_task parameter is null. Expected handle to wheel message queue\n");
+    vTaskDelete(NULL); // Delete self.
+  }
+  xWheelQueue = (QueueHandle_t)pvParameter;
+
+  while(true)
+  {
+    if (pdTRUE == xQueuePeek(xWheelQueue, &message, portMAX_DELAY))
+    {
+      printf("wheel_msg_print_task - time %d",
+        message.timeStamp);
+      for (int wheel = 0; wheel < WHEEL_MSG_DATA_COUNT; wheel++)
+      {
+        printf(" %+.2f rad %.2f m/s", message.steer[wheel], message.speed[wheel]);
+      }
+      printf("\n");
+    }
+    else
+    {
+      // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
+      printf("wheel_msg_print_task failed to peek wheel queue data.\n");
+    }
+
+    // Wait before we perform the next queue peek
+    vTaskDelay(print_interval);
+  }
+}
