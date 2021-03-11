@@ -11,6 +11,8 @@
 #ifndef INC_DRV8833_MCPWM_H
 #define INC_DRV8833_MCPWM_H
 
+#include <math.h>
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"

@@ -2,7 +2,7 @@
 
 void update_motor_speed(float velocity, mcpwm_motor_control MC)
 {
-  float duty_cycle = duty_cycle_max * (velocity / velocity_linear_max);
+  float duty_cycle = fabs(duty_cycle_max * (velocity / velocity_linear_max));
 
   if (duty_cycle > 100.0)
   {
@@ -12,18 +12,18 @@ void update_motor_speed(float velocity, mcpwm_motor_control MC)
 
   if (velocity > 0)
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioA, duty_cycle);
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioB, 0);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, duty_cycle);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0);
   }
   else if (velocity < 0)
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioA, 0);
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioB, duty_cycle);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, duty_cycle);
   }
   else
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioA, 0);
-    mcpwm_set_duty(MC.unit, MC.timer, MC.gpioB, 0);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0);
+    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0);
   }
 }
 
@@ -75,7 +75,7 @@ void drv8833_mcpwm_task(void* pvParam)
     {
       for (int wheel = 0; wheel < wheel_count; wheel++)
       {
-        current_speed[wheel] = 0.2;
+        current_speed[wheel] = 0.3;
         update_motor_speed(current_speed[wheel], speed_control[wheel]);
       }
     }
