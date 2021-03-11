@@ -10,6 +10,7 @@
 #include <joy_adc.h>
 #include <joy_steer.h>
 #include <wheel_ackermann.h>
+#include <drv8833_mcpwm.h>
 
 void app_main()
 {
@@ -39,5 +40,6 @@ void app_main()
     //xTaskCreate(twist_msg_print_task, "twist_msg_print_task", 2048, xCmdVelQueue, 25, NULL);
     xTaskCreate(wheel_ackermann_task, "wheel_ackermann_task", 2048, &wheel_ackermann_params, 14, NULL);
     xTaskCreate(wheel_msg_print_task, "wheel_msg_print_task", 2048, xWheelQueue, 25, NULL);
+    xTaskCreate(drv8833_mcpwm_task, "drv8833_mcpwm_task", 2048, xWheelQueue, 13, NULL);
   }
 }
