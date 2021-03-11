@@ -34,9 +34,9 @@ void app_main()
   else
   {
     xTaskCreate(joy_adc_read_task, "joy_adc_read_task", 2048, xJoystickQueue, 20, NULL);
-    xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
+    //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
     xTaskCreate(joy_steer_task, "joy_steer_task", 2048, &joy_steer_params, 15, NULL);
-    xTaskCreate(twist_msg_print_task, "twist_msg_print_task", 2048, xCmdVelQueue, 25, NULL);
+    //xTaskCreate(twist_msg_print_task, "twist_msg_print_task", 2048, xCmdVelQueue, 25, NULL);
     xTaskCreate(wheel_ackermann_task, "wheel_ackermann_task", 2048, &wheel_ackermann_params, 14, NULL);
     xTaskCreate(wheel_msg_print_task, "wheel_msg_print_task", 2048, xWheelQueue, 25, NULL);
   }
