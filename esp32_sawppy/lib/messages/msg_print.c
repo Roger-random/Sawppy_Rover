@@ -15,7 +15,7 @@ void joy_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xJoystickQueue, &message, portMAX_DELAY))
     {
-      printf("joy_msg_print_task - time %d - steer %+.2f - speed %+.2f - button %d\n", 
+      printf("joy_msg %d | steer %+.2f | speed %+.2f | button %d\n",
         message.timeStamp,
         message.axes[axis_steer],
         message.axes[axis_speed],
@@ -48,7 +48,7 @@ void twist_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xTwistQueue, &message, portMAX_DELAY))
     {
-      printf("twist_msg_print_task - time %d - linear %+.2f,%+.2f,%+.2f - angular %+.2f,%+.2f,%+.2f\n",
+      printf("twist_msg  %d | linear %+.2f,%+.2f,%+.2f | angular %+.2f,%+.2f,%+.2f\n",
         message.timeStamp,
         message.linear.x,
         message.linear.y,
@@ -83,11 +83,11 @@ void wheel_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xWheelQueue, &message, portMAX_DELAY))
     {
-      printf("wheel_msg_print_task - time %d",
+      printf("wheel_msg %d",
         message.timeStamp);
       for (int wheel = 0; wheel < WHEEL_MSG_DATA_COUNT; wheel++)
       {
-        printf(" %+.2f rad %.2f m/s", message.steer[wheel], message.speed[wheel]);
+        printf(" | %+.2f rad %+.2f m/s", message.steer[wheel], message.speed[wheel]);
       }
       printf("\n");
     }
