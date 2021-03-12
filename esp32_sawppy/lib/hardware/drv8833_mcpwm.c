@@ -2,12 +2,24 @@
 
 void update_motor_speed(float velocity, mcpwm_motor_control MC)
 {
-  float duty_cycle = fabs(duty_cycle_max * (velocity / velocity_linear_max));
+  float duty_cycle;
 
-  if (duty_cycle > 100.0)
+  if (fabs(velocity) < wheel_speed_min)
   {
-    printf("WARNING: Duty cycle capped at 100 percent.\n");
-    duty_cycle = 100.0;
+    // Below minimum. Don't bother sending power as it'd just
+    // turn into heat with stalled motor.
+    duty_cycle = 0.0;
+  }
+  else
+  {
+    duty_cycle = duty_cycle_min + (fabs(velocity)/wheel_speed_max) * (duty_cycle_max - duty_cycle_min);
+  }
+
+  if (duty_cycle > duty_cycle_max)
+  {
+    // Possible to exceed max in certain travel geometries.
+    // Exampel: outermost wheel moves faster than rover body
+    duty_cycle = duty_cycle_max;
   }
 
   if (velocity > 0)
@@ -57,12 +69,12 @@ void drv8833_mcpwm_task(void* pvParam)
       speed_control[wheel].timer,
       &mcpwm_config);
     mcpwm_gpio_init(
-      speed_control[wheel].unit, 
-      speed_control[wheel].signalA, 
+      speed_control[wheel].unit,
+      speed_control[wheel].signalA,
       speed_control[wheel].gpioA);
     mcpwm_gpio_init(
-      speed_control[wheel].unit, 
-      speed_control[wheel].signalB, 
+      speed_control[wheel].unit,
+      speed_control[wheel].signalB,
       speed_control[wheel].gpioB);
     current_speed[wheel] = 0.0;
     update_motor_speed(current_speed[wheel], speed_control[wheel]);
@@ -75,8 +87,42 @@ void drv8833_mcpwm_task(void* pvParam)
     {
       for (int wheel = 0; wheel < wheel_count; wheel++)
       {
-        current_speed[wheel] = 0.3;
-        update_motor_speed(current_speed[wheel], speed_control[wheel]);
+        float currentSpeed = current_speed[wheel];
+        float targetSpeed = message.speed[wheel];
+        float newSpeed;
+
+        // newSpeed speed moves towards targetSpeed, limited by acceleration cap
+        if (targetSpeed > currentSpeed + wheel_accel_max)
+        {
+          newSpeed = currentSpeed + wheel_accel_max;
+        }
+        else if (targetSpeed < currentSpeed - wheel_accel_max)
+        {
+          newSpeed = currentSpeed - wheel_accel_max;
+        }
+        else
+        {
+          newSpeed = targetSpeed;
+        }
+
+        // If we are switching directions, minimum stopped deadtime of one update cycle.
+        if ((currentSpeed < 0 && newSpeed > 0) || (currentSpeed > 0 && newSpeed < 0))
+        {
+          newSpeed = 0;
+        }
+
+        // If starting from below minimum, give motor a startup kick.
+        if (currentSpeed < wheel_speed_min && newSpeed > wheel_speed_min)
+        {
+          newSpeed = wheel_speed_startup;
+        }
+        else if (currentSpeed > -wheel_speed_min && newSpeed < -wheel_speed_min)
+        {
+          newSpeed = -wheel_speed_startup;
+        }
+
+        update_motor_speed(newSpeed, speed_control[wheel]);
+        current_speed[wheel] = newSpeed;
       }
     }
     else

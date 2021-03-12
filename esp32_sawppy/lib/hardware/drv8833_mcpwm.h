@@ -26,23 +26,37 @@
 // will be commanded to stop as a safety measure.
 static const TickType_t wheel_msg_timeout_interval = pdMS_TO_TICKS(500);
 
-// Wheel speed update proportion.
-// 0.25 means 25% of new speed averaged with 75% of existing speed.
-// When set to 1.0, all commands are instantaneous.
-// Values less than 1.0 allows gradual ramping of speed.
+// Wheel speed acceleration cap.
+// Wheel velocity will not change by more than this amount per update.
 static const float wheel_accel_max = 0.1;
 
-// 50 kHz to run this above range of human hearing in order to avoid
-// audible whine. Well within range of what DRV8833 can handle.
-static const uint32_t pwm_freq = 50000;
+// Frequency for MCPWM control signals. DRV8833 can handle up to megahertz
+// and still stay within its minimum required rise and fall times. Running
+// slower than range of human hearing (~20kHz) will result in audible whine
+// during operation. Running at higher speeds will make the rover less
+// audibly noisy. However switching losses also increase at higher frequencies,
+// and motor response curve (duty cycle vs. motor speed) will also change.
+static const uint32_t pwm_freq = 20000;
 
 // Duty cycle limit: restrict duty cycle to be no greater than this value.
 // Necessary when the power supply exceeds voltage rating of motor.
 // TT gearmotors are typically quoted for 3-6V operation.
 // Fully charged 2S LiPo is 8.4V. 6/8.4 ~= 72%.
 // Feeling adventurous? Nominal 2S LiPo is 7.4V. 7.4/8.4 ~= 88%
-// 4 AA batteries (max 6V) = 100.
-static const uint32_t duty_cycle_max = 100;
+// 4 AA batteries (max 6V) = 100%.
+static const float duty_cycle_max = 88;
+
+// Approximate speed, in meters per second, of wheel on duty_cycle_max
+static const float wheel_speed_max = 0.75;
+
+// TT gear motors couldn't spin at arbitrarily low speeds. This is the
+// lowest speed our wheel can sustain, anything lower just stops.
+static const float duty_cycle_min = 60;
+static const float wheel_speed_min = 0.15;
+
+// Starting from a stop, the DC gear motor needs extra power to overcome
+// static friction.
+static const float wheel_speed_startup = 0.30;
 
 /*
  * @brief MCPWM peripheral parameters for a particular wheel
