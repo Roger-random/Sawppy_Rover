@@ -36,7 +36,7 @@ static const float wheel_accel_max = 0.1;
 // during operation. Running at higher speeds will make the rover less
 // audibly noisy. However switching losses also increase at higher frequencies,
 // and motor response curve (duty cycle vs. motor speed) will also change.
-static const uint32_t pwm_freq = 20000;
+static const uint32_t pwm_freq = 1000;
 
 // Duty cycle limit: restrict duty cycle to be no greater than this value.
 // Necessary when the power supply exceeds voltage rating of motor.
@@ -44,18 +44,22 @@ static const uint32_t pwm_freq = 20000;
 // Fully charged 2S LiPo is 8.4V. 6/8.4 ~= 72%.
 // Feeling adventurous? Nominal 2S LiPo is 7.4V. 7.4/8.4 ~= 88%
 // 4 AA batteries (max 6V) = 100%.
-static const float duty_cycle_max = 88;
+static const float duty_cycle_max = 100;
 
 // Approximate speed, in meters per second, of wheel on duty_cycle_max
 static const float wheel_speed_max = 0.75;
 
-// TT gear motors couldn't spin at arbitrarily low speeds. This is the
-// lowest speed our wheel can sustain, anything lower just stops.
+// DC gear motors couldn't spin at arbitrarily low speeds. This is close to
+// the lowest speed our wheel can self-sustain. Around this level a wheel
+// needs external help. For example, from other wheels.
 static const float duty_cycle_min = 60;
 static const float wheel_speed_min = 0.15;
 
+// Any speed within this value is close enough to zero to be treated as zero
+static const float wheel_speed_epsilon = 0.01;
+
 // Starting from a stop, the DC gear motor needs extra power to overcome
-// static friction.
+// static friction so this is higher than wheel_speed_min.
 static const float wheel_speed_startup = 0.30;
 
 /*

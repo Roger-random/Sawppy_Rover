@@ -4,22 +4,30 @@ void update_motor_speed(float velocity, mcpwm_motor_control MC)
 {
   float duty_cycle;
 
-  if (fabs(velocity) < wheel_speed_min)
+  if (fabs(velocity) < wheel_speed_epsilon)
   {
-    // Below minimum. Don't bother sending power as it'd just
-    // turn into heat with stalled motor.
+    // Close enough to be zero to be treated as zero.
     duty_cycle = 0.0;
+  }
+  else if (fabs(velocity) < wheel_speed_min)
+  {
+    // Below the level our DC motor can sustain running by itself. However
+    // it might have help from other wheels so we feed it enough power to
+    // barely overcome geartrain friction
+    duty_cycle = duty_cycle_min;
   }
   else
   {
     duty_cycle = duty_cycle_min + (fabs(velocity)/wheel_speed_max) * (duty_cycle_max - duty_cycle_min);
   }
 
-  if (duty_cycle > duty_cycle_max)
+  if (duty_cycle > 100.0)
   {
-    // Possible to exceed max in certain travel geometries.
-    // Exampel: outermost wheel moves faster than rover body
-    duty_cycle = duty_cycle_max;
+    // Velocity should not exceed wheel_speed_max. If it happens, that's a bug
+    // elsewhere in this code. But if it happens anyway, clamp value and emit
+    // diagnostic message.
+    duty_cycle = 100.0;
+    printf("WARNING: Motor speed velocity %+.2f exceeded specified maximum %+.2f.\n", velocity, wheel_speed_max);
   }
 
   if (velocity > 0)
@@ -121,8 +129,45 @@ void drv8833_mcpwm_task(void* pvParam)
           newSpeed = -wheel_speed_startup;
         }
 
-        update_motor_speed(newSpeed, speed_control[wheel]);
         current_speed[wheel] = newSpeed;
+      }
+
+      // Calculated velocities has been stored in current_speed[]. But due to
+      // rover geometry, it is possible for some wheels to end up with velocity
+      // higher than wheel_speed_max. If so, scale every value of the range
+      // [wheel_speed_startup, calc_max] to [wheel_speed_startup, wheel_speed_max]
+      float calc_max = 0;
+      for (int wheel = 0; wheel < wheel_count; wheel++)
+      {
+        if (fabs(current_speed[wheel]) > calc_max)
+        {
+          calc_max = fabs(current_speed[wheel]);
+        }
+      }
+
+      if (calc_max > wheel_speed_max)
+      {
+        float scale = (wheel_speed_max-wheel_speed_startup) /
+                      (calc_max-wheel_speed_startup);
+        float magnitude = 0;
+        for (int wheel = 0; wheel < wheel_count; wheel++)
+        {
+          magnitude = fabs(current_speed[wheel]);
+          if (magnitude > wheel_speed_startup)
+          {
+            magnitude -= wheel_speed_startup;
+            magnitude *= scale;
+            magnitude += wheel_speed_startup;
+
+            current_speed[wheel] = copysignf(magnitude, current_speed[wheel]);
+          }
+        }
+      }
+
+      // All speed adjustments complete, send results to motor controllers.
+      for (int wheel = 0; wheel < wheel_count; wheel++)
+      {
+        update_motor_speed(current_speed[wheel], speed_control[wheel]);
       }
     }
     else
