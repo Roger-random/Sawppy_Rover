@@ -43,6 +43,9 @@ typedef struct ledc_servo_control {
   ledc_channel_t channel;
   gpio_num_t gpio; // GPIO_NUM_NC to indicate not connected
   bool invert;
+  uint32_t min;
+  uint32_t mid;
+  uint32_t max;
 } ledc_servo_control;
 
 /*
@@ -54,36 +57,54 @@ static const ledc_servo_control steer_control[wheel_count] = {
     LEDC_CHANNEL_0,
     GPIO_NUM_14,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
   // front right
   {
     LEDC_CHANNEL_1,
     GPIO_NUM_5,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
   // mid left
   {
     LEDC_CHANNEL_MAX,
     GPIO_NUM_NC,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
   // mid right
   {
     LEDC_CHANNEL_MAX,
     GPIO_NUM_NC,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
   // back left
   {
     LEDC_CHANNEL_2,
     GPIO_NUM_13,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
   // back right
   {
     LEDC_CHANNEL_3,
     GPIO_NUM_15,
     false,
+    steer_duty_min,
+    steer_duty_mid,
+    steer_duty_max,
   },
 };
 

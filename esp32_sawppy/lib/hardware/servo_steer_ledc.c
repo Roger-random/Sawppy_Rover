@@ -31,7 +31,7 @@ void servo_steer_ledc_task(void* pvParam)
     }
     ledc_channel_config_t ledc_channel = {
       .channel = steer_control[wheel].channel,
-      .duty = steer_duty_mid,
+      .duty = steer_control[wheel].mid,
       .gpio_num = steer_control[wheel].gpio,
       .speed_mode = LEDC_LOW_SPEED_MODE,
       .hpoint = 0,
@@ -42,7 +42,8 @@ void servo_steer_ledc_task(void* pvParam)
 
   // Processing loop
   uint32_t current_duty = steer_duty_mid;
-  bool upwards = true;
+  float steer_radian = 0;
+  float scale_factor = 1.0;
   while(true)
   {
     // Wait for next joystick message
@@ -50,12 +51,40 @@ void servo_steer_ledc_task(void* pvParam)
     {
       for (int wheel = 0; wheel < wheel_count; wheel++)
       {
+        // Ignore wheels without a designated steering control pin.
         if (GPIO_NUM_NC == steer_control[wheel].gpio)
         {
-          // No servo for this wheel, ignore.
           continue;
         }
 
+        // Ignore wheels that are not moving.
+        if (fabs(message.speed[wheel]) < 0.01)
+        {
+          continue;
+        }
+
+        // Retrieve steering angle in radians
+        steer_radian = message.steer[wheel];
+        if (steer_control[wheel].invert)
+        {
+          steer_radian *= -1;
+        }
+
+        // Convert to duty cycle. Positive steering angle is scaled between
+        // mid and max. Negative angle scaled between mid and min.
+        scale_factor = steer_radian / M_PI_2;
+        if (steer_radian > 0)
+        {
+          current_duty = steer_control[wheel].max - steer_control[wheel].mid;
+        }
+        else
+        {
+          current_duty = steer_control[wheel].mid - steer_control[wheel].min;
+        }
+        current_duty *= scale_factor;
+        current_duty += steer_control[wheel].mid;
+
+        // Update LEDC peripheral with results
         ledc_set_duty(
           LEDC_LOW_SPEED_MODE,
           steer_control[wheel].channel,
@@ -63,25 +92,6 @@ void servo_steer_ledc_task(void* pvParam)
         ledc_update_duty(
           LEDC_LOW_SPEED_MODE,
           steer_control[wheel].channel);
-      }
-
-      if (upwards)
-      {
-        current_duty += 100;
-        if (current_duty > steer_duty_max)
-        {
-          current_duty = steer_duty_max;
-          upwards = false;
-        }
-      }
-      else
-      {
-        current_duty -= 100;
-        if (current_duty < steer_duty_min)
-        {
-          current_duty = steer_duty_min;
-          upwards = true;
-        }
       }
     }
     else
