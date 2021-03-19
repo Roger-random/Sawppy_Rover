@@ -24,6 +24,8 @@
 #include <wheel_parameter.h>
 #include <wheel_msg.h>
 
+#include "gpio_assignments.h"
+
 // 15-bit PWM duty cycle resolution. 2^15 = 32768
 // 50 Hz PWM frequency (once every 20ms)
 // 32768 / 20 = 1638 representing 1ms
@@ -55,7 +57,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   // front left
   {
     LEDC_CHANNEL_0,
-    GPIO_NUM_14,
+    servo_front_left,
     false,
     steer_duty_min,
     steer_duty_mid,
@@ -64,7 +66,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   // front right
   {
     LEDC_CHANNEL_1,
-    GPIO_NUM_5,
+    servo_front_right,
     false,
     steer_duty_min,
     steer_duty_mid,
@@ -91,7 +93,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   // back left
   {
     LEDC_CHANNEL_2,
-    GPIO_NUM_13,
+    servo_back_left,
     false,
     steer_duty_min,
     steer_duty_mid,
@@ -100,7 +102,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   // back right
   {
     LEDC_CHANNEL_3,
-    GPIO_NUM_15,
+    servo_back_right,
     false,
     steer_duty_min,
     steer_duty_mid,

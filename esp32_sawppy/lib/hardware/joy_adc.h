@@ -22,6 +22,8 @@
 
 #include <joy_msg.h>
 
+#include "gpio_assignments.h"
+
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html
 //
 // ESP32 analog read configuration isn't "Set GPIO [X] to analog input mode"
@@ -41,7 +43,6 @@
 
 static const adc1_channel_t joystick_x = ADC1_GPIO36_CHANNEL;
 static const adc1_channel_t joystick_y = ADC1_GPIO39_CHANNEL;
-static const gpio_num_t     joystick_button = GPIO_NUM_34; // Needs external pull-up resistor
 
 // Unknown: does setting resolution to lower resolution gain any benefit?
 // Could a read operation be faster for fewer bits of precision?

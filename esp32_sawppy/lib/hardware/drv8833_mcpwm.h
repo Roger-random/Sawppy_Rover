@@ -22,6 +22,8 @@
 #include <wheel_parameter.h>
 #include <wheel_msg.h>
 
+#include "gpio_assignments.h"
+
 // Wheel messages must be received at least this often, or else the rover
 // will be commanded to stop as a safety measure.
 static const TickType_t wheel_msg_timeout_interval = pdMS_TO_TICKS(500);
@@ -83,54 +85,54 @@ static const mcpwm_motor_control speed_control[wheel_count] = {
     MCPWM_UNIT_0,
     MCPWM_TIMER_0,
     MCPWM0A,
-    GPIO_NUM_32,
+    drv8833_front_left_a,
     MCPWM0B,
-    GPIO_NUM_33,
+    drv8833_front_left_b,
   },
   // front_right
   {
     MCPWM_UNIT_1,
     MCPWM_TIMER_0,
     MCPWM0A,
-    GPIO_NUM_19,
+    drv8833_front_right_a,
     MCPWM0B,
-    GPIO_NUM_18,
+    drv8833_front_right_b,
   },
   // mid_left
   {
     MCPWM_UNIT_0,
     MCPWM_TIMER_1,
     MCPWM1A,
-    GPIO_NUM_25,
+    drv8833_mid_left_a,
     MCPWM1B,
-    GPIO_NUM_26,
+    drv8833_mid_left_b,
   },
   // mid_right
   {
     MCPWM_UNIT_1,
     MCPWM_TIMER_1,
     MCPWM1A,
-    GPIO_NUM_17,
+    drv8833_mid_right_a,
     MCPWM1B,
-    GPIO_NUM_16,
+    drv8833_mid_right_b,
   },
   // back_left
   {
     MCPWM_UNIT_0,
     MCPWM_TIMER_2,
     MCPWM2A,
-    GPIO_NUM_27,
+    drv8833_back_left_a,
     MCPWM2B,
-    GPIO_NUM_12,
+    drv8833_back_left_b,
   },
   // back_right
   {
     MCPWM_UNIT_1,
     MCPWM_TIMER_2,
     MCPWM2A,
-    GPIO_NUM_4,
+    drv8833_back_right_a,
     MCPWM2B,
-    GPIO_NUM_2,
+    drv8833_back_right_b,
   },
 };
 
