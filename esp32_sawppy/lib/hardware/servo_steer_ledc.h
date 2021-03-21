@@ -58,7 +58,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_0,
     servo_front_left,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
@@ -67,7 +67,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_1,
     servo_front_right,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
@@ -76,7 +76,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_MAX,
     GPIO_NUM_NC,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
@@ -85,7 +85,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_MAX,
     GPIO_NUM_NC,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
@@ -94,7 +94,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_2,
     servo_back_left,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
@@ -103,7 +103,7 @@ static const ledc_servo_control steer_control[wheel_count] = {
   {
     LEDC_CHANNEL_3,
     servo_back_right,
-    false,
+    true,
     steer_duty_min,
     steer_duty_mid,
     steer_duty_max,
