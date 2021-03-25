@@ -15,9 +15,16 @@
 
 #include "hal/gpio_types.h"
 
-#define CARDBOARD_BOX_TESTBED
+#define MSB3
 
 #ifdef CARDBOARD_BOX_TESTBED
+#define USE_JOY_ADC
+#endif
+
+#ifdef MSB3
+#define USE_JOY_RMT_RC
+#endif
+
 static const gpio_num_t __boot_pwm = GPIO_NUM_0; // PWM
 // static const gpio_num_t __uart_tx0 = GPIO_NUM_1;
 static const gpio_num_t drv8833_back_right_b = GPIO_NUM_2;
@@ -52,12 +59,29 @@ static const gpio_num_t drv8833_back_left_a = GPIO_NUM_27;
 // static const gpio_num_t __unavailable_31 = GPIO_NUM_31;
 static const gpio_num_t drv8833_front_left_a = GPIO_NUM_32;
 static const gpio_num_t drv8833_front_left_b = GPIO_NUM_33;
+#ifdef USE_JOY_ADC
 static const gpio_num_t joystick_button = GPIO_NUM_34; // Needs external pull-up resistor
+#endif
+#ifdef USE_JOY_RMT_RC
+static const gpio_num_t joy_rmt_rc_aux = GPIO_NUM_34;
+#endif
 static const gpio_num_t __free_input_35 = GPIO_NUM_35;
+
+#ifdef USE_JOY_ADC
 static const gpio_num_t adc_joystick_x = GPIO_NUM_36; // Indirectly used via ADC1_GPIO36_CHANNEL
+#endif
+#ifdef USE_JOY_RMT_RC
+static const gpio_num_t joy_rmt_rc_steer = GPIO_NUM_36;
+#endif
+
 // static const gpio_num_t __unavailable_37 = GPIO_NUM_37;
 // static const gpio_num_t __unavailable_38 = GPIO_NUM_38;
+
+#ifdef USE_JOY_ADC
 static const gpio_num_t adc_joystick_y = GPIO_NUM_39; // Indirectly used via ADC1_GPIO39_CHANNEL
+#endif
+#ifdef USE_JOY_RMT_RC
+static const gpio_num_t joy_rmt_rc_throttle = GPIO_NUM_39;
 #endif
 
 #endif // #ifndef INC_GPIO_ASSIGNMENTS_H

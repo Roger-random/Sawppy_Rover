@@ -24,6 +24,8 @@
 
 #include "gpio_assignments.h"
 
+#ifdef USE_JOY_ADC
+
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html
 //
 // ESP32 analog read configuration isn't "Set GPIO [X] to analog input mode"
@@ -100,5 +102,7 @@ static const bool invert_speed = false;
 // FreeRTOS task which will read joystick data every joystick_read_period and
 // posts to the given queue of type joy_msg.
 void joy_adc_read_task(void*);
+
+#endif // #ifdef USE_JOY_ADC
 
 #endif // #ifndef INC_JOY_ADC_H

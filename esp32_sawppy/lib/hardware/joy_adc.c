@@ -1,4 +1,5 @@
 #include "joy_adc.h"
+#ifdef USE_JOY_ADC
 
 /**
  * @brief Normalizes ADC value to range from -1 to 1
@@ -148,3 +149,4 @@ void joy_adc_read_task(void* pvParameter)
     vTaskDelay(joystick_read_period);
   }
 }
+#endif // #ifdef USE_JOY_ADC

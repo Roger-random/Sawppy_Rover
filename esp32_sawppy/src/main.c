@@ -7,7 +7,15 @@
 #include <wheel_msg.h>
 #include <msg_print.h>
 
+#include "gpio_assignments.h"
+
+#ifdef USE_JOY_ADC
 #include <joy_adc.h>
+#endif
+#ifdef USE_JOY_RMT_RC
+#include <joy_rmt_rc.h>
+#endif
+
 #include <joy_steer.h>
 #include <wheel_ackermann.h>
 #include <servo_steer_ledc.h>
@@ -35,8 +43,13 @@ void app_main()
   }
   else
   {
+#ifdef USE_JOY_ADC
     xTaskCreate(joy_adc_read_task, "joy_adc_read_task", 2048, xJoystickQueue, 20, NULL);
-    //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
+#endif
+#ifdef USE_JOY_RMT_RC
+    xTaskCreate(joy_rmt_rc_read_task, "joy_rmt_rc_read_task", 2048, xJoystickQueue, 20, NULL);
+#endif
+    xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
     xTaskCreate(joy_steer_task, "joy_steer_task", 2048, &joy_steer_params, 15, NULL);
     //xTaskCreate(twist_msg_print_task, "twist_msg_print_task", 2048, xCmdVelQueue, 25, NULL);
     xTaskCreate(wheel_ackermann_task, "wheel_ackermann_task", 2048, &wheel_ackermann_params, 14, NULL);
