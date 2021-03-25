@@ -60,9 +60,9 @@ static const rmt_rc_channel rc_channels[axis_count] = {
 static const uint8_t rmt_clock_divider = 80;
 
 /*
- * @brief Go into idle after inaction longer than 25ms = 25000us
+ * @brief Go into idle after inaction longer than 7ms = 7000us
  */
-static const uint16_t rmt_idle_threshold = 25000;
+static const uint16_t rmt_idle_threshold = 7000;
 
 /*
  * @brief Signal shorter than 0.25ms = 250us will be ignored as noise
@@ -82,7 +82,7 @@ static const uint16_t rc_receive_mid = 1500;
 /*
  * @brief RC receiver usually sends 2ms = 2000us on the high end
  */
-static const uint16_t rc_receive_high = 2000;
+static const uint16_t rc_receive_max = 2000;
 
 /*
  * @brief FreeRTOS task which reads servo control signals sent by radio
