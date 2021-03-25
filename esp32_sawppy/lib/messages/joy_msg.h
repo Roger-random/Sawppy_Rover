@@ -13,12 +13,17 @@
 
 #include "freertos/FreeRTOS.h"
 
-static const uint32_t axis_steer = 0;
-static const uint32_t axis_speed = 1;
-#define axis_count 2
+typedef enum {
+  axis_steer,
+  axis_speed,
+  axis_aux,
+  axis_count,
+} joy_msg_axes;
 
-static const uint32_t button_mode = 0;
-#define button_count 1
+typedef enum {
+  button_mode,
+  button_count,
+} joy_msg_buttons;
 
 typedef struct xJoystickMessage
 {

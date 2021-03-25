@@ -81,7 +81,7 @@ static const gpio_num_t joy_rmt_rc_steer = GPIO_NUM_36;
 static const gpio_num_t adc_joystick_y = GPIO_NUM_39; // Indirectly used via ADC1_GPIO39_CHANNEL
 #endif
 #ifdef USE_JOY_RMT_RC
-static const gpio_num_t joy_rmt_rc_throttle = GPIO_NUM_39;
+static const gpio_num_t joy_rmt_rc_speed = GPIO_NUM_39;
 #endif
 
 #endif // #ifndef INC_GPIO_ASSIGNMENTS_H

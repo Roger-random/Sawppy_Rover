@@ -24,9 +24,65 @@
 
 #ifdef USE_JOY_RMT_RC
 
-static rmt_channel_t rmt_channel_steer = RMT_CHANNEL_0;
-static rmt_channel_t rmt_channel_throttle = RMT_CHANNEL_1;
-static rmt_channel_t rmt_channel_aux = RMT_CHANNEL_2;
+/*
+ * @brief Structure to hold RMT configuration information specific to a channel
+ */
+typedef struct rmt_rc_channel
+{
+  rmt_channel_t channel;
+  gpio_num_t pin;
+} rmt_rc_channel;
+
+/*
+ * @brief Array of channel-specific RMT configuration parameters
+ */
+static const rmt_rc_channel rc_channels[axis_count] = {
+  // axis_steer
+  {
+    RMT_CHANNEL_0,
+    joy_rmt_rc_steer,
+  },
+  // axis_speed
+  {
+    RMT_CHANNEL_1,
+    joy_rmt_rc_speed,
+  },
+  // axis_aux
+  {
+    RMT_CHANNEL_2,
+    joy_rmt_rc_aux,
+  }
+};
+
+/*
+ * @brief Divide RMT 80MHz by 80 = 1MHz = Each tick is 1us (microsecond)
+ */
+static const uint8_t rmt_clock_divider = 80;
+
+/*
+ * @brief Go into idle after inaction longer than 25ms = 25000us
+ */
+static const uint16_t rmt_idle_threshold = 25000;
+
+/*
+ * @brief Signal shorter than 0.25ms = 250us will be ignored as noise
+ */
+static const uint8_t rmt_filter_threshold = 250;
+
+/*
+ * @brief RC receiver usually sends 1ms = 1000us on the low end
+ */
+static const uint16_t rc_receive_min = 1000;
+
+/*
+ * @brief RC receiver usually sends 1.5ms = 1500us as center position
+ */
+static const uint16_t rc_receive_mid = 1500;
+
+/*
+ * @brief RC receiver usually sends 2ms = 2000us on the high end
+ */
+static const uint16_t rc_receive_high = 2000;
 
 /*
  * @brief FreeRTOS task which reads servo control signals sent by radio
