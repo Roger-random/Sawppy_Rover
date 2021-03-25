@@ -54,15 +54,15 @@ static const float wheel_speed_max = 0.75;
 // DC gear motors couldn't spin at arbitrarily low speeds. This is close to
 // the lowest speed our wheel can self-sustain. Around this level a wheel
 // needs external help. For example, from other wheels.
-static const float duty_cycle_min = 60;
-static const float wheel_speed_min = 0.15;
+static const float duty_cycle_min = 25;
+static const float wheel_speed_min = 0.10;
 
 // Any speed within this value is close enough to zero to be treated as zero
-static const float wheel_speed_epsilon = 0.01;
+static const float wheel_speed_epsilon = 0.02;
 
 // Starting from a stop, the DC gear motor needs extra power to overcome
 // static friction so this is higher than wheel_speed_min.
-static const float wheel_speed_startup = 0.30;
+static const float wheel_speed_startup = 0.20;
 
 /*
  * @brief MCPWM peripheral parameters for a particular wheel
