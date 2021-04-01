@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "cmath": "cpp",
+    "joy_adc.h": "c"
+  }
+}
