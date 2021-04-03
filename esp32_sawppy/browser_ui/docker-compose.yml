@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  browserui:
+    image: node:14
+    command: sh -c "yarn install && yarn run start"
+    ports:
+      - 8080:8080
+    working_dir: /browser_ui
+    volumes:
+      - ./:/browser_ui
