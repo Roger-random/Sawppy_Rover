@@ -9,7 +9,7 @@
 
 var static = require('node-static');
 
-var fileServer = new static.Server('./static');
+var fileServer = new static.Server('./static', {cache: 1});
 
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {
