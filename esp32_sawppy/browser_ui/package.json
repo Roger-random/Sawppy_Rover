@@ -14,6 +14,7 @@
     "start": "nodemon server.js"
   },
   "dependencies": {
+    "node-static": "^0.7.11",
     "nodemon": "^2.0.7"
   }
 }

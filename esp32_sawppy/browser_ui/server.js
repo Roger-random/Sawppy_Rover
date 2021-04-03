@@ -1,13 +1,23 @@
-const http = require('http')
+// This NodeJS web server exists to help with developing Sawppy web UI
+// elements. This way the HTML/JS/etc. can be developed without having
+// to re-upload to the ESP32 upon every change. The goal of this server
+// is to be indistinguishable from ESP32 as far as the browser can see.
 
-const port = 8080
+// References for static file serving:
+// https://nodejs.org/en/knowledge/HTTP/servers/how-to-serve-static-files/
+// https://github.com/cloudhead/node-static
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html')
-  res.end('<h1>Hello, ESP32 Placeholder World!</h1>')
-})
+var static = require('node-static');
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`)
-})
+var fileServer = new static.Server('./static');
+
+require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        fileServer.serve(request, response, function (e, res) {
+            if (e && (e.status === 404)) {
+                // Any other request is treated as valid request for index.html.
+                fileServer.serveFile('/index.html', 200, {}, request, response);
+            }
+        });
+    }).resume();
+}).listen(8080);
