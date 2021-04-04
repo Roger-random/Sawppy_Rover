@@ -11,7 +11,7 @@ var static = require('node-static');
 
 var fileServer = new static.Server('./static', {cache: 1});
 
-require('http').createServer(function (request, response) {
+var webServer = require('http').createServer(function (request, response) {
     request.addListener('end', function () {
         fileServer.serve(request, response, function (e, res) {
             if (e && (e.status === 404)) {
@@ -21,3 +21,17 @@ require('http').createServer(function (request, response) {
         });
     }).resume();
 }).listen(8080);
+
+// WebSocket server via 'ws' package
+
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ server: webServer });
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+
+  ws.send('something');
+});
