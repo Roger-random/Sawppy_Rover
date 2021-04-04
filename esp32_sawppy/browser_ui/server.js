@@ -7,9 +7,11 @@
 // https://nodejs.org/en/knowledge/HTTP/servers/how-to-serve-static-files/
 // https://github.com/cloudhead/node-static
 
-var static = require('node-static');
+var nodestatic = require('node-static');
 
-var fileServer = new static.Server('./static', {cache: 1});
+// cache set to 1 second during development so our changes are not covered
+// up by client side caching
+var fileServer = new nodestatic.Server('./static', {cache: 1});
 
 var webServer = require('http').createServer(function (request, response) {
     request.addListener('end', function () {
@@ -22,16 +24,26 @@ var webServer = require('http').createServer(function (request, response) {
     }).resume();
 }).listen(8080);
 
+
 // WebSocket server via 'ws' package
 
 const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ server: webServer });
 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
-    console.log('received: %s', message);
-  });
+wss.on('connection', onConnection);
 
-  ws.send('something');
-});
+function onConnection(websocket, request) {
+    websocket.on('message', onMessage );
+    websocket.send('Thank you for connecting!');
+    console.log('Request Headers ');
+
+    // Print header contents to console.
+    Object.keys(request.headers).forEach(function(key) {
+        console.log(key, request.headers[key]);
+    })
+}
+
+function onMessage(message) {
+    console.log('received: %s', message);
+};
