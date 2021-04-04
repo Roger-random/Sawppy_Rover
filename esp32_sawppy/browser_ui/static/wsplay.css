@@ -1,0 +1,13 @@
+* {
+  padding: 0; margin: 0
+}
+
+/* https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+}

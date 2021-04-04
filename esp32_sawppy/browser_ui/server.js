@@ -35,15 +35,32 @@ wss.on('connection', onConnection);
 
 function onConnection(websocket, request) {
     websocket.on('message', onMessage );
-    websocket.send('Thank you for connecting!');
-    console.log('Request Headers ');
-
-    // Print header contents to console.
-    Object.keys(request.headers).forEach(function(key) {
-        console.log(key, request.headers[key]);
-    })
+    websocket.on('close', onClose);
+    websocket.send('joy_msg_receive');
 }
 
 function onMessage(message) {
-    console.log('received: %s', message);
+    //console.log('received: %s', message);
+    try
+    {
+        var parsed = JSON.parse(message);
+        if (parsed.joy_msg === undefined ||
+            parsed.joy_msg.length === undefined ||
+            parsed.joy_msg.length < 2)
+        {
+            console.log('Bad joystick message.');
+        }
+        else
+        {
+            console.log('Steer ' + parsed.joy_msg[0] + ' speed ' + parsed.joy_msg[1]);
+        }
+    }
+    catch (SyntaxError)
+    {
+        console.log("Failed to parse " + message + " as JSON");
+    }
+};
+
+function onClose(code, reason) {
+    console.log('Websocket closed ' + code + reason);
 };
