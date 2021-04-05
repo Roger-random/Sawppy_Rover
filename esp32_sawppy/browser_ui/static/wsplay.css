@@ -1,17 +1,16 @@
+/* Draw canvas will take over the whole screen. */
 * {
   padding: 0; margin: 0
-}
-
-.noDefaultTouch {
-  touch-action: none;
-}
-
-h1 {
-  font-family: sans-serif;
 }
 
 /* https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp */
 body {
   overflow-y: hidden;
   overflow-x: hidden;
+}
+
+/* Suppress normal touch gestures (swipe to navigate, etc.) when inside
+   the rover controller area. */
+.noDefaultTouch {
+  touch-action: none;
 }
