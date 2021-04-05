@@ -2,12 +2,16 @@
   padding: 0; margin: 0
 }
 
-/* https://www.w3schools.com/howto/howto_js_rangeslider.asp */
-
-.slidecontainer {
-  width: 100%;
+.noDefaultTouch {
+  touch-action: none;
 }
 
-.slider {
-  width: 100%;
+h1 {
+  font-family: sans-serif;
+}
+
+/* https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp */
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
 }

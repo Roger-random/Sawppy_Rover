@@ -44,15 +44,15 @@ function onMessage(message) {
     try
     {
         var parsed = JSON.parse(message);
-        if (parsed.joy_msg === undefined ||
-            parsed.joy_msg.length === undefined ||
-            parsed.joy_msg.length < 2)
+        if (parsed.axes === undefined ||
+            parsed.axes.length === undefined ||
+            parsed.axes.length < 2)
         {
             console.log('Bad joystick message.');
         }
         else
         {
-            console.log('Steer ' + parsed.joy_msg[0] + ' speed ' + parsed.joy_msg[1]);
+            console.log('Steer ' + parsed.axes[0] + ' speed ' + parsed.axes[1]);
         }
     }
     catch (SyntaxError)

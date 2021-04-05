@@ -2,18 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Hello WebSocket World</title>
   <script src="wsplay.js"></script>
   <link rel="stylesheet" href="wsplay.css">
 </head>
 <body>
-  <div class="slidecontainer">
-    <h1>Steer</h1>
-    <input type="range" min="-1.0" max="1.0" step="0.01" value="0" class="slider" id="rangeSteer">
-    <hr />
-    <h1>Speed</h1>
-    <input type="range" min="-1.0" max="1.0" step="0.01" value="0" class="slider" id="rangeSpeed">
-  </div>
+  <canvas id="controlPad" width="320" height="384" class="noDefaultTouch"></canvas>
 </body>
 </html>
