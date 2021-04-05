@@ -182,7 +182,7 @@ function stopUpdates() {
 }
 
 function startWebSocket() {
-  exampleSocket = new WebSocket("ws://192.168.1.244:8080/");
+  exampleSocket = new WebSocket("ws://"+location.host);
 
   exampleSocket.onopen = onSocketOpen;
   exampleSocket.onerror = onSocketError;
