@@ -5,6 +5,8 @@ static httpd_handle_t server_handle;
 /* Waiting for certain WiFi events before continuing */
 static EventGroupHandle_t s_wifi_event_group;
 
+static QueueHandle_t xJoystickQueue;
+
 static const char *TAG = "http file server";
 static const char *joy_msg_send = "joy_msg_send";
 static const char *joy_msg_receive = "joy_msg_receive";
@@ -143,6 +145,20 @@ static const httpd_uri_t wsplay_js = {
   .user_ctx = NULL
 };
 
+esp_err_t sendJoyMsg(float steer, float speed) {
+  joy_msg message;
+
+  memset(&message, 0, sizeof(joy_msg));
+  message.axes[0] = steer;
+  message.axes[1] = speed;
+
+  message.timeStamp = xTaskGetTickCount();
+
+  xQueueOverwrite(xJoystickQueue, &message);
+
+  return ESP_OK;
+}
+
 static esp_err_t websocket_root_get_handler(httpd_req_t *req)
 {
   if (req->method == HTTP_GET) {
@@ -165,7 +181,7 @@ static esp_err_t websocket_root_get_handler(httpd_req_t *req)
     cJSON *axes = cJSON_GetObjectItem(root,"axes");
     cJSON *axes0 = cJSON_GetArrayItem(axes, 0);
     cJSON *axes1 = cJSON_GetArrayItem(axes, 1);
-    ESP_LOGI(TAG, "Steer %+.2f speed %+.2f", axes0->valuedouble, axes1->valuedouble);
+    ESP_ERROR_CHECK(sendJoyMsg(axes0->valuedouble, axes1->valuedouble));
     cJSON_Delete(root);
   } else {
     ESP_LOGE(TAG, "Ignoring oversized WebSocket packet");
@@ -183,6 +199,8 @@ static const httpd_uri_t websocket_root = {
 
 void http_file_server_task(void* pvParameters)
 {
+  xJoystickQueue = (QueueHandle_t)pvParameters;
+
   spiffs_init();
 
   wait_for_wifi_ready();

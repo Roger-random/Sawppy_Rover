@@ -169,7 +169,7 @@ function drawStatusText() {
 function updateSteerSpeed() {
   var joy_msg_axes = [0,0];
 
-  joy_msg_axes[0] =  msgX;
+  joy_msg_axes[0] = -msgX;
   joy_msg_axes[1] = -msgY;
 
   message= { axes:  joy_msg_axes };

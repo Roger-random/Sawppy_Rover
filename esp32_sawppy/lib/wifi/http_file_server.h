@@ -5,6 +5,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
 
 #include "esp_event.h"
 #include "esp_http_server.h"
@@ -14,6 +15,8 @@
 #include "esp_wifi.h"
 
 #include "cJSON.h"
+
+#include "joy_msg.h"
 
 /* Flags used in event group */
 #define WIFI_CONNECTED_BIT BIT0

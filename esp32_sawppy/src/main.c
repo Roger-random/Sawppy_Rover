@@ -61,7 +61,7 @@ void app_main()
 
 #ifdef USE_WIFI
     xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
-    xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, NULL, 19, NULL);
+    xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, xJoystickQueue, 19, NULL);
 #endif
 
     //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
