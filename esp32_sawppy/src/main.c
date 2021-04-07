@@ -16,6 +16,11 @@
 #include <joy_rmt_rc.h>
 #endif
 
+#ifdef USE_WIFI
+#include "station_start.h"
+#include "http_file_server.h"
+#endif
+
 #include <joy_steer.h>
 #include <wheel_ackermann.h>
 #include <servo_steer_ledc.h>
@@ -27,6 +32,9 @@ void app_main()
   QueueHandle_t xCmdVelQueue = xQueueCreate(1, sizeof(twist_msg));
   QueueHandle_t xWheelQueue = xQueueCreate(1, sizeof(wheel_msg));
 
+#ifdef USE_WIFI
+  ESP_ERROR_CHECK(esp_event_loop_create_default());
+#endif
   joy_steer_task_parameters joy_steer_params = {
     .xJoyMsgQueue = xJoystickQueue,
     .xCmdVelQueue = xCmdVelQueue,
@@ -46,9 +54,16 @@ void app_main()
 #ifdef USE_JOY_ADC
     xTaskCreate(joy_adc_read_task, "joy_adc_read_task", 2048, xJoystickQueue, 20, NULL);
 #endif
+
 #ifdef USE_JOY_RMT_RC
     xTaskCreate(joy_rmt_rc_read_task, "joy_rmt_rc_read_task", 2048, xJoystickQueue, 20, NULL);
 #endif
+
+#ifdef USE_WIFI
+    xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
+    xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, NULL, 19, NULL);
+#endif
+
     //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
     xTaskCreate(joy_steer_task, "joy_steer_task", 2048, &joy_steer_params, 15, NULL);
     //xTaskCreate(twist_msg_print_task, "twist_msg_print_task", 2048, xCmdVelQueue, 25, NULL);

@@ -1,13 +1,13 @@
 /*
  *
  * ESP32 GPIO pin assignments for rover chassis configurations
- * 
+ *
  * Reference:
  * https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
- * 
+ *
  * Copyright (c) Roger Cheng
  * Released AS-IS under MIT license
- * 
+ *
  */
 
 #ifndef INC_GPIO_ASSIGNMENTS_H
@@ -22,7 +22,7 @@
 #endif
 
 #ifdef MSB3
-#define USE_JOY_RMT_RC
+#define USE_WIFI
 #endif
 
 static const gpio_num_t __boot_pwm = GPIO_NUM_0; // PWM
