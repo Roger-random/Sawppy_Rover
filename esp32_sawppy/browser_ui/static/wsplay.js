@@ -39,6 +39,7 @@ function startControls() {
   drawCanvas.onpointerdown = down_handler;
   drawCanvas.onpointerup = up_handler;
   drawCanvas.onpointermove = move_handler;
+  drawCanvas.onlostpointercapture = lost_pointer;
   reSize();
 }
 
@@ -58,12 +59,18 @@ function down_handler(pointerEvent) {
 function up_handler(pointerEvent) {
   if (pointerEvent.pointerId === pointerCaptured) {
     drawCanvas.releasePointerCapture(pointerCaptured);
-    pointerCaptured = undefined;
     update_knob(pointerEvent);
-
-    msgY = 0;
-    clampedY = knobMin + (knobMax-knobMin)/2;
+    lost_pointer();
   }
+}
+
+function lost_pointer() {
+  pointerCaptured = undefined;
+
+  msgY = 0;
+  clampedY = knobMin + (knobMax-knobMin)/2;
+
+  updateSteerSpeed();
 }
 
 function move_handler(pointerEvent) {
@@ -182,7 +189,7 @@ function stopUpdates() {
 }
 
 function startWebSocket() {
-  exampleSocket = new WebSocket("ws://"+location.host);
+  exampleSocket = new WebSocket("ws://"+location.host+"/joy_msg");
 
   exampleSocket.onopen = onSocketOpen;
   exampleSocket.onerror = onSocketError;

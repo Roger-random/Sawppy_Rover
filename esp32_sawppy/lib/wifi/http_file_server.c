@@ -109,6 +109,13 @@ static const httpd_uri_t index_html = {
   .user_ctx = NULL
 };
 
+static const httpd_uri_t root = {
+  .uri      = "/",
+  .method   = HTTP_GET,
+  .handler  = index_html_get_handler,
+  .user_ctx = NULL
+};
+
 static esp_err_t wsplay_css_get_handler(httpd_req_t *req)
 {
   uint32_t readSize = 0;
@@ -159,7 +166,7 @@ esp_err_t sendJoyMsg(float steer, float speed) {
   return ESP_OK;
 }
 
-static esp_err_t websocket_root_get_handler(httpd_req_t *req)
+static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
 {
   if (req->method == HTTP_GET) {
     ESP_LOGI(TAG, "Handshake done, the new connection was opened");
@@ -189,10 +196,10 @@ static esp_err_t websocket_root_get_handler(httpd_req_t *req)
   return ESP_OK;
 }
 
-static const httpd_uri_t websocket_root = {
-  .uri      = "/",
+static const httpd_uri_t websocket_joy_msg = {
+  .uri      = "/joy_msg",
   .method   = HTTP_GET,
-  .handler  = websocket_root_get_handler,
+  .handler  = websocket_joy_msg_handler,
   .user_ctx = NULL,
   .is_websocket = true
 };
@@ -213,10 +220,11 @@ void http_file_server_task(void* pvParameters)
   if (httpd_start(&server_handle, &config) == ESP_OK) {
       // Set URI handlers
       ESP_LOGI(TAG, "Registering URI handlers");
+      httpd_register_uri_handler(server_handle, &root);
       httpd_register_uri_handler(server_handle, &index_html);
       httpd_register_uri_handler(server_handle, &wsplay_css);
       httpd_register_uri_handler(server_handle, &wsplay_js);
-      httpd_register_uri_handler(server_handle, &websocket_root);
+      httpd_register_uri_handler(server_handle, &websocket_joy_msg);
       // TODO: Wait for something to shut down server. Right now we just spin
       while(true) {
         vTaskDelay(portMAX_DELAY);

@@ -29,7 +29,7 @@ var webServer = require('http').createServer(function (request, response) {
 
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ server: webServer });
+const wss = new WebSocket.Server({ server: webServer, path: '/joy_msg' });
 
 wss.on('connection', onConnection);
 
