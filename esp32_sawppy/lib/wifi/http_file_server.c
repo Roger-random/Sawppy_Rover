@@ -164,12 +164,43 @@ esp_err_t sendJoyMsg(float steer, float speed) {
   return ESP_OK;
 }
 
+struct websock_instance {
+  httpd_handle_t handle;
+  int descriptor;
+};
+
+static struct websock_instance joy_msg_sender;
+
+void socket_close_cleanup(void* context)
+{
+  ESP_LOGI(TAG, "Lost our joy_msg handler.");
+  joy_msg_sender.handle = NULL;
+  joy_msg_sender.descriptor = 0;
+}
+
 static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
 {
   if (req->method == HTTP_GET) {
+    // This clause was copied from example, but I never see this message in logs
     ESP_LOGI(TAG, "Handshake done, the new connection was opened");
     return ESP_OK;
   }
+
+  if (joy_msg_sender.handle == NULL) {
+    // We didn't have a joy_msg sender before, now we do. Set up notification so
+    // we know when it goes away.
+    ESP_LOGI(TAG, "Have a new joy_msg sender.");
+    joy_msg_sender.handle = req->handle;
+    joy_msg_sender.descriptor = httpd_req_to_sockfd(req);
+    req->sess_ctx = (void*)1; // Set to nonzero otherwise free_ctx won't get called.
+    req->free_ctx = socket_close_cleanup;
+  } else if (joy_msg_sender.handle != req->handle ||
+             joy_msg_sender.descriptor != httpd_req_to_sockfd(req)) {
+    ESP_LOGI(TAG, "Already have joy_msg sender, reject connection attempt.");
+    return ESP_FAIL;
+  }
+
+  // Read websocket data
   httpd_ws_frame_t ws_pkt;
   memset(&ws_pkt, 0, sizeof(httpd_ws_frame_t));
   ws_pkt.type = HTTPD_WS_TYPE_TEXT;
@@ -201,6 +232,9 @@ static const httpd_uri_t websocket_joy_msg = {
 void http_file_server_task(void* pvParameters)
 {
   xJoystickQueue = (QueueHandle_t)pvParameters;
+
+  joy_msg_sender.handle = NULL;
+  joy_msg_sender.descriptor = 0;
 
   spiffs_init();
 
