@@ -29,9 +29,26 @@ var webServer = require('http').createServer(function (request, response) {
 
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ server: webServer, path: '/joy_msg' });
+const wss = new WebSocket.Server({
+    noServer: true,
+    clientTracking: true,
+    path: '/joy_msg'
+});
 
 wss.on('connection', onConnection);
+webServer.on('upgrade', onUpgrade);
+
+function onUpgrade(request, socket, head) {
+    if (0 === wss.clients.size) {
+        wss.handleUpgrade(request, socket, head, function (ws) {
+            wss.emit('connection', ws, request);
+          });
+    } else {
+        console.log("Already have a joy_msg sender, rejecting additional connection.");
+        socket.destroy();
+        return;
+    }
+}
 
 function onConnection(websocket, request) {
     websocket.on('message', onMessage );
@@ -40,7 +57,11 @@ function onConnection(websocket, request) {
 }
 
 function onMessage(message) {
-    //console.log('received: %s', message);
+    if ("joy_msg_send" === message) {
+        console.log('Received joy_msg_send over websocket');
+        return;
+    }
+
     try
     {
         var parsed = JSON.parse(message);
