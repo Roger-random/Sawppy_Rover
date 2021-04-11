@@ -8,8 +8,6 @@ static EventGroupHandle_t s_wifi_event_group;
 static QueueHandle_t xJoystickQueue;
 
 static const char *TAG = "http file server";
-static const char *joy_msg_send = "joy_msg_send";
-static const char *joy_msg_receive = "joy_msg_receive";
 
 // We can spend effort making code memory-efficient, or we can just blow
 // a chunk of RAM to make code trivial.
@@ -179,11 +177,6 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
   ESP_ERROR_CHECK(httpd_ws_recv_frame(req, &ws_pkt, readBufSize));
   if (ws_pkt.len < readBufSize) {
     readBuf[ws_pkt.len] = 0; // null termination
-    if (0 == strcmp(readBuf, joy_msg_send)) {
-      ws_pkt.payload = (uint8_t*)joy_msg_receive;
-      ws_pkt.len = strlen(joy_msg_receive);
-      return httpd_ws_send_frame(req, &ws_pkt);
-    }
     cJSON *root = cJSON_Parse(readBuf);
     cJSON *axes = cJSON_GetObjectItem(root,"axes");
     cJSON *axes0 = cJSON_GetArrayItem(axes, 0);
@@ -192,6 +185,7 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
     cJSON_Delete(root);
   } else {
     ESP_LOGE(TAG, "Ignoring oversized WebSocket packet");
+    return ESP_FAIL;
   }
   return ESP_OK;
 }

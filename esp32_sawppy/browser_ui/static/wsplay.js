@@ -199,7 +199,10 @@ function startWebSocket() {
 
 function onSocketOpen(event) {
   updateStatus("Open");
-  exampleSocket.send("joy_msg_send");
+
+  stopUpdates(); // Stop earlier timers
+  steerSpeedInterval = setInterval(updateSteerSpeed, updatePeriodMilliseconds);
+  updateStatus("Connected");
 }
 
 function onSocketError(event) {
@@ -215,12 +218,6 @@ function onSocketClose(event) {
 function onSocketMessage(event) {
   updateStatus("Received");
   console.log(event.data);
-  if (event.data === "joy_msg_receive")
-  {
-    stopUpdates(); // Stop earlier timers
-    steerSpeedInterval = setInterval(updateSteerSpeed, updatePeriodMilliseconds);
-    updateStatus("Connected");
-  }
 }
 
 document.addEventListener('DOMContentLoaded', eventSetup, false);

@@ -53,15 +53,9 @@ function onUpgrade(request, socket, head) {
 function onConnection(websocket, request) {
     websocket.on('message', onMessage );
     websocket.on('close', onClose);
-    websocket.send('joy_msg_receive');
 }
 
 function onMessage(message) {
-    if ("joy_msg_send" === message) {
-        console.log('Received joy_msg_send over websocket');
-        return;
-    }
-
     try
     {
         var parsed = JSON.parse(message);
