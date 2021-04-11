@@ -1,4 +1,7 @@
 #include "wheel_ackermann.h"
+
+static const char *TAG = "wheel_ackermann";
+
 /*
  * @brief set all steering angle and speeds to zero
  */
@@ -26,23 +29,26 @@ void wheel_ackermann_task(void* pvParameter)
       NULL == pTaskParameters->xCmdVelQueue ||
       NULL == pTaskParameters->xWheelQueue)
   {
-    printf("ERROR: wheel_ackermann_task parameters were missing, exiting.\n");
+    ESP_LOGE(TAG, "Task parameters were missing, exiting.");
     vTaskDelete(NULL); // Delete self.
   }
   QueueHandle_t xCmdVelQueue = pTaskParameters->xCmdVelQueue;
   QueueHandle_t xWheelQueue = pTaskParameters->xWheelQueue;
 
+  bool timeoutNotify = true;
   while(true)
   {
     // Wait for next velocity command
     if (pdTRUE == xQueueReceive(xCmdVelQueue, &cmdVelData, twist_msg_timeout_interval))
     {
+      timeoutNotify = true;
+
       if (0.0f != cmdVelData.angular.x ||
           0.0f != cmdVelData.angular.y ||
           0.0f != cmdVelData.linear.y ||
           0.0f != cmdVelData.linear.z )
       {
-        printf("WARNING: Velocity commanded along unsupported axes are ignored.\n");
+        ESP_LOGW(TAG, "Velocity commanded along unsupported axes are ignored.");
       }
 
       float velocityLinear = cmdVelData.linear.x;
@@ -106,7 +112,10 @@ void wheel_ackermann_task(void* pvParameter)
     }
     else
     {
-      printf("ERROR: wheel_ackermann_task timed out waiting for command velocity message. Continuing to wait...\n");
+      if (timeoutNotify) {
+        timeoutNotify = false; // Once is enough
+        ESP_LOGE(TAG, "Timed out waiting for command velocity message. Continuing to wait...");
+      }
     }
   }
 }

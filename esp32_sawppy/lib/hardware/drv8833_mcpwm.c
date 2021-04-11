@@ -1,5 +1,7 @@
 #include "drv8833_mcpwm.h"
 
+static const char *TAG = "drv8833_mcpwm";
+
 void update_motor_speed(float velocity, mcpwm_motor_control MC)
 {
   float duty_cycle;
@@ -27,7 +29,7 @@ void update_motor_speed(float velocity, mcpwm_motor_control MC)
     // elsewhere in this code. But if it happens anyway, clamp value and emit
     // diagnostic message.
     duty_cycle = 100.0;
-    printf("WARNING: Motor speed velocity %+.2f exceeded specified maximum %+.2f.\n", velocity, wheel_speed_max);
+    ESP_LOGW(TAG, "Motor speed velocity %+.2f exceeded specified maximum %+.2f.", velocity, wheel_speed_max);
   }
 
   if (velocity > 0)
@@ -57,7 +59,7 @@ void drv8833_mcpwm_task(void* pvParam)
   // Retrieve input queue
   if (NULL == pvParam)
   {
-    printf("ERROR: drv8833_mcpwm_task parameter is null. Expected handle to queue of wheel commands.\n");
+    ESP_LOGE(TAG, "drv8833_mcpwm_task parameter is null. Expected handle to queue of wheel commands.");
     vTaskDelete(NULL); // Delete self.
   }
   QueueHandle_t xWheelQueue = (QueueHandle_t)pvParam;
@@ -88,11 +90,13 @@ void drv8833_mcpwm_task(void* pvParam)
     update_motor_speed(current_speed[wheel], speed_control[wheel]);
   }
 
+  bool haltNotify = true;
   while(true)
   {
     // Wait for next joystick message
     if (pdTRUE == xQueueReceive(xWheelQueue, &message, wheel_msg_timeout_interval))
     {
+      haltNotify = true;
       for (int wheel = 0; wheel < wheel_count; wheel++)
       {
         float currentSpeed = current_speed[wheel];
@@ -172,7 +176,10 @@ void drv8833_mcpwm_task(void* pvParam)
     }
     else
     {
-      printf("drv8833_mcpwm: No wheel message received within timeout, stopping all motors.\n");
+      if (haltNotify) {
+        haltNotify = false; // Once per timeout is enough
+        ESP_LOGE(TAG, "No wheel message received within timeout, stopping all motors.");
+      }
       // In case of timeout, ramping is ignored. We go to zero immediately.
       for (int wheel = 0; wheel < wheel_count; wheel++)
       {

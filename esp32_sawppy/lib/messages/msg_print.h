@@ -1,10 +1,10 @@
 /*
  *
  * Debug tool: a task to peek a message queue and print current value
- * 
+ *
  * Copyright (c) Roger Cheng
  * Released AS-IS under MIT license
- * 
+ *
  */
 
 #ifndef INC_MSG_PRINT_H
@@ -13,6 +13,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
+
+#include "esp_log.h"
 
 #include <joy_msg.h>
 #include <twist_msg.h>

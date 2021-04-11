@@ -1,10 +1,10 @@
 /*
  * @brief Rover wheel Ackermann calculations
  * https://en.wikipedia.org/wiki/Ackermann_steering_geometry
- * 
+ *
  * Lengths in meters, angles in radians, coordinates as per REP103
  * https://www.ros.org/reps/rep-0103.html
- * 
+ *
  */
 
 #ifndef INC_WHEEL_ACKERMANN_H
@@ -17,6 +17,9 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
+
+// ESP32 headers
+#include "esp_log.h"
 
 // Headers from project libraries
 #include <twist_msg.h>

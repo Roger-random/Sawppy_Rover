@@ -1,5 +1,7 @@
 #include "joy_steer.h"
 
+static const char *TAG = "joy_steer";
+
 void joy_steer_task(void* pvParameter)
 {
   joy_msg joyData;
@@ -19,7 +21,7 @@ void joy_steer_task(void* pvParameter)
       NULL == pTaskParameters->xCmdVelQueue ||
       NULL == pTaskParameters->xJoyMsgQueue)
   {
-    printf("ERROR: joy_steer_task parameters were missing, exiting.\n");
+    ESP_LOGE(TAG, "Task parameters were missing, exiting.");
     vTaskDelete(NULL); // Delete self.
   }
   QueueHandle_t xJoystickQueue = pTaskParameters->xJoyMsgQueue;
@@ -30,16 +32,18 @@ void joy_steer_task(void* pvParameter)
   // when not in turn-in-place mode. Not because of any mechanical limitation but to
   // keep from confusing human pilots unfamiliar with full range of rover maneuverability.
   float mid_wheel_point = atan2(wheelbase_front, (track_mid - track_front)/2);
-  printf("joy_steer_task mid_wheel_point= %.3f\n", mid_wheel_point);
+  ESP_LOGI(TAG, "joy_steer_task mid_wheel_point= %.3f", mid_wheel_point);
 
   // Setup complete, begin processing loop.
   float velocity_angular = 0;
   float velocity_linear = 0;
+  bool timeoutNotify = true;
   while(true)
   {
     // Wait for next joystick message
     if (pdTRUE == xQueueReceive(xJoystickQueue, &joyData, joy_msg_timeout_interval))
     {
+      timeoutNotify = true;
       if (fabs(joyData.axes[axis_speed]) > speed_epsilon)
       {
         velocity_linear = joyData.axes[axis_speed] * velocity_linear_max;
@@ -99,7 +103,10 @@ void joy_steer_task(void* pvParameter)
     }
     else
     {
-      printf("ERROR: joy_steer_task timed out waiting for joystick message. Continuing to wait...\n");
+      if (timeoutNotify) {
+        timeoutNotify = false; // Once is enough
+        ESP_LOGE(TAG, "joy_steer_task timed out waiting for joystick message. Continuing to wait...");
+      }
     }
   }
 }

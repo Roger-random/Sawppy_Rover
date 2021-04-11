@@ -1,5 +1,7 @@
 #include "servo_steer_ledc.h"
 
+static const char *TAG = "servo_steer_ledc";
+
 void servo_steer_ledc_task(void* pvParam)
 {
   wheel_msg message;
@@ -7,7 +9,7 @@ void servo_steer_ledc_task(void* pvParam)
   // Retrieve input queue
   if (NULL == pvParam)
   {
-    printf("ERROR: servo_steer_ledc_task parameter is null. Expected handle to queue of wheel commands.\n");
+    ESP_LOGE(TAG, "servo_steer_ledc_task parameter is null. Expected handle to queue of wheel commands.");
     vTaskDelete(NULL); // Delete self.
   }
   QueueHandle_t xWheelQueue = (QueueHandle_t)pvParam;
@@ -96,7 +98,7 @@ void servo_steer_ledc_task(void* pvParam)
     }
     else
     {
-      printf("servo_steer_ledc_task: failed to read from mailbox.\n");
+      ESP_LOGE(TAG, "Failed to read from mailbox.");
     }
 
     vTaskDelay(pdMS_TO_TICKS(10));

@@ -2,12 +2,12 @@
  *
  * Using ESP32 LEDC to generate PWM control signals for RC hobby servos
  * responsible for individually steering rover wheels.
- * 
+ *
  * Reads steering angle from a queue of wheel_msg.
- * 
+ *
  * Copyright (c) Roger Cheng
  * Released AS-IS under MIT license
- * 
+ *
  */
 
 #ifndef INC_SERVO_STEER_LEDC_H
@@ -20,6 +20,8 @@
 #include "freertos/task.h"
 
 #include "driver/ledc.h"
+
+#include "esp_log.h"
 
 #include <wheel_parameter.h>
 #include <wheel_msg.h>

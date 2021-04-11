@@ -12,6 +12,9 @@
 #include "freertos/queue.h"
 #include "freertos/task.h"
 
+// ESP32 headers
+#include "esp_log.h"
+
 // Headers from project libraries
 #include <joy_msg.h>
 #include <twist_msg.h>

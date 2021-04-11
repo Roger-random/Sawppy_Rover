@@ -1,12 +1,16 @@
 #include "msg_print.h"
 
+static const char *TAG_JOY = "joy_msg";
+static const char *TAG_TWIST = "twist_msg";
+static const char *TAG_WHEEL = "wheel_msg";
+
 void joy_msg_print_task(void* pvParameter)
 {
   joy_msg message;
   QueueHandle_t xJoystickQueue;
   if (NULL == pvParameter)
   {
-    printf("ERROR: joy_msg_print_task parameter is null. Expected handle to joystick data queue.\n");
+    ESP_LOGE(TAG_JOY, "Task parameter is null. Expected handle to joystick data queue.");
     vTaskDelete(NULL); // Delete self.
   }
   xJoystickQueue = (QueueHandle_t)pvParameter;
@@ -15,7 +19,7 @@ void joy_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xJoystickQueue, &message, portMAX_DELAY))
     {
-      printf("joy_msg %d | steer %+.2f | speed %+.2f | button %d\n",
+      ESP_LOGI(TAG_JOY, "%d | steer %+.2f | speed %+.2f | button %d",
         message.timeStamp,
         message.axes[axis_steer],
         message.axes[axis_speed],
@@ -24,7 +28,7 @@ void joy_msg_print_task(void* pvParameter)
     else
     {
       // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
-      printf("joy_msg_print_task failed to peek joystick queue data.\n");
+      ESP_LOGE(TAG_JOY, "Failed to peek joystick queue data.");
     }
 
     // Wait before we perform the next queue peek
@@ -39,7 +43,7 @@ void twist_msg_print_task(void* pvParameter)
   QueueHandle_t xTwistQueue;
   if (NULL == pvParameter)
   {
-    printf("ERROR: twist_msg_print_task parameter is null. Expected handle to twist message queue\n");
+    ESP_LOGE(TAG_TWIST, "Task parameter is null. Expected handle to twist message queue");
     vTaskDelete(NULL); // Delete self.
   }
   xTwistQueue = (QueueHandle_t)pvParameter;
@@ -48,7 +52,7 @@ void twist_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xTwistQueue, &message, portMAX_DELAY))
     {
-      printf("twist_msg  %d | linear %+.2f,%+.2f,%+.2f | angular %+.2f,%+.2f,%+.2f\n",
+      ESP_LOGI(TAG_TWIST, "%d | linear %+.2f,%+.2f,%+.2f | angular %+.2f,%+.2f,%+.2f",
         message.timeStamp,
         message.linear.x,
         message.linear.y,
@@ -60,7 +64,7 @@ void twist_msg_print_task(void* pvParameter)
     else
     {
       // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
-      printf("twist_msg_print_task failed to peek twist queue data.\n");
+      ESP_LOGE(TAG_TWIST, "Failed to peek twist queue data.");
     }
 
     // Wait before we perform the next queue peek
@@ -74,7 +78,7 @@ void wheel_msg_print_task(void* pvParameter)
   QueueHandle_t xWheelQueue;
   if (NULL == pvParameter)
   {
-    printf("ERROR: wheel_msg_print_task parameter is null. Expected handle to wheel message queue\n");
+    ESP_LOGE(TAG_WHEEL, "Task parameter is null. Expected handle to wheel message queue");
     vTaskDelete(NULL); // Delete self.
   }
   xWheelQueue = (QueueHandle_t)pvParameter;
@@ -94,7 +98,7 @@ void wheel_msg_print_task(void* pvParameter)
     else
     {
       // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
-      printf("wheel_msg_print_task failed to peek wheel queue data.\n");
+      ESP_LOGE(TAG_WHEEL, "Task failed to peek wheel queue data.\n");
     }
 
     // Wait before we perform the next queue peek

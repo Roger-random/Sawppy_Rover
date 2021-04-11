@@ -2,10 +2,10 @@
  *
  * Using ESP32 MCPWM to control a DRV8833 DC Motor Control IC
  * (And those compatible with its two PWM per motor control scheme.)
- * 
+ *
  * Copyright (c) Roger Cheng
  * Released AS-IS under MIT license
- * 
+ *
  */
 
 #ifndef INC_DRV8833_MCPWM_H
@@ -18,6 +18,7 @@
 #include "freertos/task.h"
 
 #include "driver/mcpwm.h"
+#include "esp_log.h"
 
 #include <wheel_parameter.h>
 #include <wheel_msg.h>
