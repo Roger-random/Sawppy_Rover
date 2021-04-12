@@ -169,13 +169,37 @@ struct websock_instance {
   int descriptor;
 };
 
-static struct websock_instance joy_msg_sender;
+static struct websock_instance sJoyMsgSender;
+static TickType_t tWebsockTimeoutPeriod = pdMS_TO_TICKS(500);
+static TimerHandle_t xWebsockTimeout;
 
 void socket_close_cleanup(void* context)
 {
   ESP_LOGI(TAG, "Lost our joy_msg handler.");
-  joy_msg_sender.handle = NULL;
-  joy_msg_sender.descriptor = 0;
+  sJoyMsgSender.handle = NULL;
+  sJoyMsgSender.descriptor = 0;
+  if (pdPASS != xTimerStop(xWebsockTimeout, 0)) {
+    ESP_LOGE(TAG, "Failed to stop websock timeout timer");
+  }
+}
+
+static void vWebsockClose(void *arg)
+{
+  httpd_ws_frame_t ws_frame = {
+    .final = true,
+    .fragmented = false,
+    .type = HTTPD_WS_TYPE_CLOSE,
+    .payload = NULL,
+    .len = 0
+  };
+
+  ESP_ERROR_CHECK(httpd_ws_send_frame_async(
+    sJoyMsgSender.handle, sJoyMsgSender.descriptor, &ws_frame ));
+}
+
+static void vWebsockTimeoutCallback( TimerHandle_t xTimer)
+{
+  ESP_ERROR_CHECK(httpd_queue_work(sJoyMsgSender.handle, vWebsockClose, NULL));
 }
 
 static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
@@ -186,16 +210,21 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
     return ESP_OK;
   }
 
-  if (joy_msg_sender.handle == NULL) {
+  if (sJoyMsgSender.handle == NULL) {
     // We didn't have a joy_msg sender before, now we do. Set up notification so
     // we know when it goes away.
     ESP_LOGI(TAG, "Have a new joy_msg sender.");
-    joy_msg_sender.handle = req->handle;
-    joy_msg_sender.descriptor = httpd_req_to_sockfd(req);
+    sJoyMsgSender.handle = req->handle;
+    sJoyMsgSender.descriptor = httpd_req_to_sockfd(req);
     req->sess_ctx = (void*)1; // Set to nonzero otherwise free_ctx won't get called.
     req->free_ctx = socket_close_cleanup;
-  } else if (joy_msg_sender.handle != req->handle ||
-             joy_msg_sender.descriptor != httpd_req_to_sockfd(req)) {
+
+    if (pdPASS != xTimerStart(xWebsockTimeout, 0)) {
+      ESP_LOGE(TAG, "Failed to start websock timeout timer");
+      return ESP_FAIL;
+    }
+  } else if (sJoyMsgSender.handle != req->handle ||
+             sJoyMsgSender.descriptor != httpd_req_to_sockfd(req)) {
     ESP_LOGI(TAG, "Already have joy_msg sender, reject connection attempt.");
     return ESP_FAIL;
   }
@@ -218,6 +247,12 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
     ESP_LOGE(TAG, "Ignoring oversized WebSocket packet");
     return ESP_FAIL;
   }
+
+  if (pdPASS != xTimerReset(xWebsockTimeout, 0)) {
+    ESP_LOGE(TAG, "Failed to reset websock timeout timer");
+    return ESP_FAIL;
+  }
+
   return ESP_OK;
 }
 
@@ -233,8 +268,16 @@ void http_file_server_task(void* pvParameters)
 {
   xJoystickQueue = (QueueHandle_t)pvParameters;
 
-  joy_msg_sender.handle = NULL;
-  joy_msg_sender.descriptor = 0;
+  sJoyMsgSender.handle = NULL;
+  sJoyMsgSender.descriptor = 0;
+
+  xWebsockTimeout = xTimerCreate("Websock Timeout", tWebsockTimeoutPeriod,
+    pdFALSE, 0, vWebsockTimeoutCallback);
+
+  if (NULL==xWebsockTimeout) {
+    ESP_LOGE(TAG, "Failed to create websock timeout timer");
+    vTaskDelete(NULL);
+  }
 
   spiffs_init();
 
