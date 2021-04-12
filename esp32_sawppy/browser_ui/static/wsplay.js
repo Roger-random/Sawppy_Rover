@@ -26,6 +26,12 @@ var clampedY;
 var msgX = 0;
 var msgY = 0;
 
+// When running at max speed, steering range is constrained to a smaller range
+// so (1) steering angle control can be more precise, and (2) reduce chance
+// of rover trying to do a tight turn at speed. This value is the amount of
+// reduction. (0.75 means to leave 25% steering range at max speed.)
+const maxSpeedSteerFraction = 0.75;
+
 var pointerCaptured = undefined;
 
 function eventSetup() {
@@ -176,7 +182,9 @@ function drawStatusText() {
 function updateSteerSpeed() {
   var joy_msg_axes = [0,0];
 
-  joy_msg_axes[0] = -msgX;
+  var steerCoeff = (1-maxSpeedSteerFraction*Math.abs(msgY));
+
+  joy_msg_axes[0] = -msgX * steerCoeff;
   joy_msg_axes[1] = -msgY;
 
   message= { axes:  joy_msg_axes };
