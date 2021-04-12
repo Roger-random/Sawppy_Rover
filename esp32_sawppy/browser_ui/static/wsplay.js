@@ -30,7 +30,7 @@ var msgY = 0;
 // so (1) steering angle control can be more precise, and (2) reduce chance
 // of rover trying to do a tight turn at speed. This value is the amount of
 // reduction. (0.75 means to leave 25% steering range at max speed.)
-const maxSpeedSteerFraction = 0.75;
+const maxSpeedSteerFraction = 0.8;
 
 var pointerCaptured = undefined;
 
@@ -86,13 +86,15 @@ function move_handler(pointerEvent) {
 }
 
 function update_knob(pointerEvent) {
-  clampedX = Math.max(knobMin, Math.min(knobMax, pointerEvent.offsetX));
-  msgX = 2*(clampedX - knobMin)/(knobMax - knobMin) - 1;
-  msgX = Math.round(msgX*100)/100;
-
   clampedY = Math.max(knobMin, Math.min(knobMax, pointerEvent.offsetY));
   msgY = 2*(clampedY - knobMin)/(knobMax - knobMin) - 1;
   msgY = Math.round(msgY*100)/100;
+
+  var steerCoeff = (1-maxSpeedSteerFraction*Math.abs(msgY));
+
+  clampedX = Math.max(knobMin, Math.min(knobMax, pointerEvent.offsetX));
+  msgX = 2*(clampedX - knobMin)/(knobMax - knobMin) - 1;
+  msgX = Math.round(msgX*steerCoeff*100)/100;
 
   window.requestAnimationFrame(reDraw);
 }
@@ -182,9 +184,7 @@ function drawStatusText() {
 function updateSteerSpeed() {
   var joy_msg_axes = [0,0];
 
-  var steerCoeff = (1-maxSpeedSteerFraction*Math.abs(msgY));
-
-  joy_msg_axes[0] = -msgX * steerCoeff;
+  joy_msg_axes[0] = -msgX;
   joy_msg_axes[1] = -msgY;
 
   message= { axes:  joy_msg_axes };
