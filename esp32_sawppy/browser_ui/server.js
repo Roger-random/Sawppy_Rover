@@ -29,6 +29,9 @@ var webServer = require('http').createServer(function (request, response) {
 
 const WebSocket = require('ws');
 
+var webSockTimeout;
+var webSockInstance;
+
 const wss = new WebSocket.Server({
     noServer: true,
     clientTracking: true,
@@ -50,9 +53,16 @@ function onUpgrade(request, socket, head) {
     }
 }
 
+function onTimeoutClose() {
+    console.log("Should close websock now.");
+    webSockInstance.terminate();
+}
+
 function onConnection(websocket, request) {
     websocket.on('message', onMessage );
     websocket.on('close', onClose);
+    webSockInstance = websocket;
+    webSockTimeout = setTimeout(onTimeoutClose, 500);
 }
 
 function onMessage(message) {
@@ -68,6 +78,7 @@ function onMessage(message) {
         else
         {
             console.log('Steer ' + parsed.axes[0] + ' speed ' + parsed.axes[1]);
+            webSockTimeout.refresh();
         }
     }
     catch (SyntaxError)
@@ -78,4 +89,5 @@ function onMessage(message) {
 
 function onClose(code, reason) {
     console.log('Websocket closed ' + code + reason);
+    clearTimeout(webSockTimeout);
 };
