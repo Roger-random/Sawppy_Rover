@@ -65,7 +65,7 @@ static const gpio_num_t joystick_button = GPIO_NUM_34; // Needs external pull-up
 #ifdef USE_JOY_RMT_RC
 static const gpio_num_t joy_rmt_rc_aux = GPIO_NUM_34;
 #endif
-static const gpio_num_t __free_input_35 = GPIO_NUM_35;
+static const gpio_num_t adc_volt = GPIO_NUM_35;
 
 #ifdef USE_JOY_ADC
 static const gpio_num_t adc_joystick_x = GPIO_NUM_36; // Indirectly used via ADC1_GPIO36_CHANNEL
