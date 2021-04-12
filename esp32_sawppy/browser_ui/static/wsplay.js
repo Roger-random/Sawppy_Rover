@@ -26,6 +26,10 @@ var clampedY;
 var msgX = 0;
 var msgY = 0;
 
+var padBackground = '#0000FF';
+var knobUp = '#FF0000';
+var knobDown = '#00FF00';
+
 // When running at max speed, steering range is constrained to a smaller range
 // so (1) steering angle control can be more precise, and (2) reduce chance
 // of rover trying to do a tight turn at speed. This value is the amount of
@@ -137,7 +141,7 @@ function reDraw() {
 }
 
 function drawBox() {
-  ctx.fillStyle = '#0000FF';
+  ctx.fillStyle = padBackground;
   ctx.fillRect(boxOffset, boxOffset, boxSize, boxSize);
 
   var labelSize = drawWidth*boxLabelFraction;
@@ -159,10 +163,10 @@ function drawKnob() {
   ctx.beginPath();
   ctx.arc(clampedX, clampedY, boxSize*knobRadiusFraction, 0, 2*Math.PI);
   if (pointerCaptured === undefined) {
-    ctx.fillStyle = '#FF0000';
+    ctx.fillStyle = knobUp;
   }
   else {
-    ctx.fillStyle = '#00FF00';
+    ctx.fillStyle = knobDown;
   }
   ctx.fill();
   ctx.restore();
@@ -221,6 +225,14 @@ function onSocketError(event) {
 function onSocketClose(event) {
   updateStatus("Disconnected");
   stopUpdates();
+  drawCanvas.releasePointerCapture(pointerCaptured);
+  pointerCaptured = undefined;
+  msgX = 0;
+  msgY = 0;
+  padBackground = '#444444';
+  knobUp = '#777777';
+  knobDown = '#777777';
+  reSize();
 }
 
 function onSocketMessage(event) {
