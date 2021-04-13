@@ -114,39 +114,39 @@ static const httpd_uri_t root = {
   .user_ctx = NULL
 };
 
-static esp_err_t wsplay_css_get_handler(httpd_req_t *req)
+static esp_err_t joystick_css_get_handler(httpd_req_t *req)
 {
   uint32_t readSize = 0;
   ESP_ERROR_CHECK(httpd_resp_set_hdr(req, "cache-control", "max-age=1")); // For development
   ESP_ERROR_CHECK(httpd_resp_set_type(req, "text/css"));
-  readSize = read_spiff_buffer("/static/wsplay.css");
+  readSize = read_spiff_buffer("/static/joystick.css");
   ESP_ERROR_CHECK(httpd_resp_send(req, readBuf, readSize));
 
   return ESP_OK;
 }
 
-static const httpd_uri_t wsplay_css = {
-  .uri      = "/wsplay.css",
+static const httpd_uri_t joystick_css = {
+  .uri      = "/joystick.css",
   .method   = HTTP_GET,
-  .handler  = wsplay_css_get_handler,
+  .handler  = joystick_css_get_handler,
   .user_ctx = NULL
 };
 
-static esp_err_t wsplay_js_get_handler(httpd_req_t *req)
+static esp_err_t joystick_js_get_handler(httpd_req_t *req)
 {
   uint32_t readSize = 0;
   ESP_ERROR_CHECK(httpd_resp_set_hdr(req, "cache-control", "max-age=1")); // For development
   ESP_ERROR_CHECK(httpd_resp_set_type(req, "application/javascript"));
-  readSize = read_spiff_buffer("/static/wsplay.js");
+  readSize = read_spiff_buffer("/static/joystick.js");
   ESP_ERROR_CHECK(httpd_resp_send(req, readBuf, readSize));
 
   return ESP_OK;
 }
 
-static const httpd_uri_t wsplay_js = {
-  .uri      = "/wsplay.js",
+static const httpd_uri_t joystick_js = {
+  .uri      = "/joystick.js",
   .method   = HTTP_GET,
-  .handler  = wsplay_js_get_handler,
+  .handler  = joystick_js_get_handler,
   .user_ctx = NULL
 };
 
@@ -293,8 +293,8 @@ void http_file_server_task(void* pvParameters)
       ESP_LOGI(TAG, "Registering URI handlers");
       httpd_register_uri_handler(server_handle, &root);
       httpd_register_uri_handler(server_handle, &index_html);
-      httpd_register_uri_handler(server_handle, &wsplay_css);
-      httpd_register_uri_handler(server_handle, &wsplay_js);
+      httpd_register_uri_handler(server_handle, &joystick_css);
+      httpd_register_uri_handler(server_handle, &joystick_js);
       httpd_register_uri_handler(server_handle, &websocket_joy_msg);
       // TODO: Wait for something to shut down server. Right now we just spin
       while(true) {
