@@ -22,7 +22,7 @@ void servo_steer_ledc_task(void* pvParam)
     .timer_num = LEDC_TIMER_0,
     .clk_cfg = LEDC_AUTO_CLK,
   };
-  ledc_timer_config(&ledc_timer);
+  ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
 
   for (int wheel = 0; wheel < wheel_count; wheel++)
   {
@@ -39,7 +39,7 @@ void servo_steer_ledc_task(void* pvParam)
       .hpoint = 0,
       .timer_sel = LEDC_TIMER_0,
     };
-    ledc_channel_config(&ledc_channel);
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
   }
 
   // Processing loop
@@ -87,13 +87,13 @@ void servo_steer_ledc_task(void* pvParam)
         current_duty += steer_control[wheel].mid;
 
         // Update LEDC peripheral with results
-        ledc_set_duty(
+        ESP_ERROR_CHECK(ledc_set_duty(
           LEDC_LOW_SPEED_MODE,
           steer_control[wheel].channel,
-          current_duty);
-        ledc_update_duty(
+          current_duty));
+        ESP_ERROR_CHECK(ledc_update_duty(
           LEDC_LOW_SPEED_MODE,
-          steer_control[wheel].channel);
+          steer_control[wheel].channel));
       }
     }
     else

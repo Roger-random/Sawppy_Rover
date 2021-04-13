@@ -2,6 +2,11 @@
 
 static const char *TAG = "drv8833_mcpwm";
 
+/*
+ * @brief Updates MCPWM duty cycles to deliver given velocity
+ * @param velocity Target velocity in meters per second
+ * @param MC Specify which MCPWM peripheral to update
+ */
 void update_motor_speed(float velocity, mcpwm_motor_control MC)
 {
   float duty_cycle;
@@ -27,25 +32,25 @@ void update_motor_speed(float velocity, mcpwm_motor_control MC)
   {
     // Velocity should not exceed wheel_speed_max. If it happens, that's a bug
     // elsewhere in this code. But if it happens anyway, clamp value and emit
-    // diagnostic message.
+    // warning message.
     duty_cycle = 100.0;
     ESP_LOGW(TAG, "Motor speed velocity %+.2f exceeded specified maximum %+.2f.", velocity, wheel_speed_max);
   }
 
   if (velocity > 0)
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, duty_cycle);
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0);
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, duty_cycle));
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0));
   }
   else if (velocity < 0)
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0);
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, duty_cycle);
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0));
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, duty_cycle));
   }
   else
   {
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0);
-    mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0);
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_A, 0));
+    ESP_ERROR_CHECK(mcpwm_set_duty(MC.unit, MC.timer, MCPWM_GEN_B, 0));
   }
 }
 
@@ -74,18 +79,18 @@ void drv8833_mcpwm_task(void* pvParam)
   };
   for (int wheel = 0; wheel < wheel_count; wheel++)
   {
-    mcpwm_init(
+    ESP_ERROR_CHECK(mcpwm_init(
       speed_control[wheel].unit,
       speed_control[wheel].timer,
-      &mcpwm_config);
-    mcpwm_gpio_init(
+      &mcpwm_config));
+    ESP_ERROR_CHECK(mcpwm_gpio_init(
       speed_control[wheel].unit,
       speed_control[wheel].signalA,
-      speed_control[wheel].gpioA);
-    mcpwm_gpio_init(
+      speed_control[wheel].gpioA));
+    ESP_ERROR_CHECK(mcpwm_gpio_init(
       speed_control[wheel].unit,
       speed_control[wheel].signalB,
-      speed_control[wheel].gpioB);
+      speed_control[wheel].gpioB));
     current_speed[wheel] = 0.0;
     update_motor_speed(current_speed[wheel], speed_control[wheel]);
   }

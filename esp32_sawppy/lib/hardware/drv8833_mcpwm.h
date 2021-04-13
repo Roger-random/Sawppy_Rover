@@ -18,6 +18,7 @@
 #include "freertos/task.h"
 
 #include "driver/mcpwm.h"
+#include "esp_err.h"
 #include "esp_log.h"
 
 #include <wheel_parameter.h>

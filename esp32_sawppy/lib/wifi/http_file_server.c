@@ -291,11 +291,11 @@ void http_file_server_task(void* pvParameters)
   if (httpd_start(&server_handle, &config) == ESP_OK) {
       // Set URI handlers
       ESP_LOGI(TAG, "Registering URI handlers");
-      httpd_register_uri_handler(server_handle, &root);
-      httpd_register_uri_handler(server_handle, &index_html);
-      httpd_register_uri_handler(server_handle, &joystick_css);
-      httpd_register_uri_handler(server_handle, &joystick_js);
-      httpd_register_uri_handler(server_handle, &websocket_joy_msg);
+      ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &root));
+      ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &index_html));
+      ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &joystick_css));
+      ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &joystick_js));
+      ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &websocket_joy_msg));
       // TODO: Wait for something to shut down server. Right now we just spin
       while(true) {
         vTaskDelay(portMAX_DELAY);
