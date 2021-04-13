@@ -1,6 +1,6 @@
 #include "station_start.h"
 
-#define EXAMPLE_ESP_MAXIMUM_RETRY  5
+#define ESP_CONNECT_MAXIMUM_RETRY  5
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -15,13 +15,17 @@ static const char *TAG = "wifi station";
 
 static int s_retry_num = 0;
 
+/*
+ * @brief Handler for WiFi startup events sent to default event loop
+ */
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
 {
+    // Event reference: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#esp32-wi-fi-event-description
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         ESP_ERROR_CHECK(esp_wifi_connect());
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < EXAMPLE_ESP_MAXIMUM_RETRY) {
+        if (s_retry_num < ESP_CONNECT_MAXIMUM_RETRY) {
             ESP_ERROR_CHECK(esp_wifi_connect());
             s_retry_num++;
             ESP_LOGI(TAG, "retry to connect to the AP");
@@ -37,8 +41,12 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
+/*
+ * @brief Initializes ESP32 WiFi stack in STAtion mode
+ */
 void wifi_init_sta(void)
 {
+    // Create event group used to signal WiFi startup events
     s_wifi_event_group = xEventGroupCreate();
 
     ESP_ERROR_CHECK(esp_netif_init());
@@ -48,6 +56,8 @@ void wifi_init_sta(void)
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
+    // Register handlers to respond to WiFi startup events
+    // See https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/wifi.html#esp32-wi-fi-event-description
     esp_event_handler_instance_t instance_any_id;
     esp_event_handler_instance_t instance_got_ip;
     ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
@@ -61,6 +71,7 @@ void wifi_init_sta(void)
                                                         NULL,
                                                         &instance_got_ip));
 
+    // WiFi configuration and startup
     wifi_config_t wifi_config = {
         .sta = {
             .ssid = EXAMPLE_ESP_WIFI_SSID,
@@ -68,7 +79,7 @@ void wifi_init_sta(void)
             /* Setting a password implies station will connect to all security modes including WEP/WPA.
              * However these modes are deprecated and not advisable to be used. Incase your Access point
              * doesn't support WPA2, these mode can be enabled by commenting below line */
-	          .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+	        .threshold.authmode = WIFI_AUTH_WPA2_PSK,
 
             .pmf_cfg = {
                 .capable = true,
@@ -102,7 +113,7 @@ void wifi_init_sta(void)
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }
 
-    /* The event will not be processed after unregister */
+    /* WiFi startup sequence complete. Success or fail, either way unsubscribe to startup events */
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, instance_got_ip));
     ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, instance_any_id));
     vEventGroupDelete(s_wifi_event_group);

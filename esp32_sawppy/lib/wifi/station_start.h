@@ -22,6 +22,10 @@
 
 #include "secrets.h"
 
+/*
+ * @brief FreeRTOS task to initialize ESP32 WiFi in station mode
+ * @param pvParameter Currently unused
+ */
 void station_start_task(void* pvParameter);
 
 #endif // #ifndef INC_STATION_START_H

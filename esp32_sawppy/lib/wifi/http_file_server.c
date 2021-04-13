@@ -1,10 +1,12 @@
 #include "http_file_server.h"
 
+/* Handle for our HTTPD instance */
 static httpd_handle_t server_handle;
 
 /* Waiting for certain WiFi events before continuing */
 static EventGroupHandle_t s_wifi_event_group;
 
+/* Mailbox (queue of 1 item) of joy_msg */
 static QueueHandle_t xJoystickQueue;
 
 static const char *TAG = "http file server";
@@ -14,6 +16,9 @@ static const char *TAG = "http file server";
 #define readBufSize 1024*16
 static char readBuf[readBufSize];
 
+/*
+ * @brief When WiFi is connected, sets event group bits to unblock code waiting for WiFi.
+ */
 static void wifi_connected_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
   if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
@@ -21,6 +26,9 @@ static void wifi_connected_handler(void* arg, esp_event_base_t event_base, int32
   }
 }
 
+/*
+ * @brief Wait for WiFi to connect far enough to obtain IP address before returning
+ */
 void wait_for_wifi_ready()
 {
   // Used by WiFi event handler to signal we can continue
@@ -34,12 +42,15 @@ void wait_for_wifi_ready()
   EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT, pdFALSE, pdFALSE, portMAX_DELAY);
   assert(bits == WIFI_CONNECTED_BIT); // We only have one bit today.
 
-  // No longer need to listen to WiFi event
+  // Once we're connected to WiFi, no longer need to listen to WiFi event
   ESP_ERROR_CHECK(esp_event_handler_instance_unregister(IP_EVENT, IP_EVENT_STA_GOT_IP, instance_got_ip));
   vEventGroupDelete(s_wifi_event_group);
 }
 
-void spiffs_init()
+/*
+ * @brief Initialize and mount SPIFFS partition for future access
+ */
+esp_err_t spiffs_init()
 {
     ESP_LOGI(TAG, "Initializing SPIFFS");
 
@@ -62,7 +73,7 @@ void spiffs_init()
         } else {
             ESP_LOGE(TAG, "Failed to initialize SPIFFS (%s)", esp_err_to_name(ret));
         }
-        return;
+        return ret;
     }
 
     size_t total = 0, used = 0;
@@ -72,11 +83,17 @@ void spiffs_init()
     } else {
         ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
     }
+    return ret;
 }
 
-static uint32_t read_spiff_buffer(const char *file_name)
+/*
+ * @brief Reads file into memory buffer
+ * @param file_name Name of file to read
+ * @return size of file read
+ */
+static size_t read_spiff_buffer(const char *file_name)
 {
-  uint32_t readSize = 0;
+  size_t readSize = 0;
   FILE* f = fopen(file_name, "r");
   if (f == NULL) {
       ESP_LOGE(TAG, "Failed to open file for reading");
@@ -86,12 +103,25 @@ static uint32_t read_spiff_buffer(const char *file_name)
   readSize = fread(readBuf, sizeof(char), readBufSize, f);
   fclose(f);
 
+  // Fail if file is larger than memory buffer, as we don't
+  // have code to split across multiple read operations.
+  if (readSize >= readBufSize) {
+    ESP_LOGE(TAG, "File size exceeds memory buffer");
+    ESP_ERROR_CHECK(ESP_FAIL);
+  } else {
+    // Technically unnecessary but an extra null termination never hurt anyone
+    readBuf[readSize]=0;
+  }
+
   return readSize;
 }
 
+/*
+ * @brief URI handler for HTTP GET /index.html
+ */
 static esp_err_t index_html_get_handler(httpd_req_t *req)
 {
-  uint32_t readSize = 0;
+  size_t readSize = 0;
   ESP_ERROR_CHECK(httpd_resp_set_hdr(req, "cache-control", "max-age=1")); // For development
   ESP_ERROR_CHECK(httpd_resp_set_type(req, "text/html"));
   readSize = read_spiff_buffer("/static/index.html");
@@ -100,6 +130,9 @@ static esp_err_t index_html_get_handler(httpd_req_t *req)
   return ESP_OK;
 }
 
+/*
+ * @brief URI handler for HTTP GET /index.html
+ */
 static const httpd_uri_t index_html = {
   .uri      = "/index.html",
   .method   = HTTP_GET,
@@ -107,6 +140,9 @@ static const httpd_uri_t index_html = {
   .user_ctx = NULL
 };
 
+/*
+ * @brief URI handler for HTTP GET /
+ */
 static const httpd_uri_t root = {
   .uri      = "/",
   .method   = HTTP_GET,
@@ -114,9 +150,12 @@ static const httpd_uri_t root = {
   .user_ctx = NULL
 };
 
+/*
+ * @brief URI handler for HTTP GET /joystick.css
+ */
 static esp_err_t joystick_css_get_handler(httpd_req_t *req)
 {
-  uint32_t readSize = 0;
+  size_t readSize = 0;
   ESP_ERROR_CHECK(httpd_resp_set_hdr(req, "cache-control", "max-age=1")); // For development
   ESP_ERROR_CHECK(httpd_resp_set_type(req, "text/css"));
   readSize = read_spiff_buffer("/static/joystick.css");
@@ -125,6 +164,9 @@ static esp_err_t joystick_css_get_handler(httpd_req_t *req)
   return ESP_OK;
 }
 
+/*
+ * @brief URI handler for HTTP GET /joystick.css
+ */
 static const httpd_uri_t joystick_css = {
   .uri      = "/joystick.css",
   .method   = HTTP_GET,
@@ -132,9 +174,12 @@ static const httpd_uri_t joystick_css = {
   .user_ctx = NULL
 };
 
+/*
+ * @brief URI handler for HTTP GET /joystick.js
+ */
 static esp_err_t joystick_js_get_handler(httpd_req_t *req)
 {
-  uint32_t readSize = 0;
+  size_t readSize = 0;
   ESP_ERROR_CHECK(httpd_resp_set_hdr(req, "cache-control", "max-age=1")); // For development
   ESP_ERROR_CHECK(httpd_resp_set_type(req, "application/javascript"));
   readSize = read_spiff_buffer("/static/joystick.js");
@@ -143,6 +188,9 @@ static esp_err_t joystick_js_get_handler(httpd_req_t *req)
   return ESP_OK;
 }
 
+/*
+ * @brief URI handler for HTTP GET /joystick.js
+ */
 static const httpd_uri_t joystick_js = {
   .uri      = "/joystick.js",
   .method   = HTTP_GET,
@@ -150,29 +198,27 @@ static const httpd_uri_t joystick_js = {
   .user_ctx = NULL
 };
 
-esp_err_t sendJoyMsg(float steer, float speed) {
-  joy_msg message;
-
-  memset(&message, 0, sizeof(joy_msg));
-  message.axes[0] = steer;
-  message.axes[1] = speed;
-
-  message.timeStamp = xTaskGetTickCount();
-
-  xQueueOverwrite(xJoystickQueue, &message);
-
-  return ESP_OK;
-}
-
+/*
+ * @brief Struct with information to uniquely identify a websocket
+ */
 struct websock_instance {
   httpd_handle_t handle;
   int descriptor;
 };
 
+// Websocket instance for browser joystick client
 static struct websock_instance sJoyMsgSender;
+
+// Amount of time to wait before declaring sJoyMsgSender inactive
 static TickType_t tWebsockTimeoutPeriod = pdMS_TO_TICKS(500);
+
+// Timer watching for sJoyMsgSender inactivity
 static TimerHandle_t xWebsockTimeout;
 
+/*
+ * @brief WebSocket has been closed, clean up associated data structures
+ * @param context Unused here, but had to be nonzero for this callback to be called upon socket close
+ */
 void socket_close_cleanup(void* context)
 {
   ESP_LOGI(TAG, "Lost our joy_msg handler.");
@@ -183,6 +229,10 @@ void socket_close_cleanup(void* context)
   }
 }
 
+/*
+ * @brief Send a control frame to close joystick client WebSocket
+ * @param arg Unused
+ */
 static void vWebsockClose(void *arg)
 {
   httpd_ws_frame_t ws_frame = {
@@ -197,11 +247,56 @@ static void vWebsockClose(void *arg)
     sJoyMsgSender.handle, sJoyMsgSender.descriptor, &ws_frame ));
 }
 
+/*
+ * @brief Queues action to close joystick client websocket when inactivity timer triggers
+ */
 static void vWebsockTimeoutCallback( TimerHandle_t xTimer)
 {
   ESP_ERROR_CHECK(httpd_queue_work(sJoyMsgSender.handle, vWebsockClose, NULL));
 }
 
+/*
+ * @brief Parse JSON in readBuf[] into joy_msg posted to xJoystickQueue
+ */
+esp_err_t parseSendJoyMsg() {
+  esp_err_t ret = ESP_FAIL;
+  joy_msg message;
+
+  // cJSON failure mode is to return NULL. If NULL is passed in as first
+  // parameter, NULL will be returned. So we don't really need to check
+  // intermediate values for NULL, checking leaf objects are sufficient.
+  cJSON *root = cJSON_Parse(readBuf);
+  cJSON *axes = cJSON_GetObjectItem(root,"axes");
+  cJSON *axes0 = cJSON_GetArrayItem(axes, 0);
+  cJSON *axes1 = cJSON_GetArrayItem(axes, 1);
+  if (NULL == axes0 || NULL == axes1) {
+    ESP_LOGE(TAG, "JSON from browser client is malformed");
+    ret = ESP_FAIL;
+  } else {
+    // Copy parsed steer and speed values into joy_msg
+    memset(&message, 0, sizeof(joy_msg));
+    message.axes[0] = axes0->valuedouble;
+    message.axes[1] = axes1->valuedouble;
+    message.timeStamp = xTaskGetTickCount();
+
+    // Post joy_msg to mailbox
+    if(pdPASS == xQueueOverwrite(xJoystickQueue, &message)) {
+      ret = ESP_OK;
+    } else {
+      ESP_LOGE(TAG, "Failed to post to joy_msg mailbox");
+      ret = ESP_FAIL;
+    }
+  }
+
+  // Clean up all cJSON data structures
+  cJSON_Delete(root);
+
+  return ret;
+}
+
+/*
+ * @brief URI handler for WebSocket /joy_msg
+ */
 static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
 {
   if (req->method == HTTP_GET) {
@@ -237,25 +332,26 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
   ESP_ERROR_CHECK(httpd_ws_recv_frame(req, &ws_pkt, readBufSize));
   if (ws_pkt.len < readBufSize) {
     readBuf[ws_pkt.len] = 0; // null termination
-    cJSON *root = cJSON_Parse(readBuf);
-    cJSON *axes = cJSON_GetObjectItem(root,"axes");
-    cJSON *axes0 = cJSON_GetArrayItem(axes, 0);
-    cJSON *axes1 = cJSON_GetArrayItem(axes, 1);
-    ESP_ERROR_CHECK(sendJoyMsg(axes0->valuedouble, axes1->valuedouble));
-    cJSON_Delete(root);
+    if (ESP_OK == parseSendJoyMsg()) {
+      if (pdPASS != xTimerReset(xWebsockTimeout, 0)) {
+        ESP_LOGE(TAG, "Failed to reset websock timeout timer");
+        return ESP_FAIL;
+      }
+    } else {
+      // Failed JSON parsing or joy_msg mailbox posting is not a dealbreaker,
+      // merely ignored for xWebsockTimeout purposes. No ESP_LOGE here as
+      // parseSendJoyMsg() has already done so.
+    }
   } else {
     ESP_LOGE(TAG, "Ignoring oversized WebSocket packet");
-    return ESP_FAIL;
-  }
-
-  if (pdPASS != xTimerReset(xWebsockTimeout, 0)) {
-    ESP_LOGE(TAG, "Failed to reset websock timeout timer");
-    return ESP_FAIL;
   }
 
   return ESP_OK;
 }
 
+/*
+ * @brief URI handler for WebSocket /joy_msg
+ */
 static const httpd_uri_t websocket_joy_msg = {
   .uri      = "/joy_msg",
   .method   = HTTP_GET,
@@ -266,20 +362,28 @@ static const httpd_uri_t websocket_joy_msg = {
 
 void http_file_server_task(void* pvParameters)
 {
+  // Get ready to use caller-allocated queue for communicating joystick data
+  if (NULL == pvParameters)
+  {
+    ESP_LOGE(TAG, "Task parameter is null. Expected handle to joystick data queue.");
+    vTaskDelete(NULL); // Delete self.
+  }
   xJoystickQueue = (QueueHandle_t)pvParameters;
 
+  // Initialize structure tracking websocket to client
   sJoyMsgSender.handle = NULL;
   sJoyMsgSender.descriptor = 0;
 
+  // Create timer watching for inactive websocket
   xWebsockTimeout = xTimerCreate("Websock Timeout", tWebsockTimeoutPeriod,
     pdFALSE, 0, vWebsockTimeoutCallback);
-
   if (NULL==xWebsockTimeout) {
     ESP_LOGE(TAG, "Failed to create websock timeout timer");
     vTaskDelete(NULL);
   }
 
-  spiffs_init();
+  // Initialize SPIFFS which holds the HTML/CSS/JS files we serve to client browser
+  ESP_ERROR_CHECK(spiffs_init());
 
   wait_for_wifi_ready();
 

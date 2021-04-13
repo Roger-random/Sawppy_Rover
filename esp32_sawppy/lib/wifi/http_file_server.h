@@ -21,6 +21,10 @@
 /* Flags used in event group */
 #define WIFI_CONNECTED_BIT BIT0
 
+/*
+ * @brief FreeRTOS task to launch web server for Sawppy web control panel over WiFI
+ * @param pvParameters QueueHandle_t mailbox of joy_msg
+ */
 void http_file_server_task(void* pvParameters);
 
 #endif // #ifndef INC_HTTP_FILE_SERVER_H
