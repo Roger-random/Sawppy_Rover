@@ -1,3 +1,8 @@
+/*
+ * Only lightly modified from ESP32 WiFi Station example
+ * https://github.com/espressif/esp-idf/blob/master/examples/wifi/getting_started/station/main/station_example_main.c
+ */
+
 #include "station_start.h"
 
 #define ESP_CONNECT_MAXIMUM_RETRY  5

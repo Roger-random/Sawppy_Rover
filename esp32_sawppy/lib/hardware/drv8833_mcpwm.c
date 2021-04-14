@@ -1,3 +1,38 @@
+/*
+
+Using ESP32 MCPWM to control a DRV8833 DC Motor Control IC
+(And those compatible with its "two PWM pins per motor" control scheme.)
+
+Reference: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/mcpwm.html
+
+Portions copied from Espressif MCPWM sample code
+https://github.com/espressif/esp-idf/tree/master/examples/peripherals/mcpwm/mcpwm_brushed_dc_control
+Which they have placed in the public domain, or CC0
+https://creativecommons.org/share-your-work/public-domain/cc0/
+
+Remainder Copyright (c) Roger Cheng
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
 #include "drv8833_mcpwm.h"
 
 static const char *TAG = "drv8833_mcpwm";
@@ -98,7 +133,7 @@ void drv8833_mcpwm_task(void* pvParam)
   bool haltNotify = true;
   while(true)
   {
-    // Wait for next joystick message
+    // Wait for next wheel control message
     if (pdTRUE == xQueueReceive(xWheelQueue, &message, wheel_msg_timeout_interval))
     {
       haltNotify = true;

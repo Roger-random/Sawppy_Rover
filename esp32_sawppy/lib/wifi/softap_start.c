@@ -1,3 +1,7 @@
+/*
+ * Only lightly modified from ESP32 WiFi SoftAP example
+ * https://github.com/espressif/esp-idf/blob/master/examples/wifi/getting_started/softAP/main/softap_example_main.c
+ */
 # include "softap_start.h"
 
 // https://en.wikipedia.org/wiki/List_of_WLAN_channels#2.4_GHz_(802.11b/g/n/ax)

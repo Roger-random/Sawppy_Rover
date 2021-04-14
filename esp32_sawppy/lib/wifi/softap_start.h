@@ -1,5 +1,5 @@
 /*
- * Modified from ESP32 WiFi SoftAP example
+ * Only lightly modified from ESP32 WiFi SoftAP example
  * https://github.com/espressif/esp-idf/blob/master/examples/wifi/getting_started/softAP/main/softap_example_main.c
  */
 
