@@ -7,5 +7,5 @@
  *
  */
 
-#define EXAMPLE_ESP_WIFI_SSID "your ssid here"
-#define EXAMPLE_ESP_WIFI_PASS "your password here"
+#define ESP_WIFI_SSID "your ssid here"
+#define ESP_WIFI_PASS "your password here"

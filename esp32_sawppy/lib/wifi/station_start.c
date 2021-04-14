@@ -74,8 +74,8 @@ void wifi_init_sta(void)
     // WiFi configuration and startup
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = EXAMPLE_ESP_WIFI_SSID,
-            .password = EXAMPLE_ESP_WIFI_PASS,
+            .ssid = ESP_WIFI_SSID,
+            .password = ESP_WIFI_PASS,
             /* Setting a password implies station will connect to all security modes including WEP/WPA.
              * However these modes are deprecated and not advisable to be used. Incase your Access point
              * doesn't support WPA2, these mode can be enabled by commenting below line */
@@ -105,10 +105,10 @@ void wifi_init_sta(void)
      * happened. */
     if (bits & WIFI_CONNECTED_BIT) {
         ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
-                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+                 ESP_WIFI_SSID, ESP_WIFI_PASS);
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
-                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+                 ESP_WIFI_SSID, ESP_WIFI_PASS);
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }
