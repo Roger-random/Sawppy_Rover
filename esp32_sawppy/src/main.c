@@ -17,6 +17,7 @@
 #endif
 
 #ifdef USE_WIFI
+#include "softap_start.h"
 #include "station_start.h"
 #include "http_file_server.h"
 #endif
@@ -60,7 +61,8 @@ void app_main()
 #endif
 
 #ifdef USE_WIFI
-    xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
+    xTaskCreate(softap_start_task, "softap_start_task", 1024*3, NULL, 20, NULL);
+    //xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
     xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, xJoystickQueue, 19, NULL);
 #endif
 
