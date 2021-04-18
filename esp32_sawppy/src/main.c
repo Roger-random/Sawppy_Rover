@@ -1,3 +1,29 @@
+/*
+
+Main startup for Sawppy Rover ESP32 controller
+
+Copyright (c) Roger Cheng
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/task.h"
@@ -16,6 +42,8 @@
 #include <joy_rmt_rc.h>
 #endif
 
+#include "volt_adc.h"
+
 #ifdef USE_WIFI
 #include "softap_start.h"
 #include "station_start.h"
@@ -32,6 +60,7 @@ void app_main()
   QueueHandle_t xJoystickQueue = xQueueCreate(1, sizeof(joy_msg));
   QueueHandle_t xCmdVelQueue = xQueueCreate(1, sizeof(twist_msg));
   QueueHandle_t xWheelQueue = xQueueCreate(1, sizeof(wheel_msg));
+  QueueHandle_t xPowerQueue = xQueueCreate(1, sizeof(power_msg));
 
 #ifdef USE_WIFI
   ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -46,7 +75,7 @@ void app_main()
     .xWheelQueue = xWheelQueue,
   };
 
-  if (NULL == xJoystickQueue || NULL == xCmdVelQueue || NULL == xWheelQueue)
+  if (NULL == xJoystickQueue || NULL == xCmdVelQueue || NULL == xWheelQueue || NULL == xPowerQueue)
   {
     printf("ERROR: Queue allocation failed.");
   }
@@ -65,6 +94,9 @@ void app_main()
     //xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
     xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, xJoystickQueue, 19, NULL);
 #endif
+
+    xTaskCreate(volt_adc_task, "volt_adc_task", 2048, xPowerQueue, 10, NULL);
+    xTaskCreate(power_msg_print_task, "power_msg_print_task", 2048, xPowerQueue, 14, NULL);
 
     //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
     xTaskCreate(joy_steer_task, "joy_steer_task", 2048, &joy_steer_params, 15, NULL);

@@ -1,14 +1,30 @@
 /*
- *
- * Using ESP32 ADC to read battery voltage reduced by a 10:1 divider
- *
- * Publishes result to a queue of battery_msg struct.
- *
- * Copyright (c) Roger Cheng
- * Released AS-IS under MIT license
- *
- */
 
+Using ESP32 ADC to read battery voltage reduced by a 10:1 divider
+Publishes result to a queue of power_msg struct.
+
+Copyright (c) Roger Cheng
+
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 #ifndef INC_VOLT_ADC_H
 #define INC_VOLT_ADC_H
 
@@ -23,6 +39,8 @@
 
 #include "gpio_assignments.h"
 
+#include "power_msg.h"
+
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html
 //
 // ESP32 analog read configuration isn't "Set GPIO [X] to analog input mode"
@@ -34,12 +52,22 @@ static const adc1_channel_t voltage_channel = ADC1_GPIO35_CHANNEL;
 // Read voltage to 12 bits resolution, or 0-4095
 static const adc_bits_width_t voltage_precision = ADC_WIDTH_BIT_12;
 
-// 2.5dB attentuation lets us read up to approx. 1100 mV on the pin. Given
-// the 1:10 voltage divider, that is approximately 1.1 * 11 = 12.1 volts.
-static const adc_atten_t voltage_attenuation = ADC_ATTEN_DB_2_5;
+// No ADC input attenuation
+static const adc_atten_t voltage_attenuation = ADC_ATTEN_0db;
+
+// Conversion coefficient calculated with help of Fluke multimeter and ESP32
+// dev module. Will vary between different ESP32 modules and actual resistance
+// values of voltage-dividing resistors. To recalculate this coefficient,
+// measure input voltage and see its corresponding raw ADC value.
+//
+//                   Input voltage as read by trusted meter
+//  Coefficient =  ------------------------------------------
+//                     Raw ADC value as reported by ESP32
+//
+static const float voltage_conversion_coefficient = 0.0031;
 
 // Time to wait between taking voltage measurements
-static const TickType_t voltage_period = pdMS_TO_TICKS(500);
+static const TickType_t voltage_period = pdMS_TO_TICKS(50);
 /*
  * @brief FreeRTOS task to read battery input voltage
  * @param pvParameter QueueHandle_t of battery_msg

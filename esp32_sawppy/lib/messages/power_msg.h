@@ -1,6 +1,6 @@
 /*
 
-Debug tool: Tasks to peek a message queue and print current value
+Message definition to represent power supply status
 
 Copyright (c) Roger Cheng
 
@@ -24,35 +24,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-#ifndef INC_MSG_PRINT_H
-#define INC_MSG_PRINT_H
+#ifndef INC_POWER_MSG_H
+#define INC_POWER_MSG_H
 
 #include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
-#include "freertos/task.h"
 
-#include "esp_log.h"
+typedef struct power_msg
+{
+  TickType_t  timeStamp;
+  float       voltage;
+} power_msg;
 
-#include <joy_msg.h>
-#include <twist_msg.h>
-#include <wheel_msg.h>
-#include <power_msg.h>
-
-// Ticks to wait between prints. NEVER SET TO ZERO.
-// xQueuePeek does not block() and setting this to zero would consume all
-// CPU, starving other tasks.
-static const TickType_t print_interval = pdMS_TO_TICKS(1000);
-
-// FreeRTOS task which will read joystick message queue
-void joy_msg_print_task(void*);
-
-// FreeRTOS task which will read twist message queue
-void twist_msg_print_task(void*);
-
-// FreeRTOS task which will read wheel control message
-void wheel_msg_print_task(void*);
-
-// FreeRTOS task which will read power status message
-void power_msg_print_task(void*);
-
-#endif // #ifndef INC_MSG_PRINT_H
+#endif // #ifndef INC_POWER_MSG_H

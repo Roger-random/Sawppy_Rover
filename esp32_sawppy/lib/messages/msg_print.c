@@ -29,6 +29,7 @@ SOFTWARE.
 static const char *TAG_JOY = "joy_msg";
 static const char *TAG_TWIST = "twist_msg";
 static const char *TAG_WHEEL = "wheel_msg";
+static const char *TAG_POWER = "power_msg";
 
 void joy_msg_print_task(void* pvParameter)
 {
@@ -125,6 +126,34 @@ void wheel_msg_print_task(void* pvParameter)
     {
       // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
       ESP_LOGE(TAG_WHEEL, "Task failed to peek wheel queue data.\n");
+    }
+
+    // Wait before we perform the next queue peek
+    vTaskDelay(print_interval);
+  }
+}
+
+void power_msg_print_task(void* pvParameter)
+{
+  power_msg message;
+  QueueHandle_t xPowerQueue;
+  if (NULL == pvParameter)
+  {
+    ESP_LOGE(TAG_POWER, "Task parameter is null. Expected handle to power message queue.");
+    vTaskDelete(NULL); // Delete self.
+  }
+  xPowerQueue = (QueueHandle_t)pvParameter;
+
+  while (true)
+  {
+    if (pdTRUE == xQueuePeek(xPowerQueue, &message, portMAX_DELAY))
+    {
+      ESP_LOGI(TAG_POWER, "%.2fV", message.voltage);
+    }
+    else
+    {
+      // Since timeout is set to portMAX_DELAY, not sure when this would possibly happen.
+      ESP_LOGE(TAG_POWER, "Task failed to peek queue data.");
     }
 
     // Wait before we perform the next queue peek
