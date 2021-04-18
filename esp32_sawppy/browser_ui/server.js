@@ -30,6 +30,7 @@ var webServer = require('http').createServer(function (request, response) {
 const WebSocket = require('ws');
 
 var webSockTimeout;
+var webSockPeriodicSend;
 var webSockInstance;
 
 const wss = new WebSocket.Server({
@@ -58,11 +59,17 @@ function onTimeoutClose() {
     webSockInstance.terminate();
 }
 
+function sendVoltageStub() {
+    var voltageStub = JSON.stringify({voltage:3.141569});
+    webSockInstance.send(voltageStub);
+}
+
 function onConnection(websocket, request) {
     websocket.on('message', onMessage );
     websocket.on('close', onClose);
     webSockInstance = websocket;
     webSockTimeout = setTimeout(onTimeoutClose, 500);
+    webSockPeriodicSend = setInterval(sendVoltageStub, 100);
 }
 
 function onMessage(message) {
@@ -90,4 +97,5 @@ function onMessage(message) {
 function onClose(code, reason) {
     console.log('Websocket closed ' + code + reason);
     clearTimeout(webSockTimeout);
+    clearInterval(webSockPeriodicSend);
 };

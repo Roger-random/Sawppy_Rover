@@ -53,9 +53,22 @@ SOFTWARE.
 #include "cJSON.h"
 
 #include "joy_msg.h"
+#include "power_msg.h"
 
 /* Flags used in event group */
 #define WIFI_CONNECTED_BIT BIT0
+
+/* Time period between sending power updates */
+static const TickType_t powerUpdatePeriod = pdMS_TO_TICKS(100);
+
+/*
+ * @brief Parameter for http_file_server_task
+ */
+typedef struct http_file_server_task_parameters
+{
+  xQueueHandle xJoystickQueue;
+  xQueueHandle xPowerQueue;
+} http_file_server_task_parameters;
 
 /*
  * @brief FreeRTOS task to launch web server for Sawppy web control panel over WiFI

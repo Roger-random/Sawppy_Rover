@@ -60,11 +60,15 @@ static const adc_atten_t voltage_attenuation = ADC_ATTEN_0db;
 // values of voltage-dividing resistors. To recalculate this coefficient,
 // measure input voltage and see its corresponding raw ADC value.
 //
-//                   Input voltage as read by trusted meter
+//                   Input voltage reported by trusted meter
 //  Coefficient =  ------------------------------------------
 //                     Raw ADC value as reported by ESP32
 //
-static const float voltage_conversion_coefficient = 0.0031;
+// This mechanism is simple and quick but has proven to be nonlinear. Therefore
+// voltage measurement error will vary across the input voltage range. If better
+// precision is required, consult Espressif documentation on how to utilize
+// factory ADC calibration values.
+static const float voltage_conversion_coefficient = 0.002872;
 
 // Time to wait between taking voltage measurements
 static const TickType_t voltage_period = pdMS_TO_TICKS(50);

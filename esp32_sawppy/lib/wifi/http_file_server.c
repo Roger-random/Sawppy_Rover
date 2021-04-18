@@ -52,6 +52,9 @@ static const char *TAG = "http file server";
 #define readBufSize 1024*16
 static char readBuf[readBufSize];
 
+#define sendBufSize 256
+static char sendBuf[sendBufSize];
+
 /*
  * @brief When WiFi is connected, sets event group bits to unblock code waiting for WiFi.
  */
@@ -394,6 +397,49 @@ static esp_err_t websocket_joy_msg_handler(httpd_req_t *req)
 }
 
 /*
+ * @brief Send to client a recent snapshot of power supply status
+ */
+esp_err_t send_power_update(QueueHandle_t xPowerQueue)
+{
+  power_msg message;
+
+  // Send only if we have both (1) a power message, and (2) a client to send to.
+  if ((pdTRUE == xQueuePeek(xPowerQueue, &message, portMAX_DELAY)) &&
+      (NULL != sJoyMsgSender.handle))
+  {
+    cJSON *root = cJSON_CreateObject();
+    if (NULL != cJSON_AddNumberToObject(root, "voltage", message.voltage))
+    {
+      if(cJSON_PrintPreallocated(root, sendBuf, sendBufSize-1, true))
+      {
+        sendBuf[sendBufSize-1] = 0;
+        httpd_ws_frame_t ws_frame = {
+          .final = true,
+          .fragmented = false,
+          .type = HTTPD_WS_TYPE_TEXT,
+          .payload = (uint8_t*)sendBuf,
+          .len = strlen(sendBuf)+1
+        };
+
+        ESP_ERROR_CHECK(httpd_ws_send_frame_async(
+          sJoyMsgSender.handle, sJoyMsgSender.descriptor, &ws_frame ));
+      }
+      else
+      {
+        ESP_LOGE(TAG, "cJSON_PrintPreallocated failed and returned 0");
+      }
+    }
+    else
+    {
+      ESP_LOGE(TAG, "cJSON_AddNumberToObject(voltage) failed and returned NULL");
+    }
+    cJSON_Delete(root);
+  }
+
+  return ESP_OK;
+}
+
+/*
  * @brief URI handler for WebSocket /joy_msg
  */
 static const httpd_uri_t websocket_joy_msg = {
@@ -406,13 +452,20 @@ static const httpd_uri_t websocket_joy_msg = {
 
 void http_file_server_task(void* pvParameters)
 {
-  // Get ready to use caller-allocated queue for communicating joystick data
-  if (NULL == pvParameters)
+  /* Mailbox (queue of 1 item) of power_msg */
+  QueueHandle_t xPowerQueue;
+
+  // Retrieve task parameters
+  http_file_server_task_parameters* pTaskParameters = (http_file_server_task_parameters*)pvParameters;
+  if (NULL == pTaskParameters ||
+      NULL == pTaskParameters->xJoystickQueue ||
+      NULL == pTaskParameters->xPowerQueue)
   {
-    ESP_LOGE(TAG, "Task parameter is null. Expected handle to joystick data queue.");
+    ESP_LOGE(TAG, "Task parameters were missing, exiting.");
     vTaskDelete(NULL); // Delete self.
   }
-  xJoystickQueue = (QueueHandle_t)pvParameters;
+  xJoystickQueue = pTaskParameters->xJoystickQueue;
+  xPowerQueue = pTaskParameters->xPowerQueue;
 
   // Initialize structure tracking websocket to client
   sJoyMsgSender.handle = NULL;
@@ -446,7 +499,8 @@ void http_file_server_task(void* pvParameters)
       ESP_ERROR_CHECK(httpd_register_uri_handler(server_handle, &websocket_joy_msg));
       // TODO: Wait for something to shut down server. Right now we just spin
       while(true) {
-        vTaskDelay(portMAX_DELAY);
+        ESP_ERROR_CHECK(send_power_update(xPowerQueue));
+        vTaskDelay(powerUpdatePeriod);
       }
   }
 

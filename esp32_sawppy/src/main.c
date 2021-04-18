@@ -65,6 +65,12 @@ void app_main()
 #ifdef USE_WIFI
   ESP_ERROR_CHECK(esp_event_loop_create_default());
 #endif
+
+  http_file_server_task_parameters http_params = {
+    .xJoystickQueue = xJoystickQueue,
+    .xPowerQueue = xPowerQueue,
+  };
+
   joy_steer_task_parameters joy_steer_params = {
     .xJoyMsgQueue = xJoystickQueue,
     .xCmdVelQueue = xCmdVelQueue,
@@ -92,11 +98,11 @@ void app_main()
 #ifdef USE_WIFI
     xTaskCreate(softap_start_task, "softap_start_task", 1024*3, NULL, 20, NULL);
     //xTaskCreate(station_start_task, "station_start_task", 1024*3, NULL, 20, NULL);
-    xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, xJoystickQueue, 19, NULL);
+    xTaskCreate(http_file_server_task, "http_file_server_task", 1024*4, &http_params, 19, NULL);
 #endif
 
     xTaskCreate(volt_adc_task, "volt_adc_task", 2048, xPowerQueue, 10, NULL);
-    xTaskCreate(power_msg_print_task, "power_msg_print_task", 2048, xPowerQueue, 14, NULL);
+    //xTaskCreate(power_msg_print_task, "power_msg_print_task", 2048, xPowerQueue, 14, NULL);
 
     //xTaskCreate(joy_msg_print_task, "joy_msg_print_task", 2048, xJoystickQueue, 25, NULL);
     xTaskCreate(joy_steer_task, "joy_steer_task", 2048, &joy_steer_params, 15, NULL);

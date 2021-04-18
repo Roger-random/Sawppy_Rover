@@ -383,10 +383,17 @@ function onSocketClose(event) {
   reSize();
 }
 
-/** If server sends anything, dump information to browser console */
+/** If server sends data, look for items we know to process, ignore the rest. */
 function onSocketMessage(event) {
-  updateStatus("Received");
-  console.log(event.data);
+  try {
+    message = JSON.parse(event.data);
+    if (undefined !== message && undefined !== message.voltage) {
+      var oneDecimal = Math.round(message.voltage * 10)/10;
+      updateStatus("Battery: " + oneDecimal + "V");
+    }
+  } catch(err) {
+    console.log("Invalid JSON received from server.");
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////
