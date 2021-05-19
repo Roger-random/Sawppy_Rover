@@ -42,6 +42,8 @@ And there are many options in between, limited only by your resourcesfulness and
 The driving and steering shafts will need a flat detent cut into them for set screws. If precise metalworking
 tools are not available, they can be cut by [clamping the shaft in a vise and use a metal file](https://newscrewdriver.com/2018/06/20/improve-motor-shafts-with-larger-flatter-detents-and-apply-loctite-to-set-screws/).
 
+The detent for the wheel hubs needs to be cut at least 1mm into the shaft, so that the 8mm set screw doesn't stick out from the hub. This can be measured with callipers - the shaft should be no more than 7mm when measured inside the detent. The rest of the detents don't need to be any specific depth, as long as they are flat enough for the set screw to grab the shaft.
+
 ## Dimensions
 
 These drawing dimensions are in millimeters, and they are incomplete because the precise width of retaining grooves
