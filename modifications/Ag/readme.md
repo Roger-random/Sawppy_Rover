@@ -22,7 +22,7 @@
 - [Swappy ROS2 Rover for Ackerman drive - Subscribes Cmd_vel](https://github.com/mgonzs13/ros2_rover)
 
 # Sign up
-If you're interested in developing Swappy for BLDC/ ROS2 please [comment here](https://github.com/samuk/Swappy-BLDC-ROS2/discussions/1)
+If you're interested in developing Swappy for BLDC/ ROS2 please [comment here](https://github.com/samuk/Sawppy_Rover/discussions)
 
 
 
