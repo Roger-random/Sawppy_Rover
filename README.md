@@ -5,6 +5,8 @@ the [Rocker-Bogie suspension kinematics](https://en.wikipedia.org/wiki/Rocker-bo
 rovers and is intended to be a hardware platform for future software projects in autonomous
 operation. Go forth and boldly explore the back yard, Sawppy!
 
+This repo exists to hold this [Ag readme](https://github.com/samuk/Sawppy_Rover/blob/main/modifications/Ag/readme.md) & to host [Discussions](https://github.com/samuk/Sawppy_Rover/discussions)
+
 All information for building Sawppy is free and public open source for anyone to build their
 own. Build instructions can be found
 [under the docs subdirectory](docs/).
