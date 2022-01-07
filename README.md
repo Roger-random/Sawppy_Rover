@@ -1,6 +1,6 @@
 
 # Ag Sawppy
-This repo exists to hold [Ag readme](https://github.com/samuk/Sawppy_Rover/blob/main/modifications/Ag/readme.md) & to host [Discussions](https://github.com/samuk/Sawppy_Rover/discussions) 
+This repo exists to hold [Ag readme](https://github.com/samuk/Sawppy_Rover/blob/main/modifications/Ag/readme.md) see also [Discussions](https://github.com/Roger-random/Sawppy_Rover/discussions) 
 
 
 # Sawppy the Rover
