@@ -90,10 +90,11 @@ A Sawppy builder can now choose from many Sawppy software options. Roughly in or
 * **Original**: HTML-based wireless teleoperation software stack [modified from SGVHAK rover](/docs/SGVHAK%20Rover%20Software.md). This was written to be easy for others to understand and modify.
 * **R/C control**: [lightly modified from my SGVHAK rover software](https://github.com/mw46d/SGVHAK_Rover) by Marco Walther (mw46d) for a Raspberry Pi-based way to interface with traditional remote control receivers.
 
-Plus two options for turning Sawppy into a [ROS](http://ros.org) robotics platform.
+Plus three options for turning Sawppy into a [ROS](http://ros.org) robotics platform.
 
 * **ROS Kinetic**: [heavily modified from my SGVHAK rover software](https://github.com/mw46d/Sawppy_ROS) by Marco Walther (mw46d) which translates ROS `/cmd_vel` commands into Sawppy movement. This is a good stepping stone beyond original Sawppy software.
 * **ROS Melodic**: [a ground-up rewrite of a ROS-centric stack](https://github.com/srmainwaring/curio) by Rhys Mainwaring (srmainwaring) is extensive and powerful. Going beyond responding to `/cmd_vel` commands, it also calculates `/odom` by interpolating LX-16A position encoder ~270 degree feedback into full 360 degrees. Plus visualizing rover state in RViz, and files to put a digital Sawppy in Gazebo robot simulation environment.
+*   **ROS2 Kinetic**: [A ROS2 version](https://github.com/mgonzs13/ros2_rover) by Miguel Ángel González Santamarta (mgonzs13) This is a ROS 2 (Foxy) version of the Probable Adventure Project. A C++ version and a Python version of the lx16a controller are included. Besides, a PS3 joy controller and a hokuyo laser can be used.
 
 # Modifications From Rover Builders
 
