@@ -8,6 +8,12 @@ Sawppy the Rover uses 8mm shafts anywhere there is a rotary motion that whose lo
 
 Below are instructions on how to build your own shafts.
 
+---
+
+Sawppy also uses an 8mm shaft as main backbone for the differential that spans width of the rover. This shaft is
+300mm long and hosts no retaining clips, so there are no grooves to cut. It host set screws at either end,
+but they do not convey torque and detents are not required to be cut.
+
 ## Shaft stock selection
 
 Any metal shaft should work, as long as it has the appropriate 8mm diameter to fit snugly within 608 type bearings used.
