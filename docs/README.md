@@ -85,6 +85,9 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * Ten serial bus servos connected in parallel to the translator board.
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
+**ERRATA**: This schematic has a mistake where both output wires of the 5V regulator is shown connected to +5V on Raspberry Pi.
+One of those was supposed to be a ground wire to the Raspberry Pi, and it is also missing a wire to battery negative. This text
+warning is a placeholder until a corrected schematic can be generated. (Tracked as issue #33)
 
 Optional components visible in some Sawppy pictures:
 * A [USB webcam](https://newscrewdriver.com/2018/06/19/sawppy-the-backyard-rover/).
