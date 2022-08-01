@@ -116,6 +116,11 @@ stack built on ROS Melodic, including support for RViz visualization and Gazebo
 simulation, plus a way to extract useful odometry data from servo position reports
 that are only accurate in a ~240 arc out of 360 degrees.
 
+## ROS 2 Software Stack by Miguel Ángel González Santamarta
+
+I've also learned of a ROS2 Foxy software stack for Sawppy
+[available here.](https://github.com/mgonzs13/ros2_rover)
+
 ## Wired Arduino
 
 As an alternative to Raspberry Pi based wireless control, there is now an
