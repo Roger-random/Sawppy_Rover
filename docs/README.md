@@ -85,6 +85,7 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * Ten serial bus servos connected in parallel to the translator board.
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
+[Click here to open schematic in Digi-Key's web-based Scheme-It tool.](https://www.digikey.com/schemeit/project/sawppy-v1-EKLPGFO401M0)
 
 Optional components visible in some Sawppy pictures:
 * A [USB webcam](https://newscrewdriver.com/2018/06/19/sawppy-the-backyard-rover/).
