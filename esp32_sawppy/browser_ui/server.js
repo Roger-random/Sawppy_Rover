@@ -3,25 +3,15 @@
 // to re-upload to the ESP32 upon every change. The goal of this server
 // is to be indistinguishable from ESP32 as far as the browser can see.
 
-// References for static file serving:
-// https://nodejs.org/en/knowledge/HTTP/servers/how-to-serve-static-files/
-// https://github.com/cloudhead/node-static
+// Using serve-static as static file server.
+// https://expressjs.com/en/resources/middleware/serve-static.html
+const http = require('http');
+const serveStatic = require('serve-static');
+const staticServer = serveStatic('./static', {maxAge: 1});
+const finalHandler = require('finalhandler');
 
-var nodestatic = require('node-static');
-
-// cache set to 1 second during development so our changes are not covered
-// up by client side caching
-var fileServer = new nodestatic.Server('./static', {cache: 1});
-
-var webServer = require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        fileServer.serve(request, response, function (e, res) {
-            if (e && (e.status === 404)) {
-                // Any other request is treated as valid request for index.html.
-                fileServer.serveFile('/index.html', 200, {}, request, response);
-            }
-        });
-    }).resume();
+var webServer = http.createServer(function (request, response) {
+    staticServer(request, response, finalHandler(request, response));
 }).listen(8080);
 
 
