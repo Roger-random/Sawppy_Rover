@@ -68,7 +68,7 @@ function onConnection(websocket, request) {
     websocket.on('message', onMessage );
     websocket.on('close', onClose);
     webSockInstance = websocket;
-    webSockTimeout = setTimeout(onTimeoutClose, 500);
+    webSockTimeout = setTimeout(onTimeoutClose, 1250);
     webSockPeriodicSend = setInterval(sendVoltageStub, 100);
 }
 
