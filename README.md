@@ -9,7 +9,7 @@ All information for building Sawppy is free and public open source for anyone to
 own. Build instructions can be found
 [under the docs subdirectory](docs/).
 
-Sawppy the Rover was inspired by [JPL's Open Source Rover project](https://opensourcerover.jpl.nasa.gov). 
+Sawppy the Rover was inspired by [JPL's Open Source Rover project](https://github.com/nasa-jpl/open-source-rover). 
 Most of the differences between Sawppy and its JPL inspiration were motivated by a desire to reduce cost
 and complexity. JPL's rover is designed for education, to be assembled by a school team and give a robust
 foundation for structured curriculum. Sawppy is more suited for individual hobbyists like myself who are
