@@ -1,6 +1,10 @@
 {
   "files.associations": {
     "cmath": "cpp",
-    "joy_adc.h": "c"
+    "joy_adc.h": "c",
+    "gpio_assignments.h": "c",
+    "joy_msg.h": "c",
+    "joy_rmt_rc.h": "c",
+    "volt_adc.h": "c"
   }
 }

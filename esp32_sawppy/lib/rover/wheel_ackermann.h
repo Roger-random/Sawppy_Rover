@@ -57,8 +57,8 @@ SOFTWARE.
  */
 typedef struct wheel_ackermann_task_parameters
 {
-  xQueueHandle xCmdVelQueue;
-  xQueueHandle xWheelQueue;
+  QueueHandle_t xCmdVelQueue;
+  QueueHandle_t xWheelQueue;
 } wheel_ackermann_task_parameters;
 
 /*

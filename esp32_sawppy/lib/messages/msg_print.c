@@ -46,7 +46,7 @@ void joy_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xJoystickQueue, &message, portMAX_DELAY))
     {
-      ESP_LOGI(TAG_JOY, "%d | steer %+.2f | speed %+.2f | button %d",
+      ESP_LOGI(TAG_JOY, "%lu | steer %+.2f | speed %+.2f | button %lu",
         message.timeStamp,
         message.axes[axis_steer],
         message.axes[axis_speed],
@@ -79,7 +79,7 @@ void twist_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xTwistQueue, &message, portMAX_DELAY))
     {
-      ESP_LOGI(TAG_TWIST, "%d | linear %+.2f,%+.2f,%+.2f | angular %+.2f,%+.2f,%+.2f",
+      ESP_LOGI(TAG_TWIST, "%lu | linear %+.2f,%+.2f,%+.2f | angular %+.2f,%+.2f,%+.2f",
         message.timeStamp,
         message.linear.x,
         message.linear.y,
@@ -114,7 +114,7 @@ void wheel_msg_print_task(void* pvParameter)
   {
     if (pdTRUE == xQueuePeek(xWheelQueue, &message, portMAX_DELAY))
     {
-      printf("wheel_msg %d",
+      printf("wheel_msg %lu",
         message.timeStamp);
       for (int wheel = 0; wheel < WHEEL_MSG_DATA_COUNT; wheel++)
       {

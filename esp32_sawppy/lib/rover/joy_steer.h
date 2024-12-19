@@ -52,8 +52,8 @@ SOFTWARE.
  */
 typedef struct joy_steer_task_parameters
 {
-  xQueueHandle xJoyMsgQueue;
-  xQueueHandle xCmdVelQueue;
+  QueueHandle_t xJoyMsgQueue;
+  QueueHandle_t xCmdVelQueue;
 } joy_steer_task_parameters;
 
 /*

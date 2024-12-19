@@ -66,8 +66,8 @@ static const TickType_t powerUpdatePeriod = pdMS_TO_TICKS(100);
  */
 typedef struct http_file_server_task_parameters
 {
-  xQueueHandle xJoystickQueue;
-  xQueueHandle xPowerQueue;
+  QueueHandle_t xJoystickQueue;
+  QueueHandle_t xPowerQueue;
 } http_file_server_task_parameters;
 
 /*

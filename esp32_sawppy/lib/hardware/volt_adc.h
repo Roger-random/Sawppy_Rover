@@ -53,7 +53,7 @@ static const adc1_channel_t voltage_channel = ADC1_GPIO35_CHANNEL;
 static const adc_bits_width_t voltage_precision = ADC_WIDTH_BIT_12;
 
 // No ADC input attenuation
-static const adc_atten_t voltage_attenuation = ADC_ATTEN_0db;
+static const adc_atten_t voltage_attenuation = ADC_ATTEN_DB_0;
 
 // Conversion coefficient calculated with help of Fluke multimeter and ESP32
 // dev module. Will vary between different ESP32 modules and actual resistance
