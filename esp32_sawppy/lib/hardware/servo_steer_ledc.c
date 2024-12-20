@@ -89,12 +89,6 @@ void servo_steer_ledc_task(void* pvParam)
           continue;
         }
 
-        // Ignore wheels that are not moving.
-        if (fabs(message.speed[wheel]) < 0.01)
-        {
-          continue;
-        }
-
         // Retrieve steering angle in radians
         steer_radian = message.steer[wheel];
         if (steer_control[wheel].invert)
