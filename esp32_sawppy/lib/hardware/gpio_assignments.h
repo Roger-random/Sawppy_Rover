@@ -32,7 +32,7 @@ SOFTWARE.
 
 #include "hal/gpio_types.h"
 
-#define USE_JOY_RMT_RC
+#define MSB3
 
 #ifdef CARDBOARD_BOX_TESTBED
 #define USE_JOY_ADC
