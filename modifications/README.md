@@ -20,3 +20,10 @@ and [Github repo](https://github.com/Shootquinn/QMRD3)
 * 25D geared motors with encoders
 
 More info [here](Marco_Walther/README.md)
+
+
+## Kevin Nickels, Trinity University
+ * LewanSoul LX-224 brackets
+ * LewanSoul LX-224 brackets with captured nuts instead of threads
+
+ See more information [here](kevin_nickels/README.md)
