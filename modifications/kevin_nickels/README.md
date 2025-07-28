@@ -1,6 +1,6 @@
 # Modifications made by Kevin Nickels, Trinity University
 
-Dr. Nickels has made a TRIPPY - a variant of the Sawppy rover at Trinity University in San Antonio, TX.  He has made several minor modifications to the design during the build.
+Dr. Nickels has made a TRIPPY - a variant of the Sawppy rover at Trinity University in San Antonio, TX.  He has made several minor modifications to the design during the build.   The name TRIPPY evolved from Trinity-SAWPPY, but could stand for "Trinity Robotics Instructional Planetary Platform".  It's purpose is to give Engineering students at Trinity University in San Antonio a robust platform to develop on top of, and to learn about the world of open-source hardware.
 
 ![rover_top](rover_top.jpg)
 ![rover_ortho](rover_ortho.jpg)
