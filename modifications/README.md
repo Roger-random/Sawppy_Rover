@@ -23,6 +23,7 @@ More info [here](Marco_Walther/README.md)
 
 
 ## Kevin Nickels, Trinity University
+Trinity Robotics version of Sawppy is named TRIPPY, and has the following revisions:
  * LewanSoul LX-224 brackets
  * LewanSoul LX-224 brackets with captured nuts instead of threads
  * Used M3 Screws as steering axle SetScrews instead of heat-set inserts

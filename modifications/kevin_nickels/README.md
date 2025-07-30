@@ -2,6 +2,12 @@
 
 Dr. Nickels has made a TRIPPY - a variant of the Sawppy rover at Trinity University in San Antonio, TX.  He has made several minor modifications to the design during the build.   The name TRIPPY evolved from Trinity-SAWPPY, but could stand for "Trinity Robotics Instructional Planetary Platform".  It's purpose is to give Engineering students at Trinity University in San Antonio a robust platform to develop on top of, and to learn about the world of open-source hardware.
 
+ * [LewanSoul LX-224 brackets](LX-224-Servos)
+ * [Used M3 Screws as steering axle SetScrews instead of heat-set inserts](M3-setscrews)
+ * [Modified Arduinio Nano Joystick to use RJ9 connector & phone cord](Joystick-Controller-Modifications)
+ * [Added holster to hold joystick when not in use](Joystick-Holster)
+
+
 ![rover_top](rover_top.jpg)
 ![rover_ortho](rover_ortho.jpg)
 
