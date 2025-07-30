@@ -25,5 +25,8 @@ More info [here](Marco_Walther/README.md)
 ## Kevin Nickels, Trinity University
  * LewanSoul LX-224 brackets
  * LewanSoul LX-224 brackets with captured nuts instead of threads
+ * Used M3 Screws as steering axle SetScrews instead of heat-set inserts
+ * Modified Arduinio Nano Joystick to use RJ9 connector & phone cord
+ * Added holster to hold joystick when not in use
 
  See more information [here](kevin_nickels/README.md)
