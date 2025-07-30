@@ -32,5 +32,5 @@ I also modified the [Handheld Arduino Joystick controller](https://cad.onshape.c
 ## Joystick Holster
 Finally, I added a holster to the [Handheld Arduino Joystick controller](https://cad.onshape.com/documents/47ee84411a76e86eae57ea0f/w/f70ae835a2d548c4b95fa46e/e/d239459ff7d458760645b579?renderMode=0&uiState=688a32c07f05d177d7ca5c4a) to accept an [RJ9](https://www.ebay.com/itm/317094616170) so that I can connect my controller to my rover with a standard coiled phone cord.
 
-![Image of holster without joystick](holster_empty.jpg)]
+![Image of holster without joystick](holster_empty.jpg)
 ![Image of holster with joystick](holster_full.jpg)
