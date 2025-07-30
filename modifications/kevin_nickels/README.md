@@ -12,7 +12,7 @@ The [LX-16A](https://www.amazon.com/Hiwonder-LX-16A-Robotic-Controller-Control/d
 
 Since I've had problems with threads, and even threaded inserts, pulling out of plastic before, I also generated an alternative bracket in the same OnShape CAD, Bracked w Captured Nuts.  This is designed to be used with [M3x40mm screws](https://www.amazon.com/BNUOK-120pcs-Socket-Threads-Spanner/dp/B0DJQFXKHG/).
 
-![CAD rendering of LX-224 servo bracket featuring captured nuts for enhanced strength, showing the bracket attached to a steering knuckle within a mechanical assembly.](LX-224 w captured nuts_cad.png)
+![CAD rendering of LX-224 servo bracket featuring captured nuts for enhanced strength, showing the bracket attached to a steering knuckle within a mechanical assembly.](LX-224_w_captured_nuts_cad.jpg)
 
 ## M3 SetScrews
 As was mentioned in the Discussion section of [CJ - a sawppy variant](https://hackaday.io/project/165094-cj-a-sawppy-variant) on Hackaday, some of us have had issues with heat-set inserts pulling out.  As shown in this CAD and the pictures below, I ended up printing a Nut Carriage to get good strength and print resolution in the XY direction, then printing the knuckle in the standard orientation, so that the M3 nut won't spin when tightened against the flat in the 8mm shaft.  Then, I used an M3x16 screw as a setscrew instead of the tiny ones called out in the original.  We'll see how this holds up over time!
