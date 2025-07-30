@@ -19,6 +19,7 @@ As was mentioned in the Discussion section of [CJ - a sawppy variant](https://ha
 
 ![CAD of steering knuckle with nut insert](Knuckle_CAD.jpg)
 ![image of steering knuckle with nut insert](knuckle_w_nuts.jpg)
+![image of steering knuckle with nut insert installed](knuckle_w_setscrew.jpg)
  
 
 ## Joystick Controller Modifications
