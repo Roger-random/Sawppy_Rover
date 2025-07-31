@@ -15,10 +15,10 @@ Dr. Nickels has made a TRIPPY - a variant of the Sawppy rover at Trinity Univers
 
 ## LX-224 Servos
 
-The [LX-16A](https://www.amazon.com/Hiwonder-LX-16A-Robotic-Controller-Control/dp/B073XY5NT1) was out of stock when I went to acquire my parts, so I ordered the very similar [LX-224](https://www.amazon.com/LX-224-Serial-Controller-Connectors-Bearing/dp/B0817YWHNL).  I created a LX-224 bracket per the original design, see [my OnShape Sawppy Copy](https://cad.onshape.com/documents/7f40e51e085505c60163b9a8/w/9308f0417bc9c0c20e3ccf9f/e/5f2c482cad123d78f392508a?renderMode=0&uiState=68640591186ee449ddd21801), LX-224 branch, LX-224 Part Studio.
+The [LX-16A](https://www.amazon.com/Hiwonder-LX-16A-Robotic-Controller-Control/dp/B073XY5NT1) was out of stock when I went to acquire my parts, so I ordered the very similar [LX-224](https://www.amazon.com/LX-224-Serial-Controller-Connectors-Bearing/dp/B0817YWHNL).  I created a LX-224 bracket per the original design, see [my OnShape Sawppy Copy](https://cad.onshape.com/documents/7f40e51e085505c60163b9a8/w/9308f0417bc9c0c20e3ccf9f/e/5f2c482cad123d78f392508a), LX-224 branch, LX-224 Part Studio.
  ![LewanSoul LX-224 bracket](LX-224.png)
 
-Since I've had problems with threads, and even threaded inserts, pulling out of plastic before, I also generated an alternative bracket in [the same OnShape CAD, branch LX-224 Bracket w Captured Nuts](https://cad.onshape.com/documents/7f40e51e085505c60163b9a8/w/f72775573146bf34f38f572e/e/5f2c482cad123d78f392508a?renderMode=0&uiState=688b82a9b093664ea1984f8e).  This is designed to be used with [M3x40mm screws](https://www.amazon.com/BNUOK-120pcs-Socket-Threads-Spanner/dp/B0DJQFXKHG/).
+Since I've had problems with threads, and even threaded inserts, pulling out of plastic before, I also generated an alternative bracket in [the same OnShape CAD, branch LX-224 Bracket w Captured Nuts](https://cad.onshape.com/documents/7f40e51e085505c60163b9a8/w/f72775573146bf34f38f572e/e/5f2c482cad123d78f392508a).  This is designed to be used with [M3x40mm screws](https://www.amazon.com/BNUOK-120pcs-Socket-Threads-Spanner/dp/B0DJQFXKHG/).
 
 ![CAD rendering of LX-224 servo bracket featuring captured nuts for enhanced strength, showing the bracket attached to a steering knuckle within a mechanical assembly.](LX-224_w_captured_nuts_cad.jpg)
 
@@ -31,7 +31,7 @@ As was mentioned in the Discussion section of [CJ - a sawppy variant](https://ha
  
 
 ## Joystick Controller Modifications
-I also modified the [Handheld Arduino Joystick controller](https://cad.onshape.com/documents/47ee84411a76e86eae57ea0f/w/f70ae835a2d548c4b95fa46e/e/c8538a52492e953cdcdd3db5?renderMode=0&uiState=688a32537f05d177d7ca5baf) to accept an [RJ9](https://www.ebay.com/itm/317094616170) so that I can connect my controller to my rover with a standard coiled phone cord.
+I also modified the [Handheld Arduino Joystick controller](https://cad.onshape.com/documents/47ee84411a76e86eae57ea0f/w/f70ae835a2d548c4b95fa46e/e/c8538a52492e953cdcdd3db5) to accept an [RJ9](https://www.ebay.com/itm/317094616170) so that I can connect my controller to my rover with a standard coiled phone cord.
 
 
 ![Picture of assmbled joystick](joystick_assembled.jpg)
@@ -39,7 +39,7 @@ I also modified the [Handheld Arduino Joystick controller](https://cad.onshape.c
 ![CAD of joystick with RJ9](joystick_cad.jpg)
 
 ## Joystick Holster
-Finally, I added a holster to the [Handheld Arduino Joystick controller](https://cad.onshape.com/documents/47ee84411a76e86eae57ea0f/w/f70ae835a2d548c4b95fa46e/e/d239459ff7d458760645b579?renderMode=0&uiState=688a32c07f05d177d7ca5c4a) to accept an [RJ9](https://www.ebay.com/itm/317094616170) so that I can connect my controller to my rover with a standard coiled phone cord.
+Finally, I added a holster to the [Handheld Arduino Joystick controller](https://cad.onshape.com/documents/47ee84411a76e86eae57ea0f/w/f70ae835a2d548c4b95fa46e/e/d239459ff7d458760645b579) to accept an [RJ9](https://www.ebay.com/itm/317094616170) so that I can connect my controller to my rover with a standard coiled phone cord.
 
 ![Image of holster without joystick](holster_empty.jpg)
 ![Image of holster with joystick](holster_full.jpg)
