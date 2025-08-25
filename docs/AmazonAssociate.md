@@ -28,6 +28,7 @@ Bearings | [SACKORANGE](https://amzn.to/3fMBiiG) | [608](https://amzn.to/2WyPHHO
 M3 Heat Set Inserts | [Initeq](https://amzn.to/2WWCF5Q) | | 3D printed parts are sized to this outer diameter
 Cable sleeve | [Techflex](https://amzn.to/366gdLy) | | Wire management
 _**Electronics and Communication**_ |
+Servo Cable Connectors | | [JST2.0 P3 Connectors](https://www.amazon.com/80Pcs-JST-2-0-Connector-Plug/dp/B0DMW522GM) | To connect servos to BusLinker
 Raspberry Pi | [Pi 3 Model B](https://amzn.to/3cArxSI) | [Raspberry Pi](https://amzn.to/2AythOm) | 3B+ now available, Pi 4 should also work
 microSD Card | [Sandisk Extreme 32GB](https://amzn.to/3bET8AS) | | For Raspberry Pi
 Wireless Router | [Asus RT-AC1200](https://amzn.to/2TcYBst) | | (Optional) Easier to find a channel on 5GHz WiFi in crowded places.
