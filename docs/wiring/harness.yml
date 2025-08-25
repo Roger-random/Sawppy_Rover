@@ -15,6 +15,18 @@ connectors:
     <<: *jst3p # create from template
   X2b:
     <<: *jst3p # create from template
+  X3a:
+    <<: *jst3p # create from template
+  X3b:
+    <<: *jst3p # create from template
+  X4a:
+    <<: *jst3p # create from template
+  X4b:
+    <<: *jst3p # create from template
+  X5a:
+    <<: *jst3p # create from template
+  X5b:
+    <<: *jst3p # create from template
 
 cables:
   W82: 
@@ -25,6 +37,19 @@ cables:
     gauge: 26 awg
     length: 50 cm
     colors: [RD, BK, YE]
+  W64: 
+    gauge: 26 awg
+    length: 64 cm
+    colors: [RD, BK, YE]
+  W36: 
+    gauge: 26 awg
+    length: 64 cm
+    colors: [RD, BK, YE]
+  W21: 
+    gauge: 26 awg
+    length: 64 cm
+    colors: [RD, BK, YE]
+
 
 connections:
   -
@@ -35,6 +60,18 @@ connections:
     - X2a: [1-3]
     - W50: [1-3]
     - X2b: [1-3]
+  -
+    - X3a: [1-3]
+    - W64: [1-3]
+    - X3b: [1-3]
+  -
+    - X4a: [1-3]
+    - W36: [1-3]
+    - X4b: [1-3]
+  -
+    - X5a: [1-3]
+    - W21: [1-3]
+    - X5b: [1-3]
 
 metadata:
   title: Servo Harness 

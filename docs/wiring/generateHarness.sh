@@ -1,2 +1,2 @@
 wireviz harness.yml 
-#rm *.svg *.tsv *.gv *.html
+rm *.svg *.tsv *.gv *.html
