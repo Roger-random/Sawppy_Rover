@@ -29,7 +29,9 @@ Each end of each wire contains a connector to your servo motor:
 ## Harness
 There are also several ways to construct your harness.  The bus servos have two or three connectors on them, which are electrically connected togetehr pin-for-pin.  That is, they are electrically parallel.  Thus, you don't really need to worry about if your servos are connected in parallel or daisy-chained, so long as you connect them all pin-to-pin to the BusLinker board.
 
-1) Knowing this, you can costruct your harness to mimic the kinematic structure of the rover - put a Y connection at the rocker joint, another at the bogie joint, etc, then splice your extensions between these connectors.  This is what was done for the original sawppy.
+However you make your harness, it is recommended to enclose them in some sort of sleeve.  You can use the braided sleeves as described at (https://newscrewdriver.com/2018/06/14/expandable-braided-sleeves-neaten-sawppy-the-rovers-wiring/), or spiral wrap similar to (https://www.newark.com/abb-thomas-betts/srpe-250-9-c/spiral-wrap-pe-natural-0-25in/dp/61H6991), or even just judicious use of zip-ties.  But that's what bundles wires into a cable, and cables into a harness, which is much nicer to work with than a birds-nest of individual wires!
+
+1) Knowing this, you can construct your harness to mimic the kinematic structure of the rover - put a Y connection at the rocker joint, another at the bogie joint, etc, then splice your extensions between these connectors.  This is what was done for the original sawppy.
 
 2) You can also use the multiple connectors on the servos to simplify your harness.  That is what is documented below.
 
