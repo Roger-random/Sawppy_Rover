@@ -93,44 +93,4 @@ Optional components visible in some Sawppy pictures:
 * A dual-band wireless router for [greater range and access to 5GHz band](https://newscrewdriver.com/2018/07/15/sawppy-the-rover-receives-wifi-upgrade-increases-range/).
 
 # Control Software
-
-There are many different options to control a Sawppy rover.
-
-## Browser-Based UI
-
-For driving Sawppy like a remote controlled vehicle (a.k.a. 'teleoperation')
-using a web browser-based control interface,
-Sawppy can borrow software from [SGVHAK Rover](http://bit.ly/sgvhak_rover).
-See [instructions to modify SGVHAK Rover software to Sawppy](SGVHAK%20Rover%20Software.md).
-
-## Traditional RC Receiver
-
-Rover builders who prefer a more traditional remote control unit can draw from
-[Marco Walther's implementation](https://github.com/mw46d/SGVHAK_Rover).
-
-## Robot Operating System (ROS) by Rhys Mainwaring
-
-For experiments in autonomous operation using ROS, please see 
-[Rhys Mainwaring's Curio rover project.](https://github.com/srmainwaring/curio)
-This is a completely different rover control software
-stack built on ROS Melodic, including support for RViz visualization and Gazebo
-simulation, plus a way to extract useful odometry data from servo position reports
-that are only accurate in a ~240 arc out of 360 degrees.
-
-## ROS 2 Software Stack by Miguel Ángel González Santamarta
-
-I've also learned of a ROS2 Foxy software stack for Sawppy
-[available here.](https://github.com/mgonzs13/ros2_rover)
-
-## Wired Arduino
-
-As an alternative to Raspberry Pi based wireless control, there is now an
-option to build Sawppy as a wired control rover. This avoids wireless
-communication issues in crowded environments (like a Maker Faire) and can
-be kept as a backup option. Alternatively, it allows interfacing with
-anything that can communicate with an Arduino. Code for Arduino sketch is
-under the [arduino_sawppy](../arduino_sawppy) directory.
-
-Here's a wiring diagram contributed by [Martin](https://hackaday.io/Plaville)
-
-![Arduino wiring diagram by martin](images/Arduino-wiring-by-Martin.jpg)
+A Sawppy builder can now choose from many Sawppy software options. They are documented in [README.md#control-software](../README.md#control-software)

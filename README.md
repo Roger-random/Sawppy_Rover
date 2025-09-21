@@ -84,16 +84,26 @@ Sawppy has received only minor mechanical changes for this milestone, including 
 angle limiter visible in action in the backpack demo video above. Most of the attention has been
 on software, with contributions by the Sawppy community.
 
+# Control Software
 A Sawppy builder can now choose from many Sawppy software options. Roughly in order of power and complexity, they are:
 
 * **Simplest**: Wired control [running on an Arduino](https://github.com/Roger-random/Sawppy_Rover/tree/master/arduino_sawppy) instead of Raspberry Pi. Created as a [backup control option](https://newscrewdriver.com/2019/05/20/sawppy-roving-with-wired-handheld-controller/) in noisy RF environments where WiFi is unreliable. It also happens to feature the bare-bones version of Sawppy geometry calculations. Wired control meant skipping all the overhead of wireless communication. Cutting out all HTML code also meant this is a good basis for other control mechanisms: send desired speed and direction into Arduino and let it handle Sawppy chassis geometry calculation.
+Alternatively, it allows interfacing with anything that can communicate with an Arduino.  Here's a wiring diagram contributed by [Martin](https://hackaday.io/Plaville)
+![Arduino wiring diagram by martin](docs/images/Arduino-wiring-by-Martin.jpg)
+
+
 * **Original**: HTML-based wireless teleoperation software stack [modified from SGVHAK rover](/docs/SGVHAK%20Rover%20Software.md). This was written to be easy for others to understand and modify.
 * **R/C control**: [lightly modified from my SGVHAK rover software](https://github.com/mw46d/SGVHAK_Rover) by Marco Walther (mw46d) for a Raspberry Pi-based way to interface with traditional remote control receivers.
 
-Plus two options for turning Sawppy into a [ROS](http://ros.org) robotics platform.
+Plus several options for turning Sawppy into a [ROS](http://ros.org) robotics platform.
 
 * **ROS Kinetic**: [heavily modified from my SGVHAK rover software](https://github.com/mw46d/Sawppy_ROS) by Marco Walther (mw46d) which translates ROS `/cmd_vel` commands into Sawppy movement. This is a good stepping stone beyond original Sawppy software.
-* **ROS Melodic**: [a ground-up rewrite of a ROS-centric stack](https://github.com/srmainwaring/curio) by Rhys Mainwaring (srmainwaring) is extensive and powerful. Going beyond responding to `/cmd_vel` commands, it also calculates `/odom` by interpolating LX-16A position encoder ~270 degree feedback into full 360 degrees. Plus visualizing rover state in RViz, and files to put a digital Sawppy in Gazebo robot simulation environment.
+
+* **ROS Melodic**: [a ground-up rewrite of a ROS-centric stack](https://github.com/srmainwaring/curio) by Rhys Mainwaring (srmainwaring) is extensive and powerful, and includes support for RViz visualation and Gazebo simulation. Going beyond responding to `/cmd_vel` commands, it also calculates `/odom` by interpolating LX-16A position encoder ~270 degree feedback into full 360 degrees. Plus visualizing rover state in RViz, and files to put a digital Sawppy in Gazebo robot simulation environment.two
+
+* **ROS2 Humble**: [a version of Swappy the Rover for ROS2](https://github.com/mgonzs13/ros2_rover) by Miguel Ángel González Santamarta
+includes a C++ and Python version of the lx16a controller and supports teleoperation with a PS3 joystick controller.  A hukuyo laser rangefinder is also supported.
+
 
 # Modifications From Rover Builders
 
