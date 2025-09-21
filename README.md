@@ -9,7 +9,7 @@ All information for building Sawppy is free and public open source for anyone to
 own. Build instructions can be found
 [under the docs subdirectory](docs/).
 
-Sawppy the Rover was inspired by [JPL's Open Source Rover project](https://github.com/nasa-jpl/open-source-rover). 
+Sawppy the Rover was inspired by [JPL's Open Source Rover project](https://github.com/nasa-jpl/open-source-rover).
 Most of the differences between Sawppy and its JPL inspiration were motivated by a desire to reduce cost
 and complexity. JPL's rover is designed for education, to be assembled by a school team and give a robust
 foundation for structured curriculum. Sawppy is more suited for individual hobbyists like myself who are
@@ -67,9 +67,9 @@ the same size as Sawppy V1. But I want to make it easier to build, more adaptabl
 and a lower base cost target of $400 USD.
 
 For latest updates and/or more details, I post my development progress to the
-[Sawppy category on my personal blog](https://newscrewdriver.com/category/projects/sawppy-the-rover/). 
+[Sawppy category on my personal blog](https://newscrewdriver.com/category/projects/sawppy-the-rover/).
 
-**Sawppy version 1.0** 
+**Sawppy version 1.0**
 
 This milestone includes a motorized rolling chassis that is mechanically functional.
 The remaining areas (electrical, software, etc.) are still very immature, just barely enough
