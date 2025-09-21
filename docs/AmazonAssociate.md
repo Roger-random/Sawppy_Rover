@@ -28,7 +28,10 @@ Bearings | [SACKORANGE](https://amzn.to/3fMBiiG) | [608](https://amzn.to/2WyPHHO
 M3 Heat Set Inserts | [Initeq](https://amzn.to/2WWCF5Q) | | 3D printed parts are sized to this outer diameter
 Cable sleeve | [Techflex](https://amzn.to/366gdLy) | | Wire management
 _**Electronics and Communication**_ |
-Raspberry Pi | [Pi 3 Model B](https://amzn.to/3cArxSI) | [Raspberry Pi](https://amzn.to/2AythOm) | 3B+ now available, Pi 4 should also work
+Servo Cable Connectors (LX-224) | | [JST2.0 P3 Connectors](https://www.amazon.com/80Pcs-JST-2-0-Connector-Plug/dp/B0DMW522GM) | To connect LX-224 servos to BusLinker
+Servo Cable Connectors (LX-16A) | | [Mini-SPOX Pins](https://www.newark.com/molex/08-70-1040/contact-socket-22awg-crimp/dp/54H5573) [Mini-SPOX  Housing](https://www.newark.com/molex/50-37-5033/connector-rcpt-3pos-1row-2-5mm/dp/57H1785)| To connect LX-16A servos to BusLinker
+Crimper for Mini-SPOX | | [iCrimp XH2.54mm](https://www.amazon.com/dp/B00YGLKBSK?th=1) | To crimp Mini-SPOX pins
+Raspberry Pi | [Pi 3 Model B](https://amzn.to/3cArxSI) l| [Raspberry Pi](https://amzn.to/2AythOm) | 3B+ now available, Pi 4 should also work
 microSD Card | [Sandisk Extreme 32GB](https://amzn.to/3bET8AS) | | For Raspberry Pi
 Wireless Router | [Asus RT-AC1200](https://amzn.to/2TcYBst) | | (Optional) Easier to find a channel on 5GHz WiFi in crowded places.
 Arduino Nano | [ELEGOO](https://amzn.to/3bvAFXy) | [Other Clones](https://amzn.to/2LzvqLK) | (Optional) backup [wired control](https://github.com/Roger-random/Sawppy_Rover/tree/master/docs#wired-arduino)

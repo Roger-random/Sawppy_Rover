@@ -82,7 +82,7 @@ tolerate more than a few amps, a [10A fuse to protect against short circuits](ht
 * A [voltage regulator](https://newscrewdriver.com/2017/07/27/powering-the-raspberry-pi-3-with-mp1584-voltage-step-down-converter/) to convert battery power to 5V.
 * A Raspberry Pi 3 powered by 5V regulator output, either via micro USB port or GPIO voltage pins.
 * A USB cable connecting Raspberry Pi 3 to serial bus translator board.
-* Ten serial bus servos connected in parallel to the translator board.
+* Ten serial bus servos connected in parallel to the translator board.  More details [on wiring](wiring/Wiring.md).
 
 ![Schematic](images/Sawppy%20V1%20Schematic.png)
 [Click here to open schematic in Digi-Key's web-based Scheme-It tool.](https://www.digikey.com/schemeit/project/sawppy-v1-EKLPGFO401M0)
